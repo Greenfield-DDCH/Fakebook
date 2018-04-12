@@ -1,6 +1,13 @@
-var express = require('expres');
-var router = express.Router();
-// var controller = require('./controller.js');
+import express from 'express'
+import { Router } from 'express';
+import Profile from './controller.js'
 
-// router.route('/user/setstatus')
-//     .post(controller.Status)
+const router = Router();
+
+router.route('/user/setstatus')
+    .post(Profile.Status)
+
+
+export default router;
+
+

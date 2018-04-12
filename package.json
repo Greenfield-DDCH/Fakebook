@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -w --config webpack.config.js",
-    "start": "nodemon --exec babel-node server/index.js --presets env"
+    "start": "nodemon --exec babel-node server/index.js --presets env",
+    "sqldata": "mysql -u student -p < server/db/db.sql"
   },
   "dependencies": {
     "axios": "^0.18.0",

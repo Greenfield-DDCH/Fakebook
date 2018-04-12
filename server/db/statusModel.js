@@ -1,7 +1,7 @@
-import  dbConnection  from './db';
+import  dbConnection  from './index.js';
 
 const statusModel = function (username, callback) {
-  dbConnection.query(`SELECT * FROM users WHERE status = "${status}"`, function (err, result, fields) {
+  dbConnection.query(`INSERT INTO users WHERE status = "${status}"`, function (err, result, fields) {
     if (err) { throw err; } 
     console.log('this is in the model', result);
     callback(err, {results: result});
