@@ -11,9 +11,13 @@ CREATE TABLE users (
   PRIMARY KEY(id)
 );
 
+--  type 0 = post, 1 = comment, 2 = reply
 CREATE TABLE posts (
   id int NOT NULL auto_increment,
+  user_id int,
   post varchar(255),
+  type varchar(255),
+  parent_id int,
   PRIMARY KEY(id)
 );
 
@@ -24,13 +28,4 @@ CREATE TABLE friends (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE comments (
-  id int NOT NULL auto_increment,
-  owner_id int NOT NULL,
-  comment varchar(255),
-  post_id int,
-  comment_id int,
-  FOREIGN KEY (comment_id) REFERENCES comments(id),
-  FOREIGN KEY (post_id) REFERENCES posts(id),
-  PRIMARY KEY(id)
-);
+
