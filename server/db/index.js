@@ -1,9 +1,15 @@
 import mysql from 'mysql';
 
-dbConnection = mysql.createConnection({
-    user: 'student',
-    password: 'student',
-    database: 'facebook'
+export var dbConnection = mysql.createConnection({
+    user: 'root',
+    password: 'Saskechaos1!',
+    database: 'facebook',
+    server: 'localhost',
+    port: 3306
 });
 
-module.exports.dbConnection = dbConnection;
+dbConnection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected to db!");
+});
+

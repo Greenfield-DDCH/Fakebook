@@ -15,8 +15,9 @@ CREATE TABLE users (
 CREATE TABLE posts (
   id int NOT NULL auto_increment,
   user_id int,
+  profile_id int, 
   post varchar(255),
-  type varchar(255),
+  type int,
   parent_id int,
   PRIMARY KEY(id)
 );
@@ -28,4 +29,11 @@ CREATE TABLE friends (
   PRIMARY KEY(id)
 );
 
+INSERT INTO users (username, password, status, picture) VALUES('daniel', 'daniel', 'happy', 'thisisasamplepicture');
 
+INSERT INTO users (username, password, status, picture) VALUES('darren', 'darren', 'happy2', 'thisisanewsamplepicture');
+
+INSERT INTO friends (user_id_a, user_id_b) VALUES(1, 2);
+INSERT INTO friends (user_id_a, user_id_b) VALUES(2, 1);
+INSERT INTO posts (user_id, profile_id, post, type) VALUES (2, 2, 'hello', 0);
+INSERT INTO posts (user_id, profile_id, post, type) VALUES (2, 2, 'bye', 0);
