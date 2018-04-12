@@ -27,5 +27,3 @@ CREATE TABLE friends (
   user_id_b int NOT NULL,
   PRIMARY KEY(id)
 );
-
-
