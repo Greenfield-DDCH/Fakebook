@@ -6,14 +6,56 @@ class Profile extends Component {
         super();
 
         this.state = {
-            
+            status : ''
         }
+    }
+
+    editStatus(e) {
+        console.log('this is the status', this.state.status)
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+
+    setStatus() {
+        console.log('this is the status click')
+        var payload = {
+            status : this.state.status
+        }
+        axios.post('/api/user/setstatus', payload)
+            .then(response => {
+                console.log('this is the response for setting status: ', response)
+            })
+            .catch(err => {
+                console.log('this is the error when trying to set status: ', err)
+            })
+    }
+
+    seeFriends() {
+        console.log('this is the seefriends button')
     }
 
     render() {
         return (
             <div>
-                Hello this is  the profile page
+                
+                <div>
+                    NAV BAR
+                </div>
+
+                <div>
+                <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
+                <button onClick={ this.setStatus.bind(this) }>EDIT STATUS</button>
+                </div>
+
+                <br/>
+                <br/>
+                <div>
+                    <button onClick={ this.seeFriends.bind(this) }>FRIENDS</button>
+                </div>
+
+                
+
             </div>
         )
     }
