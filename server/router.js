@@ -1,16 +1,15 @@
-
 import express from 'express';
 import { Router } from 'express';
-import searchController from './searchController';
+import profileController from './profileController.js';
 
 const router = Router();
 
-router.route('/search/:username')
-  .get(searchController);
+// // router.route('/search/:username')
+// //   .get(searchController);
 
 
 router.route('/user/setstatus')
-    .post(Profile.Status)
+    .post(profileController.EditStatus)
 
 
 export default router;
