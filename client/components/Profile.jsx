@@ -12,15 +12,15 @@ class Profile extends Component {
 
     editStatus(e) {
         console.log('this is status', this.state.status)
+        console.log('this is the status', this.state.status)
         this.setState({
             [e.target.name] : e.target.value
         })
     }
-    
-    //this handles the the update of the button into db
-    buttonHandler() {
-        console.log('this is the status', this.state.status)
-        const payload = {
+
+    setStatus() {
+        console.log('this is the status click')
+        var payload = {
             status : this.state.status
         }
         axios.post('/api/user/setstatus', payload)
@@ -32,25 +32,28 @@ class Profile extends Component {
             })
     }
 
-    //finding friends
-    findFriends() {
-        console.log('this is the friends button')
+
+
+    seeFriends() {
+        console.log('this is the seefriends button')
     }
 
     render() {
         return (
             <div>
-                
-
                 <div>
-                    <input name='status' onChange={ this.editStatus.bind(this) } placeholder='EDIT STATUS..'></input>
-                    <button onClick={ this.buttonHandler.bind(this) } >EDIT STATUS</button>
+                    NAV BAR
                 </div>
-                <br/>
-                <br/>
 
                 <div>
-                    <button onClick={ this.findFriends.bind(this) }>FIND FRIENDS</button>
+                <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
+                <button onClick={ this.setStatus.bind(this) }>EDIT STATUS</button>
+                </div>
+
+                <br/>
+                <br/>
+                <div>
+                    <button onClick={ this.seeFriends.bind(this) }>FRIENDS</button>
                 </div>
 
                 
