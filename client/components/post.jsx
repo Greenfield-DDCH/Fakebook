@@ -8,8 +8,8 @@ import PostList from './postList';
 const mapStateToProps = function(state){
   //console.log(state);
   return {
-    currentProfile: 2,
-    loggedInAs: 2
+    currentProfile: state.user,
+    loggedInAs: state.currentUser
   }
 }// current profile page, loggedInAs which user, defaulted to 1 and 2 for now need to access store. 
 
@@ -34,9 +34,10 @@ export class Post extends Component{
   }
 
   fetchPosts(){
+    console.log(this.props.currentProfile[0].id);
     axios({
       method: 'get',
-      url: `/api/posts/${this.props.currentProfile}`,
+      url: `/api/posts/${this.props.currentProfile[0].id}`,
     }).then((res)=>{
       console.log("successful get",res);
       this.setPosts(res.data);
@@ -58,11 +59,11 @@ export class Post extends Component{
   handlePostButton(){
     axios({
       method: 'post',
-      url:`/api/posts/${this.props.currentProfile}`,
+      url:`/api/posts/${this.props.currentProfile[0].id}`,
       data: {
         postText: this.state.postText,
-        whoseProfile: this.props.currentProfile,
-        owner: this.props.loggedInAs,
+        whoseProfile: this.props.currentProfile[0].id,
+        owner: this.props.loggedInAs[0].id,
         type: 0,
         // timestamp:
       }

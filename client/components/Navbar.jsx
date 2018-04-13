@@ -26,6 +26,7 @@ class Navbar extends Component {
       .then(function (response) {
         context.props.setCurrentUser(response.data.results[0]);
         console.log('get response data', response.data.results[0]);
+        
       })
       .catch(function (error) {
         console.log(error);
