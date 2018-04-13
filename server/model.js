@@ -13,7 +13,7 @@ export function getPosts(profileId,callback){
 }// may need to look for posts of type 0 
 
 export function postToPost(data, callback){
-  // console.log("post data",data);
+  console.log("post data",data);
   dbConnection.query(`insert into posts (user_id, profile_id, post, type) values (${data.owner}, ${data.whoseProfile}, '${data.postText}', ${data.type})`);
   callback(true);
 }

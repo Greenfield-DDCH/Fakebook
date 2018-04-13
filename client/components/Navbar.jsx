@@ -66,8 +66,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    setCurrentUser: setCurrentUser,
-    setUser: setUser
+    setCurrentUser,
+    setUser
   }, dispatch);
 }
 

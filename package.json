@@ -7,7 +7,6 @@
     "build": "webpack -w --config webpack.config.js",
     "start": "nodemon --exec babel-node server/index.js --presets env",
     "sqldata": "mysql -u student -p < server/db/db.sql"
-
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -15,9 +14,12 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
     "moment": "^2.22.0",
     "mysql": "^2.15.0",
     "nodemon": "^1.17.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-redux": "^5.0.7",

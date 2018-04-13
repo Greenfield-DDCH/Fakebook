@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {setUser} from '../actions/index.js';
+import {setUser, setCurrentUser} from '../actions/index.js';
 import axios from 'axios';
 
 class Login extends Component {
@@ -22,9 +22,13 @@ class Login extends Component {
 
 
   onLoginClick() {
+    var context = this;
     axios.get(`/api/user/${this.state.username}/${this.state.password}`)
       .then(res => {
-        console.log(res.status);
+        context.props.setUser(res.data);
+        context.props.setCurrentUser(res.data);
+        sessionStorage.setItem('token', res.data.token)
+        console.log(res.data);
       }).catch(err => {
         console.log('Error on Login GET request', err);
       });
@@ -63,7 +67,7 @@ const mapStateToProps = (state) => {
 };
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({setUser: setUser}, dispatch);
+  return bindActionCreators({setUser, setCurrentUser}, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(Login);
