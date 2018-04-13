@@ -17,7 +17,6 @@ class Navbar extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log('this is user', this.state);
   }
 
   onSearchButtonClick() {
@@ -25,8 +24,8 @@ class Navbar extends Component {
     axios.get(`/api/search/${this.state.usernameToSearch}`)
       .then(function (response) {
         context.props.setCurrentUser(response.data.results[0]);
-        console.log('get response data', response.data.results[0]);
-        
+        // console.log('get response data', response.data.results[0]);
+
       })
       .catch(function (error) {
         console.log(error);

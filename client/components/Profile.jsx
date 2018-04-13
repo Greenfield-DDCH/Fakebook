@@ -56,7 +56,7 @@ export class Profile extends Component {
         <br/>
 
         <div>
-          {console.log(this.props.currentProfile)}
+          {console.log("profile",this.props.currentProfile)}
                     PLACE PICTURE HERE
         </div>
 
@@ -79,7 +79,7 @@ export class Profile extends Component {
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
 
-        <Post/>  
+        {!this.props.currentProfile ? null: <Post/>}
 
       </div>
     );
