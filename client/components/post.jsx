@@ -5,15 +5,6 @@ import axios from 'axios';
 
 import PostList from './postList';
 
-const mapStateToProps = function(state){
-  //console.log(state);
-  return {
-    currentProfile: state.user,
-    loggedInAs: state.currentUser
-  }
-}// current profile page, loggedInAs which user, defaulted to 1 and 2 for now need to access store. 
-
-
 export class Post extends Component{
   constructor(props){
     super(props);
@@ -34,10 +25,10 @@ export class Post extends Component{
   }
 
   fetchPosts(){
-    console.log(this.props.currentProfile[0].id);
+    console.log("inside fetch()",this.props.currentProfile);
     axios({
       method: 'get',
-      url: `/api/posts/${this.props.currentProfile[0].id}`,
+      url: `/api/posts/${this.props.currentProfile.id}`,
     }).then((res)=>{
       console.log("successful get",res);
       this.setPosts(res.data);
@@ -57,13 +48,14 @@ export class Post extends Component{
   }// grab value of textArea value and set state.
 
   handlePostButton(){
+
     axios({
       method: 'post',
-      url:`/api/posts/${this.props.currentProfile[0].id}`,
+      url:`/api/posts/${this.props.currentProfile.id}`,
       data: {
         postText: this.state.postText,
-        whoseProfile: this.props.currentProfile[0].id,
-        owner: this.props.loggedInAs[0].id,
+        whoseProfile: this.props.currentProfile.id,
+        owner: this.props.loggedInAs.id,
         type: 0,
         // timestamp:
       }
@@ -76,6 +68,7 @@ export class Post extends Component{
   render(){
     return (
       <div className="post">
+        {/* {!this.props.currentProfile ? null: console.log("post", this.props.currentProfile)} */}
         <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
         <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
         <PostList posts={this.state.posts}/> 
@@ -83,6 +76,14 @@ export class Post extends Component{
     );
   }
 }
+
+const mapStateToProps = function(state){
+  //console.log(state);
+  return {
+    currentProfile: state.currentUser,
+    loggedInAs: state.user
+  }
+}// current profile page, loggedInAs which user, defaulted to 1 and 2 for now need to access store. 
 
 export default connect(mapStateToProps)(Post);
 
