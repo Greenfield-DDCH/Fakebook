@@ -27,6 +27,7 @@ class Login extends Component {
       .then(res => {
         context.props.setUser(res.data);
         context.props.setCurrentUser(res.data);
+        sessionStorage.setItem('token', res.data.token)
         console.log(res.data);
       }).catch(err => {
         console.log('Error on Login GET request', err);
