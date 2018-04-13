@@ -1,5 +1,5 @@
 export const setUser = (user) => {
-  console.log('this is thie set user action', user);
+  console.log('this is the set user action', user);
   return {
     type: 'SIGNUP_BUTTON_CLICKED',
     payload: user
