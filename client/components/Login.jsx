@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+/*import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {setUser} from '../actions/index.js';
@@ -61,4 +61,4 @@ const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({setUser: setUser}, dispatch);
 };
 
-export default connect(mapStateToProps, matchDispatchToProps)(Login);
+export default connect(mapStateToProps, matchDispatchToProps)(Login);*/

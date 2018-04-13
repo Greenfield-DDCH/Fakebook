@@ -1,3 +1,4 @@
+
 import {getPosts as gP, postToPost as pTP} from './model'
 
 export function getPosts(req, res){
@@ -12,9 +13,3 @@ export function postToPosts(req, res){
     res.send(posted);
   })
 }
-
-// export function postPost(req, res){
-//   models.posts.post(function(){
-
-//   });
-// }

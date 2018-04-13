@@ -1,12 +1,11 @@
 import React from 'react';
-import Login from './Login';
-import Navbar from './Navbar';
+// import Login from './Login';
+import Profile from './Profile.jsx';
 
 const App = () => (
   <div>
-    <Navbar />
-    <h2>Login</h2>
-    <Login />
+     {/*<h2>Login</h2>*/}
+     <Profile />
   </div>
 );
 
