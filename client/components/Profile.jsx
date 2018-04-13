@@ -6,7 +6,7 @@ class Profile extends Component {
         super();
 
         this.state = {
-            status : ''
+            status : '',
         }
     }
 
@@ -38,22 +38,41 @@ class Profile extends Component {
         console.log('this is the seefriends button')
     }
 
+    currentStatus() {
+        console.log('this is the current status')
+    }
+    
+
     render() {
         return (
             <div>
                 <div>
                     NAV BAR
                 </div>
+                <br/>
+                <br/>
+
+                <div>
+                    PLACE PICTURE HERE
+                </div>
+
+                <div>
+                    USERNAME: 
+                </div>
 
                 <div>
                 <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
-                <button onClick={ this.setStatus.bind(this) }>EDIT STATUS</button>
+                <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
+                </div>
+
+                <div>
+                    
                 </div>
 
                 <br/>
                 <br/>
                 <div>
-                    <button onClick={ this.seeFriends.bind(this) }>FRIENDS</button>
+                    <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
                 </div>
 
                 

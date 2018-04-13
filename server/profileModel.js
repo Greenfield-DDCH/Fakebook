@@ -1,10 +1,10 @@
 import  dbConnection  from './db';
 
-const statusModel = function (username, callback) {
-  dbConnection.query(`INSERT INTO users WHERE status = "${status}"`, function (err, result, fields) {
+const profileModel = function (status, userId, callback) {
+  dbConnection.query(`UPDATE statuses SET mood = "${status}" WHERE userId = ${userId}`, function (err, result, fields) {
     if (err) { throw err; } 
-    console.log('this is in the model', result);
+    console.log('this is in the profile model ', result);
     callback(err, {results: result});
   });    
 }
-export default statusModel;
+export default profileModel;

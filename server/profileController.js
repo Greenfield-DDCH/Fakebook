@@ -8,7 +8,9 @@ import profileModel from './profileModel.js';
 
 const profileController = {
   EditStatus : (req, res) => {
-    console.log('this is status', req.body.status)
+    console.log('this is statusss', req.body)
+    
+
     
   }
 }
