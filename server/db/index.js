@@ -1,6 +1,6 @@
-import { createConnection } from 'mysql';
+import mysql from 'mysql';
 
-export var dbConnection = mysql.createConnection({
+export const dbConnection = mysql.createConnection({
     user: 'root',
     password: 'Saskechaos1!',
     database: 'facebook',

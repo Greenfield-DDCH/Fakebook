@@ -7,5 +7,5 @@ client/dist/bundle.js
 ## package ##
 package.json
 
-##db connection##
+##db##
 server/db/index.js
