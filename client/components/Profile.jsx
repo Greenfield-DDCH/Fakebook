@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
-class Profile extends Component { 
+import Post from './post';
+
+export class Profile extends Component { 
   constructor() {
     super();
 
@@ -53,11 +56,12 @@ class Profile extends Component {
         <br/>
 
         <div>
+          {console.log(this.props.currentProfile)}
                     PLACE PICTURE HERE
         </div>
 
         <div>
-                    USERNAME: 
+          {!this.props.currentProfile ? null: this.props.currentProfile.username }
         </div>
 
         <div>
@@ -75,11 +79,18 @@ class Profile extends Component {
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
 
-                
+        <Post/>  
 
       </div>
     );
   }
 }
 
-export default Profile;
+const mapStateToProps = function(state){
+  return {
+    currentProfile: state.currentUser,
+    loggedInAs: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Profile);

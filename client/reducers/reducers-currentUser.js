@@ -1,8 +1,8 @@
-export default function () {
-  return [{
-    id: 'a1b23',
-    username: 'stevezy',
-    status: 'im fuckin stoked',
-    picture: 'url of me looking like a penguin'
-  }]
+export default function (state = null, action) {
+    if(action.type === "SEARCH_BUTTON_CLICKED"){
+      console.log("inside reducer", action.payload);
+      return action.payload;
+    }else {
+      return state;
+    }
 }
