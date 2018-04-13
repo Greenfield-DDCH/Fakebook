@@ -6,12 +6,8 @@
   "scripts": {
     "build": "webpack -w --config webpack.config.js",
     "start": "nodemon --exec babel-node server/index.js --presets env",
-<<<<<<< HEAD
-    "db": "mysql -u root -p < server/db/db.sql"
-
-=======
     "sqldata": "mysql -u student -p < server/db/db.sql"
->>>>>>> 4a2c19d32b3574888bf2057181cf9b6e87af7b2c
+
   },
   "dependencies": {
     "axios": "^0.18.0",
