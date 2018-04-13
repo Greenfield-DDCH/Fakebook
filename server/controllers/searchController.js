@@ -1,4 +1,4 @@
-import searchModel from './searchModel';
+import searchModel from '../models/searchModel';
 
 const searchContoller = function (req, res) {
   console.log('this is req.params', req.params);

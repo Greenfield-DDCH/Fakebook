@@ -1,4 +1,4 @@
-/*import React, {Component} from 'react';
+import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {setUser} from '../actions/index.js';
@@ -9,9 +9,7 @@ class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
-      isLoggedIn: false,
-      userLoggedIn: ''
+      password: ''
     };
   }
 
@@ -22,19 +20,25 @@ class Login extends Component {
     console.log('this is user', this.state);
   }
 
-  isLoggedInHandler() {
-    console.log('Logged In Handler Fired');
-    this.setState({ isLoggedIn: true });
+
+  onLoginClick() {
+    axios.get(`/api/user/${this.state.username}/${this.state.password}`)
+      .then(res => {
+        console.log(res.status);
+      }).catch(err => {
+        console.log('Error on Login GET request', err);
+      });
   }
 
-  onLoginHandler() {
-    axios.get(`/api/user/login/${this.state.username}/${this.state.password}`).then(res => {
-      console.log('Login Handler Fired');
-      console.log(res.status);
-      res.status === 200 && this.isLoggedInHandler();
-    }).catch(err => {
-      console.log('Error on Login GET request', err);
-    });
+  onSignupClick() {
+    console.log('sign up clicked');
+    axios.post('/api/user', this.state)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -44,8 +48,8 @@ class Login extends Component {
         <br/>
         <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>
         <br/>
-        <button onClick={this.onLoginHandler.bind(this)}>Login</button>
-        <button>Sign Up</button>
+        <button onClick={this.onLoginClick.bind(this)}>Login</button>
+        <button onClick={this.onSignupClick.bind(this)}>Sign Up</button>
       </div>
     );
   }
@@ -61,4 +65,4 @@ const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({setUser: setUser}, dispatch);
 };
 
-export default connect(mapStateToProps, matchDispatchToProps)(Login);*/
+export default connect(mapStateToProps, matchDispatchToProps)(Login);
