@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+// import Navbar from './Navbar.jsx';
 
 import Post from './post';
 
@@ -50,7 +51,7 @@ export class Profile extends Component {
     return (
       <div>
         <div>
-                    NAV BAR
+                    {/*<Navbar/>*/}NavBar
         </div>
         <br/>
         <br/>
