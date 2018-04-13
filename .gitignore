@@ -3,3 +3,9 @@ node_modules/
 
 ## react bundle ##
 client/dist/bundle.js
+
+## package ##
+package.json
+
+##db##
+server/db/index.js

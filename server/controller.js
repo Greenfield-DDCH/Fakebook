@@ -1,19 +1,15 @@
-import statusModel from './db/statusModel';
 
-var Profile = {
-    Status : (req, res) => {
-        console.log('this is req.body', req.body)
-    }
+import {getPosts as gP, postToPost as pTP} from './model'
+
+export function getPosts(req, res){
+  gP(req.params.userId, function(posts){
+    res.send(posts);
+  });
 }
 
-export default Profile;
-// import searchModel from './searchModel';
-// const searchContoller = function (req, res) {
-//   console.log('this is req.params', req.params);
-//   searchModel(req.params.username, (err, result )=>{
-//     if (err) { console.log(err); }
-//     console.log('this is in controller', result);
-//     res.json(result);
-//   });
-// };    
-// export default searchContoller;
+export function postToPosts(req, res){
+  pTP(req.body, function(posted){
+    console.log("posted",posted);
+    res.send(posted);
+  })
+}

@@ -9,41 +9,56 @@ class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
-    }
+      password: '',
+      isLoggedIn: false,
+      userLoggedIn: ''
+    };
   }
 
   onChangeHandler(e) {
     this.setState({
       [e.target.name]: e.target.value
-    })
+    });
     console.log('this is user', this.state);
   }
 
-  // this.props.setUser({username: 'steve'})
-  
+  isLoggedInHandler() {
+    console.log('Logged In Handler Fired');
+    this.setState({ isLoggedIn: true });
+  }
+
+  onLoginHandler() {
+    axios.get(`/api/user/login/${this.state.username}/${this.state.password}`).then(res => {
+      console.log('Login Handler Fired');
+      console.log(res.status);
+      res.status === 200 && this.isLoggedInHandler();
+    }).catch(err => {
+      console.log('Error on Login GET request', err);
+    });
+  }
+
   render() {
     return (
       <div>
-      <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
-      <br/>
-      <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>
-      <br/>
-      <button>Login</button>
-      <button>Sign Up</button>
+        <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
+        <br/>
+        <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>
+        <br/>
+        <button onClick={this.onLoginHandler.bind(this)}>Login</button>
+        <button>Sign Up</button>
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     user: state.user
-  }
-}
+  };
+};
 
-function matchDispatchToProps(dispatch) {
-  return bindActionCreators({setUser: setUser}, dispatch)
-}
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators({setUser: setUser}, dispatch);
+};
 
 export default connect(mapStateToProps, matchDispatchToProps)(Login);*/
