@@ -10,7 +10,6 @@ CREATE TABLE users (
   picture varchar(255),
   PRIMARY KEY(id)
 );
-
 --  type 0 = post, 1 = comment, 2 = reply
 CREATE TABLE posts (
   id int NOT NULL auto_increment,
@@ -20,7 +19,6 @@ CREATE TABLE posts (
   parent_id int,
   PRIMARY KEY(id)
 );
-
 CREATE TABLE friends ( 
   id int NOT NULL auto_increment,
   user_id_a int NOT NULL, 
