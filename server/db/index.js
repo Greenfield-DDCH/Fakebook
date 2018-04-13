@@ -1,9 +1,11 @@
-import mysql from 'mysql';
+import { createConnection } from 'mysql';
 
-dbConnection = mysql.createConnection({
-    user: 'student',
-    password: 'student',
+const dbConnection = createConnection({
+    user: 'root',
+    password: '',
     database: 'facebook'
 });
 
-module.exports.dbConnection = dbConnection;
+dbConnection.connect();
+
+export default dbConnection;

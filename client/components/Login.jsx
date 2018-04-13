@@ -32,8 +32,9 @@ class Login extends Component {
   onLoginHandler() {
     axios.get(`/api/user/login/${this.state.username}/${this.state.password}`).then(res => {
       console.log('Login Handler Fired');
-      this.matchDispatchToProps(this.state.username);
-      res.status === 202 && this.isLoggedInHandler();
+      // this.matchDispatchToProps(this.state.username);
+      console.log(res.status);
+      res.status === 200 && this.isLoggedInHandler();
     }).catch(err => {
       console.log('Error on Login GET request', err);
     });
