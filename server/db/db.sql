@@ -25,7 +25,12 @@ CREATE TABLE friends (
   user_id_b int NOT NULL,
   PRIMARY KEY(id)
 );
+
 INSERT INTO users (username, password, status, picture) VALUES('daniel', 'daniel', 'happy', 'thisisasamplepicture');
+
 INSERT INTO users (username, password, status, picture) VALUES('darren', 'darren', 'happy2', 'thisisanewsamplepicture');
+
 INSERT INTO friends (user_id_a, user_id_b) VALUES(1, 2);
 INSERT INTO friends (user_id_a, user_id_b) VALUES(2, 1);
+
+
