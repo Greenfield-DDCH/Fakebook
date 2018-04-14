@@ -13,7 +13,6 @@ export class Post extends Component {
     this.state = {
       postText: '',
       username: ''
-      // this.props.posts
       //userImage: null,
       //timeStamp: null,
       //Postimage: null,
