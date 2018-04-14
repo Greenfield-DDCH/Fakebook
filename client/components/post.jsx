@@ -3,16 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import axios from 'axios';
 
+import {changeCurrentUsersPosts} from '../actions/index.js';
 import PostList from './postList';
-
-const mapStateToProps = function(state){
-  //console.log(state);
-  return {
-    currentProfile: state.user,
-    loggedInAs: state.currentUser
-  }
-}// current profile page, loggedInAs which user, defaulted to 1 and 2 for now need to access store. 
-
 
 export class Post extends Component{
   constructor(props){
@@ -20,34 +12,13 @@ export class Post extends Component{
     
     this.state = {
       postText: '',
-      username: '',
-      posts: []
+      username: ''
+      // this.props.posts
       //userImage: null,
       //timeStamp: null,
       //Postimage: null,
       //videoUrl: null
     }
-  }
-
-  componentDidMount(){
-    this.fetchPosts();
-  }
-
-  fetchPosts(){
-    console.log(this.props.currentProfile[0].id);
-    axios({
-      method: 'get',
-      url: `/api/posts/${this.props.currentProfile[0].id}`,
-    }).then((res)=>{
-      console.log("successful get",res);
-      this.setPosts(res.data);
-    });
-  }
-
-  setPosts(posts){
-    this.setState({
-      posts: posts
-    });
   }
 
   onChangePostText(e){
@@ -57,19 +28,27 @@ export class Post extends Component{
   }// grab value of textArea value and set state.
 
   handlePostButton(){
+    const context = this;
     axios({
       method: 'post',
-      url:`/api/posts/${this.props.currentProfile[0].id}`,
+      url:`/api/posts/${this.props.currentProfile.id}`,
       data: {
         postText: this.state.postText,
-        whoseProfile: this.props.currentProfile[0].id,
-        owner: this.props.loggedInAs[0].id,
+        whoseProfile: this.props.currentProfile.id,
+        owner: this.props.loggedInAs.id,
         type: 0,
         // timestamp:
       }
     }).then((res) => {
       console.log("successful post", res);
-      this.fetchPosts();
+      //Fetch the data and change the profile's posts
+      axios({
+        method: 'get',
+        url: `/api/posts/${context.props.currentProfile.id}`,
+      }).then((res)=>{
+        console.log("successful get",res);
+        context.props.changeCurrentUsersPosts(res.data);
+      });
     });
   }
 
@@ -78,11 +57,25 @@ export class Post extends Component{
       <div className="post">
         <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
         <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
-        <PostList posts={this.state.posts}/> 
+        <PostList posts={!this.props.currentProfilePosts ? [] : this.props.currentProfilePosts}/> 
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(Post);
+const mapStateToProps = function(state){
+  return {
+    currentProfile: state.currentUser,
+    loggedInAs: state.user,
+    currentProfilePosts: state.currentUserPosts
+  }
+}
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({
+    changeCurrentUsersPosts
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Post);
 

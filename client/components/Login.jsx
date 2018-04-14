@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {setUser, setCurrentUser} from '../actions/index.js';
+import {setUser, setCurrentUser, changeCurrentUsersPosts} from '../actions/index.js';
 import axios from 'axios';
 
 class Login extends Component {
@@ -27,7 +27,16 @@ class Login extends Component {
       .then(res => {
         context.props.setUser(res.data);
         context.props.setCurrentUser(res.data);
-        sessionStorage.setItem('token', res.data.token)
+        sessionStorage.setItem('token', res.data.token);
+
+        //Fetch the data and change the profile's posts
+        axios({
+          method: 'get',
+          url: `/api/posts/${context.props.user.id}`,
+        }).then((res)=>{
+          console.log("successful get",res);
+          context.props.changeCurrentUsersPosts(res.data);
+        });
         console.log(res.data);
       }).catch(err => {
         console.log('Error on Login GET request', err);
@@ -62,12 +71,11 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user
-
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({setUser, setCurrentUser}, dispatch);
+  return bindActionCreators({setUser, setCurrentUser, changeCurrentUsersPosts}, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(Login);

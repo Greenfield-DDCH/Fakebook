@@ -1,7 +1,7 @@
 export default function (state = null, action) {
-  if(action.type === "LOGIN_BUTTON_CLICKED"){
+  if(action.type === "CHANGE_USER_POSTS"){
     return action.payload;
-  }else{
+  }else {
     return state;
   }
 }

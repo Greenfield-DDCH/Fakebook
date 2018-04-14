@@ -1,7 +1,7 @@
 export const setUser = (user) => {
   console.log('this is the set user action', user);
   return {
-    type: 'SIGNUP_BUTTON_CLICKED',
+    type: 'LOGIN_BUTTON_CLICKED',
     payload: user
   };
 };
@@ -14,4 +14,9 @@ export const setCurrentUser = (user) => {
   };
 };
 
-
+export const changeCurrentUsersPosts = (userPosts) => {
+  return{
+    type: 'CHANGE_USER_POSTS',
+    payload: userPosts
+  };
+}

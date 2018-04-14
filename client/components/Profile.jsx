@@ -10,6 +10,7 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
+      posts: []
     };
   }
 
@@ -56,7 +57,6 @@ export class Profile extends Component {
         <br/>
 
         <div>
-          {console.log(this.props.currentProfile)}
                     PLACE PICTURE HERE
         </div>
 
@@ -79,7 +79,7 @@ export class Profile extends Component {
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
 
-        <Post/>  
+        {!this.props.currentProfile ? null: <Post/>}
 
       </div>
     );
@@ -89,7 +89,8 @@ export class Profile extends Component {
 const mapStateToProps = function(state){
   return {
     currentProfile: state.currentUser,
-    loggedInAs: state.user
+    loggedInAs: state.user,
+    currentProfilePosts: state.currentUserPosts
   }
 }
 
