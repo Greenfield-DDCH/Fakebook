@@ -21,7 +21,6 @@ class Navbar extends Component {
 
   onSearchButtonClick() {
     var context = this;
-
     axios({
       method: 'get',
       url: `/api/search/${this.state.usernameToSearch}`,
@@ -39,7 +38,6 @@ class Navbar extends Component {
         context.props.changeCurrentUsersPosts(res.data);
         // this.setPosts(res.data);
       });
-
     })
       .catch(function (error) {
         console.log(error);
