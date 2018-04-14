@@ -62,7 +62,6 @@ export class Profile extends Component {
         <br/>
 
         <div>
-          {console.log("profile",this.props.currentProfilePosts)}
                     PLACE PICTURE HERE
         </div>
 
