@@ -13,7 +13,7 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
-      posts: [],
+      picture : ''
       // currentProfile: this.props.currentProfile
     };
   }
@@ -72,14 +72,14 @@ export class Profile extends Component {
         data : data.url,
         userId : this.props.currentProfile.id,
       }
-      console.log('this is payload', payload)
-      console.log('this is data url', {url : data.url});
-      console.log('this is response', response);
+      // console.log('this is payload', payload)
+      // console.log('this is data url', {url : data.url});
+      // console.log('this is response', response);
       // console.log('this is the uploader', uploaders)
-      console.log('this is props', context.props.currentProfile)
+      // console.log('this is props', context.props.currentProfile)
       axios.post('/api/user/insertpicture', payload)
         .then(response => {
-          console.log('this is the response: ', response)
+          console.log('this is the responseeeeee: ', response.config.data)
 
         })
         .catch(err => {
@@ -105,7 +105,6 @@ export class Profile extends Component {
 
         <div className="picture">
                     PLACE PICTURE HERE
-
           {console.log(this.props.currentProfile)}
                     <Dropzone 
                       onDrop={this.handleDrop.bind(this) } 
@@ -114,6 +113,7 @@ export class Profile extends Component {
                       >
                       <p>Drop your files or click here to upload</p>
                   </Dropzone>
+                  {/*{this.props.currentProfile.picture}*/}
 
         </div>
 
