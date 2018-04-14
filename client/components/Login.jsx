@@ -24,20 +24,19 @@ class Login extends Component {
   onLoginClick() {
     var context = this;
     axios.get(`/api/user/${this.state.username}/${this.state.password}`)
-      .then(res => {
+      .then((res) => {
         context.props.setUser(res.data);
-        context.props.setCurrentUser(res.data);
+        let payload = (context.props.setCurrentUser(res.data).payload);
         sessionStorage.setItem('token', res.data.token);
 
-        //Fetch the data and change the profile's posts
         axios({
           method: 'get',
-          url: `/api/posts/${context.props.user.id}`,
+          url: `/api/posts/${payload.id}`,
         }).then((res)=>{
-          console.log("successful get",res);
+          // console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
         });
-        console.log(res.data);
+
       }).catch(err => {
         console.log('Error on Login GET request', err);
       });
@@ -57,6 +56,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <h2>Login</h2>
         <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
         <br/>
         <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>

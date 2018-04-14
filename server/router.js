@@ -4,7 +4,7 @@ import profileController from './controllers/profileController.js';
 import searchController from './controllers/searchController';
 import signupController from './controllers/signupController';
 import loginController from './controllers/loginController';
-import {getPosts, postToPosts} from './controllers/controller';
+import {getPosts, postToPosts, getComments} from './controllers/controller';
 
 const router = Router();
 
@@ -23,5 +23,7 @@ router.route('/user/setstatus')
 
 router.get('/posts/:userId', getPosts);
 router.post('/posts/:userId', postToPosts);
+
+router.get('/comments/:parentId/:userId', getComments);
 
 export default router;

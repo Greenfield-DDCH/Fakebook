@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import router from './router';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
 
 const app = express();
 
