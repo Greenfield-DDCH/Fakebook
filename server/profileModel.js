@@ -8,3 +8,4 @@ const profileModel = function (status, userId, callback) {
   });    
 }
 export default profileModel;
+

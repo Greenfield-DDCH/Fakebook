@@ -6,6 +6,7 @@ const dbConnection = createConnection({
   database: 'facebook',
   server: 'localhost',
   port: 3306
+
 });
 
 dbConnection.connect(function(err) {
