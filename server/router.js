@@ -1,6 +1,6 @@
 import express from 'express';
 import { Router } from 'express';
-import profileController from './profileController.js';
+import profileController from './controllers/profileController.js';
 import searchController from './controllers/searchController';
 import signupController from './controllers/signupController';
 import loginController from './controllers/loginController';
@@ -19,6 +19,9 @@ router.route('/user/:username/:password')
 
 router.route('/user/setstatus')
   .post(profileController.EditStatus);
+
+router.route('/user/insertpicture')
+  .post(profileController.EditPicture);
 
 
 router.get('/posts/:userId', getPosts);

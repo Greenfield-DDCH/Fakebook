@@ -56,7 +56,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      // style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '10px', gridAutoRows: 'minMax(100px, auto)'}
+      <div className="container" >
         <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
         <br/>
         <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>

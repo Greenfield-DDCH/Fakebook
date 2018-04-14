@@ -13,7 +13,8 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
-      posts: []
+      posts: [],
+      // currentProfile: this.props.currentProfile
     };
   }
 
@@ -51,6 +52,7 @@ export class Profile extends Component {
 
   handleDrop(e) {
     console.log('this is the handle event', e)
+    var context = this;
     const formData = new FormData()
     const uploaders = e.map (file => {
       console.log('this is file', file)
@@ -66,30 +68,42 @@ export class Profile extends Component {
     })
     .then(response => {
       const data = response.data;
-      console.log('this is data', data);
-      console.log('this is response', response)
+      var payload = {
+        data : data.url,
+        userId : this.props.currentProfile.id,
+      }
+      console.log('this is payload', payload)
+      console.log('this is data url', {url : data.url});
+      console.log('this is response', response);
       // console.log('this is the uploader', uploaders)
-      console.log('this is props', this.props.loggedInAs)
-      console.log('this is the uploader', uploaders)
-      // this.props.currentUser
+      console.log('this is props', context.props.currentProfile)
+      axios.post('/api/user/insertpicture', payload)
+        .then(response => {
+          console.log('this is the response: ', response)
+
+        })
+        .catch(err => {
+          console.log('this is the error: ', err)
+        })
     });
     // axios.all(uploaders)
     //   .then(() => {
 
     //   });
+  
   }
 
 
   render() {
     return (
-      <div>
+      <div className="container">
         <div>
                     {/*<Navbar/>*/}NavBar
         </div>
         <br/>
         <br/>
 
-        <div>
+        <div className="picture">
                     PLACE PICTURE HERE
 
           {console.log(this.props.currentProfile)}
