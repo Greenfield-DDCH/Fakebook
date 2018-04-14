@@ -41,13 +41,12 @@ class Login extends Component {
         context.props.setCurrentUser(res.data);
         sessionStorage.setItem('token', res.headers.authorization);
 
-        //Fetch the data and change the profile's posts
         axios({
           method: 'get',
           url: `/api/posts/${context.props.user.id}`,
           headers: { token: sessionStorage.getItem("token") }
         }).then((res)=>{
-          console.log("successful get",res);
+          // console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
         });
         
@@ -72,6 +71,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <h2>Login</h2>
         <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
         <br/>
         <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>
