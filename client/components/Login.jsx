@@ -13,6 +13,8 @@ class Login extends Component {
     };
   }
 
+
+
   onChangeHandler(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -23,23 +25,36 @@ class Login extends Component {
 
   onLoginClick() {
     var context = this;
-    axios.get(`/api/user/${this.state.username}/${this.state.password}`)
+    const payload = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    const config = {
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    }
+    axios.post(`/api/user/login`, payload)
       .then(res => {
+        console.log('this is response', res.headers.authorization);
         context.props.setUser(res.data);
         context.props.setCurrentUser(res.data);
-        sessionStorage.setItem('token', res.data.token);
+        sessionStorage.setItem('token', res.headers.authorization);
 
         //Fetch the data and change the profile's posts
         axios({
           method: 'get',
           url: `/api/posts/${context.props.user.id}`,
+          headers: { token: sessionStorage.getItem("token") }
         }).then((res)=>{
           console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
         });
-        console.log(res.data);
-      }).catch(err => {
-        console.log('Error on Login GET request', err);
+        
+        console.log('this is response data', res.data);
+      })
+      .catch(err => {
+        console.log('Error on Login Post request dawgg', err);
       });
   }
 
