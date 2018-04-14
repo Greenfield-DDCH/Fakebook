@@ -13,6 +13,7 @@ const App = (props) => (
     
     {!props.loggedInAs ? <Login />: null}
     {!props.loggedInAs ? null : <Profile/>}
+
   </div>
 );
 
