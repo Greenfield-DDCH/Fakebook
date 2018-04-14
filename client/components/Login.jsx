@@ -25,6 +25,7 @@ class Login extends Component {
 
   onLoginClick() {
     var context = this;
+
     const payload = {
       username: this.state.username,
       password: this.state.password
@@ -34,26 +35,27 @@ class Login extends Component {
         authorization: sessionStorage.getItem('token')
       }
     }
+
     axios.post(`/api/user/login`, payload)
       .then(res => {
         console.log('this is response', res.headers.authorization);
+        console.log('this is response data', res.data);
         context.props.setUser(res.data);
-        context.props.setCurrentUser(res.data);
+        let currUser = (context.props.setCurrentUser(res.data).payload);
         sessionStorage.setItem('token', res.headers.authorization);
-
-        //Fetch the data and change the profile's posts
+    // axios.get(`/api/user/${this.state.username}/${this.state.password}`)
+    //   .then((res) => {
+    //     context.props.setUser(res.data);
+    //     let payload = (context.props.setCurrentUser(res.data).payload);
+    //     sessionStorage.setItem('token', res.data.token);
         axios({
           method: 'get',
-          url: `/api/posts/${context.props.user.id}`,
-          headers: { token: sessionStorage.getItem("token") }
+          url: `/api/posts/${currUser.id}`,
         }).then((res)=>{
-          console.log("successful get",res);
+          // console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
         });
-        
-        console.log('this is response data', res.data);
-      })
-      .catch(err => {
+      }).catch(err => {
         console.log('Error on Login Post request dawgg', err);
       });
   }
@@ -72,6 +74,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <h2>Login</h2>
         <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
         <br/>
         <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>

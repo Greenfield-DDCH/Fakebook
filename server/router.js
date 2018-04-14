@@ -27,8 +27,9 @@ router.route('/user/setstatus')
   .post(profileController.EditPicture);
 
 
-router.get('/posts/:userId', verifyJWTToken, getPosts);
-router.post('/posts/:userId', verifyJWTToken, postToPosts);
+router.get('/posts/:userId', getPosts);
+router.post('/posts/:userId', postToPosts);
+
+router.get('/comments/:parentId/:userId', getComments);
 
 export default router;
-

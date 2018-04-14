@@ -1,7 +1,6 @@
 import loginModel from '../models/loginModel';
 import jwt from 'jsonwebtoken';
 
-
 const loginController = function (req, res) {
   loginModel(req.body.username, (err, result )=>{
     if (err) { console.log(err); }
@@ -20,7 +19,4 @@ const loginController = function (req, res) {
   });
 }; 
 
-
 export default loginController;
-
-

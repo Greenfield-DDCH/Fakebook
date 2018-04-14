@@ -157,7 +157,7 @@ export class Profile extends Component {
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
 
-        {!this.props.currentProfile ? null: <Post/>}
+        {!this.props.currentProfile ? null: <Post />}
 
       </div>
     );
