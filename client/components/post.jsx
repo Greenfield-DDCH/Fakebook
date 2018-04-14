@@ -55,10 +55,12 @@ export class Post extends Component {
 
   render() {
     return (
-      <div className="post">
+      <div className="postToWall">
         <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
         <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
-        <PostList posts={!this.props.currentProfilePosts ? [] : this.props.currentProfilePosts}/> 
+        <div className="">
+          <PostList posts={!this.props.currentProfilePosts ? [] : this.props.currentProfilePosts}/> 
+        </div>
       </div>
     );
   }
