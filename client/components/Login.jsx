@@ -28,7 +28,7 @@ class Login extends Component {
         context.props.setUser(res.data);
         context.props.setCurrentUser(res.data);
         sessionStorage.setItem('token', res.data.token);
-        
+
         //Fetch the data and change the profile's posts
         axios({
           method: 'get',
@@ -36,7 +36,6 @@ class Login extends Component {
         }).then((res)=>{
           console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
-          // this.setPosts(res.data);
         });
         console.log(res.data);
       }).catch(err => {

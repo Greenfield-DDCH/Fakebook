@@ -14,11 +14,6 @@ export class Profile extends Component {
     };
   }
 
-  componentDidMount(){
-    console.log("mounted")
-    // this.fetchPosts();
-  }
-
   editStatus(e) {
     console.log('this is status', this.state.status);
     console.log('this is the status', this.state.status);

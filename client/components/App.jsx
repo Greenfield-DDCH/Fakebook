@@ -9,7 +9,6 @@ const App = () => (
     <h2>Login</h2>
     <Navbar />
     <Login />
-    {/* <Post /> */}
     <Profile />
   </div>
 );

@@ -55,7 +55,6 @@ export class Post extends Component{
   render(){
     return (
       <div className="post">
-        {/* {!this.props.currentProfile ? null: console.log("post", this.props.currentProfile)} */}
         <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
         <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
         <PostList posts={!this.props.currentProfilePosts ? [] : this.props.currentProfilePosts}/> 
@@ -70,7 +69,8 @@ const mapStateToProps = function(state){
     loggedInAs: state.user,
     currentProfilePosts: state.currentUserPosts
   }
-}// current profile page, loggedInAs which user, defaulted to 1 and 2 for now need to access store. 
+}
+
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
     changeCurrentUsersPosts
