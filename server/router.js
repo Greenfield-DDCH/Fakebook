@@ -9,6 +9,9 @@ import passport from './models/passport';
 // import './passport';
 import verifyJWTToken from './tokenVerify';
 
+import {getPosts, postToPosts, getComments} from './controllers/controller';
+
+
 const router = Router();
 
 router.route('/search/:username')
