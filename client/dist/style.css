@@ -6,17 +6,18 @@
 .container {
   display: grid;
   /*rid-template-columns: 1fr 1fr 1fr;*/
-  width: 100%;
+  /*width: 100%;
   margin: 0 auto;
   font-family: inherit;
   padding-top: 20px;
   padding-bottom: 20px;
-  line-height: 1.34;
+  line-height: 1.34;*/
   /*background-color: royalblue;*/
 
-};
+/*};*/
 
-.picture {
-  grid-area: main;
+.dropzone {
+  height: 200px;
+  width: 500px;
+ 
 }
-*/
