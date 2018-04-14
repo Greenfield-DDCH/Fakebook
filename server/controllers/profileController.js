@@ -1,4 +1,4 @@
-import profileModel from './profileModel.js';
+import profileModel from '../models/profileModel.js';
 
 const profileController = {
   EditStatus : (req, res) => {

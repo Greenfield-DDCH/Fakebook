@@ -1,5 +1,5 @@
 
-import {getPosts as gP, postToPost as pTP} from './model'
+import {getPosts as gP, postToPost as pTP} from '../models/model'
 
 export function getPosts(req, res){
   gP(req.params.userId, function(posts){
