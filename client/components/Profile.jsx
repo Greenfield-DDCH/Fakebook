@@ -12,8 +12,9 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
+      pendingStatus: '',
       picture : null
-      // currentProfile: this.props.currentProfile
+      
     };
   }
 
@@ -28,11 +29,15 @@ export class Profile extends Component {
   setStatus() {
     console.log('this is the status click');
     var payload = {
-      status: this.state.status
+      status: this.state.status,
+      userId : this.props.currentProfile.id
     };
     axios.post('/api/user/setstatus', payload)
       .then(response => {
         console.log('server replied with this button handler status: ', response);
+        this.setState({
+          pendingStatus : response.data.status
+        })
       })
       .catch(err => {
         console.log('this is the error from server: ', err);
@@ -125,11 +130,14 @@ export class Profile extends Component {
         <div>
           <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
           <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
-          {/*{this.props.currentProfile.status}*/}
         </div>
 
         <div>
-                    
+          {this.state.pendingStatus}
+        </div>
+
+        <div>
+              
         </div>
 
         <br/>
