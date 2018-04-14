@@ -10,7 +10,7 @@ const webpackConfig = {
   },
   module: {
     rules: [{
-      test: /\.js?x/,
+      test: /\.jsx?$/,
       exclude: /node_modules/,
       include: SRC_DIR,
       loader: 'babel-loader',

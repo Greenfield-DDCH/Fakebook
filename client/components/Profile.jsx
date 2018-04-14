@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 // import Navbar from './Navbar.jsx';
-
+import Dropzone from 'react-dropzone';
 import Post from './post';
 
 export class Profile extends Component { 
@@ -46,7 +46,35 @@ export class Profile extends Component {
   currentStatus() {
     console.log('this is the current status');
   }
-    
+
+  handleDrop(e) {
+    console.log('this is the handle event', e)
+    const formData = new FormData()
+    const uploaders = e.map (file => {
+      console.log('this is file', file)
+      console.log('this is formData', formData)
+      formData.append('file', file);
+      // formData.append("tags", `dtfhh2ukc, medium, gist`);
+      formData.append("upload_preset", "ed9m3yng");
+      formData.append("api_key", "887545849876627");
+      formData.append("timestamp", (Date.now() / 1000) | 0);
+    })
+    axios.post('https://api.cloudinary.com/v1_1/dtfhh2ukc/image/upload', formData, {
+      header: {"X-Requested-With": "XMLHttpRequest"},
+    })
+    .then(response => {
+      const data = response.data;
+      console.log('this is data', data);
+      console.log('this is response', response)
+      console.log('this is the uploader', uploaders)
+      // this.props.currentUser
+    });
+    // axios.all(uploaders)
+    //   .then(() => {
+
+    //   });
+  }
+
 
   render() {
     return (
@@ -58,7 +86,18 @@ export class Profile extends Component {
         <br/>
 
         <div>
+<<<<<<< HEAD
                     PLACE PICTURE HERE
+=======
+          {console.log(this.props.currentProfile)}
+                    <Dropzone 
+                      onDrop={this.handleDrop.bind(this) } 
+                      multiple 
+                      accept="image/*" 
+                      >
+                      <p>Drop your files or click here to upload</p>
+                  </Dropzone>
+>>>>>>> [edit] working on upload file on profile page
         </div>
 
         <div>
