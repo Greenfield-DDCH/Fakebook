@@ -3,7 +3,6 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 // import Navbar from './Navbar.jsx';
 import Dropzone from 'react-dropzone';
-
 import Post from './post';
 import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
 
@@ -13,7 +12,7 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
-      picture : ''
+      picture : null
       // currentProfile: this.props.currentProfile
     };
   }
@@ -79,8 +78,10 @@ export class Profile extends Component {
       // console.log('this is props', context.props.currentProfile)
       axios.post('/api/user/insertpicture', payload)
         .then(response => {
-          console.log('this is the responseeeeee: ', response.config.data)
-
+          console.log('this is the responseeeeee: ', response.data.picture)
+          this.setState({
+            picture : response.data.picture
+          })
         })
         .catch(err => {
           console.log('this is the error: ', err)
@@ -98,23 +99,23 @@ export class Profile extends Component {
     return (
       <div className="container">
         <div>
-                    {/*<Navbar/>*/}NavBar
+          {/*<Navbar/>*/}NavBar
         </div>
         <br/>
         <br/>
 
-        <div className="picture">
-                    PLACE PICTURE HERE
-          {console.log(this.props.currentProfile)}
-                    <Dropzone 
+        <div>
+          {this.state.picture === null ? 
+                  <Dropzone 
                       onDrop={this.handleDrop.bind(this) } 
                       multiple 
                       accept="image/*" 
                       >
                       <p>Drop your files or click here to upload</p>
                   </Dropzone>
-                  {/*{this.props.currentProfile.picture}*/}
-
+                  :
+                  <img src={this.state.picture}></img>
+          }
         </div>
 
         <div>
