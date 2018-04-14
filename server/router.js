@@ -1,6 +1,6 @@
 import express from 'express';
 import { Router } from 'express';
-import profileController from './profileController.js';
+import profileController from './controllers/profileController.js';
 import searchController from './controllers/searchController';
 import signupController from './controllers/signupController';
 import loginController from './controllers/loginController';
