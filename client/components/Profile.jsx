@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 // import Navbar from './Navbar.jsx';
 import Dropzone from 'react-dropzone';
 import Post from './post';
+import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
 
 export class Profile extends Component { 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       status: '',
@@ -66,8 +67,8 @@ export class Profile extends Component {
       const data = response.data;
       console.log('this is data', data);
       console.log('this is response', response)
-      console.log('this is the uploader', uploaders)
-      // this.props.currentUser
+      // console.log('this is the uploader', uploaders)
+      console.log('this is props', this.props.loggedInAs)
     });
     // axios.all(uploaders)
     //   .then(() => {
@@ -86,9 +87,7 @@ export class Profile extends Component {
         <br/>
 
         <div>
-<<<<<<< HEAD
                     PLACE PICTURE HERE
-=======
           {console.log(this.props.currentProfile)}
                     <Dropzone 
                       onDrop={this.handleDrop.bind(this) } 
@@ -97,7 +96,7 @@ export class Profile extends Component {
                       >
                       <p>Drop your files or click here to upload</p>
                   </Dropzone>
->>>>>>> [edit] working on upload file on profile page
+
         </div>
 
         <div>
@@ -107,6 +106,7 @@ export class Profile extends Component {
         <div>
           <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
           <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
+          {/*{this.props.currentProfile.status}*/}
         </div>
 
         <div>
@@ -133,5 +133,14 @@ const mapStateToProps = function(state){
     currentProfilePosts: state.currentUserPosts
   }
 }
+
+// function matchDispatchToProps(dispatch) {
+//   return bindActionCreators({
+//     setCurrentUser,
+//     setUser,
+//     changeCurrentUsersPosts,
+
+//   }, dispatch);
+// }
 
 export default connect(mapStateToProps)(Profile);
