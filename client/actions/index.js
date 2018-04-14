@@ -20,3 +20,10 @@ export const changeCurrentUsersPosts = (userPosts) => {
     payload: userPosts
   };
 }
+
+// export const changeUploadPicture = (userPicture) => {
+//   return {
+//     type : 'CHANGE_PICTURE',
+//     payload : userPicture
+//   }
+// }
