@@ -98,9 +98,11 @@ export class Profile extends Component {
     //   });
   }
 
-  // editPicture() {
-  //   console.log('this is edit picture button');
-  // }
+  editPicture() {
+    this.setState({
+      picture : null
+    })
+  }
 
 
   render() {
@@ -122,7 +124,7 @@ export class Profile extends Component {
                       <p>Drop your files or click here to upload</p>
                   </Dropzone>
                   :
-                  <img src={this.state.picture}></img>
+                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
           }
         </div>
 
