@@ -4,17 +4,21 @@ import Profile from './Profile.jsx';
 import Navbar from './Navbar';
 import Post from './post';
 
-const App = () => (
+const App = (props) => (
   <div>
-    <h2>Login</h2>
-    <Navbar />
-    <Login />
-    <Profile />
-     <Post /> 
-     {/*<Post /> */}
-     {/*<Profile /> */}
-
+    
+    {!props.loggedInAs ? null : <Navbar />}
+    
+    {!props.loggedInAs ? <Login />: null}
+    {!props.loggedInAs ? null : <Profile/>}
   </div>
 );
 
-export default App;
+const mapStateToProps = function(state){
+  return {
+    loggedInAs: state.user,
+    currentProfilePosts: state.currentUserPosts
+  }
+}
+
+export default connect(mapStateToProps)(App);
