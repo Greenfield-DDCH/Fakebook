@@ -6,8 +6,8 @@ import axios from 'axios';
 import {changeCurrentUsersPosts} from '../actions/index.js';
 import PostList from './postList';
 
-export class Post extends Component{
-  constructor(props){
+export class Post extends Component {
+  constructor(props) {
     super(props);
     
     this.state = {
@@ -18,20 +18,21 @@ export class Post extends Component{
       //timeStamp: null,
       //Postimage: null,
       //videoUrl: null
-    }
+    };
   }
 
-  onChangePostText(e){
+  onChangePostText(e) {
     this.setState({
       postText: e.target.value
     });
   }// grab value of textArea value and set state.
 
-  handlePostButton(){
+  handlePostButton() {
     const context = this;
     axios({
       method: 'post',
-      url:`/api/posts/${this.props.currentProfile.id}`,
+      url: `/api/posts/${this.props.currentProfile.id}`,
+      headers: { token: sessionStorage.getItem("token") },
       data: {
         postText: this.state.postText,
         whoseProfile: this.props.currentProfile.id,
@@ -40,19 +41,20 @@ export class Post extends Component{
         // timestamp:
       }
     }).then((res) => {
-      console.log("successful post", res);
+      console.log('successful post', res);
       //Fetch the data and change the profile's posts
       axios({
         method: 'get',
         url: `/api/posts/${context.props.currentProfile.id}`,
+        headers: { token: sessionStorage.getItem("token") },
       }).then((res)=>{
-        console.log("successful get",res);
+        console.log('successful get', res);
         context.props.changeCurrentUsersPosts(res.data);
       });
     });
   }
 
-  render(){
+  render() {
     return (
       <div className="post">
         <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
@@ -63,13 +65,13 @@ export class Post extends Component{
   }
 }
 
-const mapStateToProps = function(state){
+const mapStateToProps = function(state) {
   return {
     currentProfile: state.currentUser,
     loggedInAs: state.user,
     currentProfilePosts: state.currentUserPosts
-  }
-}
+  };
+};
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({

@@ -27,7 +27,12 @@ export class Profile extends Component {
     var payload = {
       status: this.state.status
     };
-    axios.post('/api/user/setstatus', payload)
+    const config = {
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    }
+    axios.post('/api/user/setstatus', payload, config)
       .then(response => {
         console.log('server replied with this button handler status: ', response);
       })

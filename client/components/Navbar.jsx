@@ -21,7 +21,12 @@ class Navbar extends Component {
 
   onSearchButtonClick() {
     var context = this;
-    axios.get(`/api/search/${this.state.usernameToSearch}`)
+    const config = {
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    }
+    axios.get(`/api/search/${this.state.usernameToSearch}`, config)
       .then(function (response) {
         context.props.setCurrentUser(response.data.results[0]);
         //Search for posts, will probably need to grab friends as well
@@ -29,6 +34,7 @@ class Navbar extends Component {
         axios({
           method: 'get',
           url: `/api/posts/${context.props.currentUser.id}`,
+          headers: { token: sessionStorage.getItem("token") },
         }).then((res)=>{
           console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
@@ -49,6 +55,7 @@ class Navbar extends Component {
 
   onLogoutButtonClick() {
     console.log('Logout button clicked');
+    sessionStorage.clear();
     this.props.setUser(null);
   // delete current session/ set logged in user to null
   }

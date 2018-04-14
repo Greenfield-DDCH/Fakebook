@@ -5,7 +5,7 @@ const loginModel = function (username, callback) {
     if (err) { throw err; } 
     callback(err, {results: result});
   });    
-}
+};
 
 
 export default loginModel;
