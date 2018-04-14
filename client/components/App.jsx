@@ -11,6 +11,8 @@ const App = () => (
     <Login />
     <Profile />
      <Post /> 
+     <Post /> 
+     <Profile /> 
 
   </div>
 );

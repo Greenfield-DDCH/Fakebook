@@ -3,6 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 // import Navbar from './Navbar.jsx';
 import Dropzone from 'react-dropzone';
+
 import Post from './post';
 import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
 
@@ -69,6 +70,8 @@ export class Profile extends Component {
       console.log('this is response', response)
       // console.log('this is the uploader', uploaders)
       console.log('this is props', this.props.loggedInAs)
+      console.log('this is the uploader', uploaders)
+      // this.props.currentUser
     });
     // axios.all(uploaders)
     //   .then(() => {
@@ -88,6 +91,7 @@ export class Profile extends Component {
 
         <div>
                     PLACE PICTURE HERE
+
           {console.log(this.props.currentProfile)}
                     <Dropzone 
                       onDrop={this.handleDrop.bind(this) } 
