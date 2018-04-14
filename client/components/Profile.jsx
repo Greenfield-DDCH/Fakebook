@@ -3,6 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 // import Navbar from './Navbar.jsx';
 import Dropzone from 'react-dropzone';
+
 import Post from './post';
 
 export class Profile extends Component { 
