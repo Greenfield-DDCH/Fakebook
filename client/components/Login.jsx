@@ -38,12 +38,12 @@ class Login extends Component {
       .then(res => {
         console.log('this is response', res.headers.authorization);
         context.props.setUser(res.data);
-        context.props.setCurrentUser(res.data);
+        let currUser = (context.props.setCurrentUser(res.data).payload);
         sessionStorage.setItem('token', res.headers.authorization);
 
         axios({
           method: 'get',
-          url: `/api/posts/${context.props.user.id}`,
+          url: `/api/posts/${currUser.id}`,
           headers: { token: sessionStorage.getItem("token") }
         }).then((res)=>{
           // console.log("successful get",res);
