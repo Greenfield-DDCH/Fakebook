@@ -2,7 +2,7 @@ import { createConnection } from 'mysql';
 
 const dbConnection = createConnection({
   user: 'root',
-  password: '',
+  password: 'Saskechaos1!',
   database: 'facebook',
   server: 'localhost',
   port: 3306

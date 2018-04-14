@@ -10,7 +10,13 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
+      posts: []
     };
+  }
+
+  componentDidMount(){
+    console.log("mounted")
+    // this.fetchPosts();
   }
 
   editStatus(e) {
@@ -56,7 +62,7 @@ export class Profile extends Component {
         <br/>
 
         <div>
-          {console.log("profile",this.props.currentProfile)}
+          {console.log("profile",this.props.currentProfilePosts)}
                     PLACE PICTURE HERE
         </div>
 
@@ -89,7 +95,8 @@ export class Profile extends Component {
 const mapStateToProps = function(state){
   return {
     currentProfile: state.currentUser,
-    loggedInAs: state.user
+    loggedInAs: state.user,
+    currentProfilePosts: state.currentUserPosts
   }
 }
 

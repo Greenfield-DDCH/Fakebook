@@ -1,5 +1,9 @@
 export default function (state = null, action) {
-  return state;
+  if(action.type === "LOGIN_BUTTON_CLICKED"){
+    return action.payload;
+  }else{
+    return state;
+  }
 }
 
 // return [{

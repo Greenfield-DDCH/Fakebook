@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {setCurrentUser} from '../actions/index.js';
-import {setUser} from '../actions/index.js';
+import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
+
 import axios from 'axios';
 
 class Navbar extends Component {
@@ -24,7 +24,16 @@ class Navbar extends Component {
     axios.get(`/api/search/${this.state.usernameToSearch}`)
       .then(function (response) {
         context.props.setCurrentUser(response.data.results[0]);
-        // console.log('get response data', response.data.results[0]);
+        //Search for posts, will probably need to grab friends as well
+        //fetch the CurrentProfile's posts and update them
+        axios({
+          method: 'get',
+          url: `/api/posts/${context.props.currentUser.id}`,
+        }).then((res)=>{
+          console.log("successful get",res);
+          context.props.changeCurrentUsersPosts(res.data);
+          // this.setPosts(res.data);
+        });
 
       })
       .catch(function (error) {
@@ -59,14 +68,16 @@ class Navbar extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentUserPosts: state.currentUserPosts
   };
 }
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
     setCurrentUser,
-    setUser
+    setUser,
+    changeCurrentUsersPosts
   }, dispatch);
 }
 
