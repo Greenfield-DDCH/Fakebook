@@ -15,7 +15,7 @@ import {getPosts, postToPosts, getComments} from './controllers/controller';
 const router = Router();
 
 router.route('/search/:username')
-  .get(verifyJWTToken, searchController);
+  .get( searchController);
 
 router.route('/user/login')
   .post(passport.authenticate('local'), loginController);
