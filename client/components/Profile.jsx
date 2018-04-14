@@ -44,14 +44,9 @@ export class Profile extends Component {
       });
   }
 
-
-
   seeFriends() {
     console.log('this is the seefriends button');
-  }
-
-  currentStatus() {
-    console.log('this is the current status');
+    // axios.post('/api/seefriends')
   }
 
   handleDrop(e) {
@@ -96,8 +91,11 @@ export class Profile extends Component {
     //   .then(() => {
 
     //   });
-  
   }
+
+  // editPicture() {
+  //   console.log('this is edit picture button');
+  // }
 
 
   render() {
@@ -123,6 +121,10 @@ export class Profile extends Component {
           }
         </div>
 
+        {/*<div>
+          <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
+        </div>*/}
+
         <div>
           {!this.props.currentProfile ? null: this.props.currentProfile.username }
         </div>
@@ -133,7 +135,7 @@ export class Profile extends Component {
         </div>
 
         <div>
-          {this.state.pendingStatus}
+          Current Mood : {this.state.pendingStatus}
         </div>
 
         <div>
