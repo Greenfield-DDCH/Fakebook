@@ -1,4 +1,3 @@
-
 import {getPosts as gP, postToPost as pTP, getComments as gC} from '../models/model'
 
 export function getPosts(req, res){
