@@ -21,27 +21,26 @@ class Navbar extends Component {
 
   onSearchButtonClick() {
     var context = this;
-    const config = {
-      headers: {
-        authorization: sessionStorage.getItem('token')
-      }
-    }
-    axios.get(`/api/search/${this.state.usernameToSearch}`, config)
-      .then(function (response) {
-        context.props.setCurrentUser(response.data.results[0]);
-        //Search for posts, will probably need to grab friends as well
-        //fetch the CurrentProfile's posts and update them
-        axios({
-          method: 'get',
-          url: `/api/posts/${context.props.currentUser.id}`,
-          headers: { token: sessionStorage.getItem("token") },
-        }).then((res)=>{
-          console.log("successful get",res);
-          context.props.changeCurrentUsersPosts(res.data);
-          // this.setPosts(res.data);
-        });
 
-      })
+    axios({
+      method: 'get',
+      url: `/api/search/${this.state.usernameToSearch}`,
+      headers: { token: sessionStorage.getItem('token') },
+    }).then((response) => {
+      context.props.setCurrentUser(response.data.results[0]);
+      //Search for posts, will probably need to grab friends as well
+      //fetch the CurrentProfile's posts and update them
+      axios({
+        method: 'get',
+        url: `/api/posts/${context.props.currentUser.id}`,
+        headers: { token: sessionStorage.getItem('token') },
+      }).then((res)=>{
+        console.log('successful get', res);
+        context.props.changeCurrentUsersPosts(res.data);
+        // this.setPosts(res.data);
+      });
+
+    })
       .catch(function (error) {
         console.log(error);
       });
