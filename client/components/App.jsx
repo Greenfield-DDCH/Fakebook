@@ -6,13 +6,13 @@ import Post from './post';
 
 const App = () => (
   <div>
-    <h2>Login</h2>
+    <h2>Navbar</h2>
     <Navbar />
     <Login />
-    <Profile />
-     <Post /> 
-     <Post /> 
-     <Profile /> 
+    {/*{/*<Profile />*/}
+     {/*{/*<Post /> */}
+     <Post /> */}
+     <Profile /> */}
 
   </div>
 );

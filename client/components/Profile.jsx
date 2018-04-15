@@ -3,7 +3,6 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 // import Navbar from './Navbar.jsx';
 import Dropzone from 'react-dropzone';
-
 import Post from './post';
 import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
 
@@ -13,7 +12,9 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
-      posts: []
+      pendingStatus: '',
+      picture : null
+      
     };
   }
 
@@ -28,7 +29,8 @@ export class Profile extends Component {
   setStatus() {
     console.log('this is the status click');
     var payload = {
-      status: this.state.status
+      status: this.state.status,
+      userId : this.props.currentProfile.id
     };
     const config = {
       headers: {
@@ -38,24 +40,23 @@ export class Profile extends Component {
     axios.post('/api/user/setstatus', payload, config)
       .then(response => {
         console.log('server replied with this button handler status: ', response);
+        this.setState({
+          pendingStatus : response.data.status
+        })
       })
       .catch(err => {
         console.log('this is the error from server: ', err);
       });
   }
 
-
-
   seeFriends() {
     console.log('this is the seefriends button');
-  }
-
-  currentStatus() {
-    console.log('this is the current status');
+    // axios.post('/api/seefriends')
   }
 
   handleDrop(e) {
     console.log('this is the handle event', e)
+    var context = this;
     const formData = new FormData()
     const uploaders = e.map (file => {
       console.log('this is file', file)
@@ -71,12 +72,25 @@ export class Profile extends Component {
     })
     .then(response => {
       const data = response.data;
-      console.log('this is data', data);
-      console.log('this is response', response)
+      var payload = {
+        data : data.url,
+        userId : context.props.currentProfile.id,
+      }
+      // console.log('this is payload', payload)
+      // console.log('this is data url', {url : data.url});
+      // console.log('this is response', response);
       // console.log('this is the uploader', uploaders)
-      console.log('this is props', this.props.loggedInAs)
-      console.log('this is the uploader', uploaders)
-      // this.props.currentUser
+      // console.log('this is props', context.props.currentProfile)
+      axios.post('/api/user/insertpicture', payload)
+        .then(response => {
+          console.log('this is the responseeeeee: ', response.data.picture)
+          this.setState({
+            picture : response.data.picture
+          })
+        })
+        .catch(err => {
+          console.log('this is the error: ', err)
+        })
     });
     // axios.all(uploaders)
     //   .then(() => {
@@ -84,29 +98,39 @@ export class Profile extends Component {
     //   });
   }
 
+  editPicture() {
+    this.setState({
+      picture : null
+    })
+  }
+
 
   render() {
     return (
-      <div>
+      <div className="container">
         <div>
-                    {/*<Navbar/>*/}NavBar
+          {/*<Navbar/>*/}NavBar
         </div>
         <br/>
         <br/>
 
         <div>
-                    PLACE PICTURE HERE
-
-          {console.log(this.props.currentProfile)}
-                    <Dropzone 
+          {this.state.picture === null ? 
+                  <Dropzone 
                       onDrop={this.handleDrop.bind(this) } 
                       multiple 
                       accept="image/*" 
                       >
                       <p>Drop your files or click here to upload</p>
                   </Dropzone>
-
+                  :
+                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+          }
         </div>
+
+        {/*<div>
+          <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
+        </div>*/}
 
         <div>
           {!this.props.currentProfile ? null: this.props.currentProfile.username }
@@ -115,11 +139,14 @@ export class Profile extends Component {
         <div>
           <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
           <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
-          {/*{this.props.currentProfile.status}*/}
         </div>
 
         <div>
-                    
+          Current Mood : {this.state.pendingStatus}
+        </div>
+
+        <div>
+              
         </div>
 
         <br/>
