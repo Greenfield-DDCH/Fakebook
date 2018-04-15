@@ -74,7 +74,7 @@ export class Profile extends Component {
       const data = response.data;
       var payload = {
         data : data.url,
-        userId : this.props.currentProfile.id,
+        userId : context.props.currentProfile.id,
       }
       // console.log('this is payload', payload)
       // console.log('this is data url', {url : data.url});

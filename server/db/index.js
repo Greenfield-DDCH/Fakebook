@@ -5,7 +5,7 @@ const dbConnection = createConnection({
   password: 'student',
   database: 'facebook',
   server: 'localhost',
-  port: 3306
+  port: 3000
 
 });
 
