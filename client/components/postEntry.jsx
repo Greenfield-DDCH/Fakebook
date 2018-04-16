@@ -4,8 +4,6 @@ import axios from 'axios';
 
 import CommentEntry from './commentEntry';
 
-
-
 export class PostEntry extends Component{
   constructor(props){
     super(props);
