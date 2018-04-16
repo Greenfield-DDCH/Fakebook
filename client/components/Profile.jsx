@@ -15,8 +15,8 @@ export class Profile extends Component {
       status: '',
       pendingStatus: '',
       picture : null,
-      posts: this.props.currentProfilePosts
-
+      posts: this.props.currentProfilePosts,
+      id : this.props.currentProfile.id
     };
   }
 
@@ -50,6 +50,12 @@ export class Profile extends Component {
       });
   }
 
+  // componentWillMount() {
+  //   this.setState({
+  //     id : 
+  //   })
+  // }
+
 
   seeFriends() {
     console.log('this is the seefriends button');
@@ -60,7 +66,6 @@ export class Profile extends Component {
       picture : null
     })
   }
-
 
   handleDrop(e) {
     console.log('this is the handle event', e)
@@ -101,6 +106,13 @@ export class Profile extends Component {
 
     //   });
   }
+
+  // componentWillMount() {
+  //   this.setState() {
+  //     i.e reddit. if i want to load other users info before the rendering .
+  //     this will be a good time to componentwillmount . since you dont want to slow down the site .
+  //   }
+  // }
 
 
   render() {
