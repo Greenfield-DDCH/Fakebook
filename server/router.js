@@ -14,7 +14,7 @@ import './passport';
 const router = Router();
 
 router.route('/search/:username')
-  .get( searchController);
+  .get(verifyJWTToken, searchController);
 
 router.route('/user/login')
   .post(passport.authenticate('local'), loginController);

@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import loginModel from './models/loginModel';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 
 passport.use(new LocalStrategy(
