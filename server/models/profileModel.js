@@ -1,4 +1,4 @@
-import  dbConnection  from './db';
+import  dbConnection  from '../db';
 
 const profileModel = function (status, userId, callback) {
   dbConnection.query(`UPDATE statuses SET mood = "${status}" WHERE userId = ${userId}`, function (err, result, fields) {

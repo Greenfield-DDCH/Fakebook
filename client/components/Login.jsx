@@ -13,15 +13,12 @@ class Login extends Component {
     };
   }
 
-
-
   onChangeHandler(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
     console.log('this is user', this.state);
   }
-
 
   onLoginClick() {
     var context = this;
@@ -38,16 +35,15 @@ class Login extends Component {
       .then(res => {
         console.log('this is response', res.headers.authorization);
         context.props.setUser(res.data);
-        context.props.setCurrentUser(res.data);
+        let currUser = (context.props.setCurrentUser(res.data).payload);
         sessionStorage.setItem('token', res.headers.authorization);
 
-        //Fetch the data and change the profile's posts
         axios({
           method: 'get',
-          url: `/api/posts/${context.props.user.id}`,
+          url: `/api/posts/${currUser.id}`,
           headers: { token: sessionStorage.getItem("token") }
         }).then((res)=>{
-          console.log("successful get",res);
+          // console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
         });
         
@@ -72,6 +68,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <h2>Login</h2>
         <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
         <br/>
         <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>

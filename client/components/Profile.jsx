@@ -13,8 +13,14 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
-      posts: []
+      posts: this.props.currentProfilePosts
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("UPDATED********");
+    // console.log(nextProps);
+    this.setState({ posts: nextProps.currentProfilePosts});
   }
 
   editStatus(e) {
@@ -88,16 +94,13 @@ export class Profile extends Component {
   render() {
     return (
       <div>
-        <div>
-                    {/*<Navbar/>*/}NavBar
-        </div>
         <br/>
         <br/>
 
         <div>
                     PLACE PICTURE HERE
 
-          {console.log(this.props.currentProfile)}
+          {/* {console.log(this.props.currentProfile)} */}
                     <Dropzone 
                       onDrop={this.handleDrop.bind(this) } 
                       multiple 
@@ -128,7 +131,7 @@ export class Profile extends Component {
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
 
-        {!this.props.currentProfile ? null: <Post/>}
+        {!this.props.currentProfile ? null: <Post posts={this.state.posts}/>}
 
       </div>
     );
