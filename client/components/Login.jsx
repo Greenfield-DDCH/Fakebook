@@ -13,15 +13,12 @@ class Login extends Component {
     };
   }
 
-
-
   onChangeHandler(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
     console.log('this is user', this.state);
   }
-
 
   onLoginClick() {
     var context = this;

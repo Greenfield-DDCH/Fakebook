@@ -5,5 +5,3 @@ export default function (state = null, action) {
       return state;
     }
 }
-
-//object.assign({}, state, action.payload);

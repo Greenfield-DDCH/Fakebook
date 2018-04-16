@@ -8,5 +8,4 @@ const loginModel = function (username, callback) {
   });    
 };
 
-
 export default loginModel;

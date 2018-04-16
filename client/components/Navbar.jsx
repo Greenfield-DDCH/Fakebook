@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
+import Profile from './Profile';
 
 import axios from 'axios';
 
@@ -36,7 +37,6 @@ class Navbar extends Component {
       }).then((res)=>{
         console.log('successful get', res);
         context.props.changeCurrentUsersPosts(res.data);
-        // this.setPosts(res.data);
       });
     })
       .catch(function (error) {
@@ -45,13 +45,20 @@ class Navbar extends Component {
   }
 
   onHomeButtonClick() {
-    console.log('home button clicked');
     this.props.setCurrentUser(this.props.user);
+    let context = this;
+    axios({
+      method: 'get',
+      url: `/api/posts/${context.props.currentUser.id}`,
+      headers: { token: sessionStorage.getItem('token') },
+    }).then((res)=>{
+      console.log('successful get', res);
+      context.props.changeCurrentUsersPosts(res.data);
+    });
     //set current user to logged in user
   }
 
   onLogoutButtonClick() {
-    console.log('Logout button clicked');
     sessionStorage.clear();
     this.props.setUser(null);
   // delete current session/ set logged in user to null
@@ -61,8 +68,11 @@ class Navbar extends Component {
     return (
       <div>
         <button onClick={this.onHomeButtonClick.bind(this)}>Home</button>
+
         <input name="usernameToSearch" id="search" placeholder="Search" onChange={this.onChangeHandler.bind(this)}/>
+
         <button onClick={this.onSearchButtonClick.bind(this)}>Search</button>
+
         <button onClick={this.onLogoutButtonClick.bind(this)}>Logout</button>
       </div>
     );
