@@ -52,10 +52,10 @@ class Navbar extends Component {
     let context = this;
     axios({
       method: 'get',
-      url: `/api/posts/${context.props.currentUser.id}`,
+      url: `/api/posts/${context.props.user.id}`,
       headers: { token: sessionStorage.getItem('token') },
     }).then((res)=>{
-      console.log('successful get', res);
+      console.log('successful get homeButton', res);
       context.props.changeCurrentUsersPosts(res.data);
     });
     //set current user to logged in user
