@@ -86,7 +86,8 @@ export class Profile extends Component {
 
       axios.post('/api/user/insertpicture', payload)
         .then(response => {
-          console.log('this is the responseeeeee: ', response.data.picture)
+          console.log('this is the responseeeeee data picture: ', response.data.picture)
+          console.log('this is the response data', response.data)
           this.setState({
             picture : response.data.picture
           })
