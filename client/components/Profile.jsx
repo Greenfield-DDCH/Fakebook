@@ -20,15 +20,8 @@ export class Profile extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps){
-    // console.log("UPDATED********");
-    // console.log(nextProps);
-    // this.setState({ posts: nextProps.currentProfilePosts});
-  }
-
   editStatus(e) {
     console.log('this is status', this.state.status);
-    // console.log('this is the status', this.state.status);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -77,7 +70,6 @@ export class Profile extends Component {
       console.log('this is file', file)
       console.log('this is formData', formData)
       formData.append('file', file);
-      // formData.append("tags", `dtfhh2ukc, medium, gist`);
       formData.append("upload_preset", "ed9m3yng");
       formData.append("api_key", "887545849876627");
       formData.append("timestamp", (Date.now() / 1000) | 0);
@@ -91,11 +83,7 @@ export class Profile extends Component {
         data : data.url,
         userId : context.props.currentProfile.id,
       }
-      // console.log('this is payload', payload)
-      // console.log('this is data url', {url : data.url});
-      // console.log('this is response', response);
-      // console.log('this is the uploader', uploaders)
-      // console.log('this is props', context.props.currentProfile)
+
       axios.post('/api/user/insertpicture', payload)
         .then(response => {
           console.log('this is the responseeeeee: ', response.data.picture)
@@ -160,7 +148,6 @@ export class Profile extends Component {
         <div>
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
-        {console.log("inside profile",this.props.currentProfilePosts)}
         {!this.props.currentProfile ? null: <Post />}
 
       </div>
