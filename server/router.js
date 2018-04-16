@@ -19,7 +19,6 @@ router.route('/user/login')
 router.route('/user/')
   .post(signupController);
 
-
 router.route('/user/setstatus')
   .post( profileController.EditStatus);
 
