@@ -14,9 +14,16 @@ export class Profile extends Component {
    this.state = {
       status: '',
       pendingStatus: '',
-      picture : null
-      
+      picture : null,
+      posts: this.props.currentProfilePosts
+
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("UPDATED********");
+    // console.log(nextProps);
+    this.setState({ posts: nextProps.currentProfilePosts});
   }
 
   editStatus(e) {
@@ -109,10 +116,7 @@ export class Profile extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div>
-          {/*<Navbar/>*/}NavBar
-        </div>
+      <div>
         <br/>
         <br/>
 
@@ -157,7 +161,7 @@ export class Profile extends Component {
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
 
-        {!this.props.currentProfile ? null: <Post />}
+        {!this.props.currentProfile ? null: <Post posts={this.state.posts}/>}
 
       </div>
     );

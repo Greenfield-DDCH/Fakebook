@@ -5,10 +5,28 @@ export function getPosts(profileId,callback){
     if(err){
       console.log('err',err);
     }else{
-      callback(result);
-    }
+      let comments = [];
+
+      let callback2 = function(results){
+        comments.push(results);
+        if(comments.length === result.length){
+          callback(comments);
+        }
+      }// second callback needed in order to store comments from second query
+
+      result.forEach(function(post,i){
+        dbConnection.query(`select u.username, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.parent_id = ${post.id} and p.profile_id = ${profileId}`, function(err, comments){
+          if(err){
+            console.log('err', err);
+          }else{
+            post.comments = comments;
+            callback2(post);
+          }
+        });
+      });
+    }// end else
   });
-}// may need to look for posts of type 0 
+}
 
 export function getComments(parentId, profileId, callback){
   dbConnection.query(`select u.username, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.parent_id = ${parentId} and p.profile_id = ${profileId}`, function(err, result){
@@ -21,11 +39,12 @@ export function getComments(parentId, profileId, callback){
 }
 
 export function postToPost(data, callback){
-  console.log("post data",data);
+
   if(data.type === 0){
     dbConnection.query(`insert into posts (user_id, profile_id, post, type) values (${data.owner}, ${data.whoseProfile}, '${data.postText}', ${data.type})`);
   }else if(data.type === 1){
     dbConnection.query(`insert into posts (user_id, profile_id, post, type, parent_id) values (${data.owner}, ${data.whoseProfile}, '${data.commentText}', ${data.type}, ${data.parentId})`);
   }
+  
   callback(true);
 }

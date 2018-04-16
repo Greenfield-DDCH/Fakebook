@@ -23,4 +23,3 @@ passport.use(new LocalStrategy(
 ));
 
 export default passport;
-

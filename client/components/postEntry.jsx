@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
-import CommentList from './commentList';
+import CommentEntry from './commentEntry';
+
 
 
 export class PostEntry extends Component{
@@ -11,26 +12,13 @@ export class PostEntry extends Component{
 
     this.state = {
       commentText: '',
-      comments: [],
-      // mounted: true
+      comments: this.props.post.comments,
     }
   }
 
-  componentDidMount(){
-    this.fetchComments();
+  componentWillReceiveProps(nextProps){
+    this.setState({comments: nextProps.comments});
   }
-
-
-  // componentWillUpdate(){
-  //     this.fetchComments();
-  // }
-
-  // componentDidUpdate(){
-  //   // console.log("updated");
-  //   if(!this.state.mounted){
-  //     // this.fetchComments();
-  //   }
-  // }
 
   onChangeCommentText(e){
     this.setState({
@@ -39,12 +27,10 @@ export class PostEntry extends Component{
   }
 
   setComments(comments){
-    return new Promise(()=>{
-        this.setState({
-          comments
-        });
-      } 
-    );
+    this.setState({
+      comments
+    });
+  
   }
 
   fetchComments(){
@@ -52,7 +38,7 @@ export class PostEntry extends Component{
       method: 'get',
       url: `/api/comments/${this.props.post.id}/${this.props.currentProfile.id}`,
     }).then((res)=>{
-      console.log("successful get",res);
+      console.log("successful get********************",res);
       this.setComments(res.data);
     });
   }
@@ -78,15 +64,24 @@ export class PostEntry extends Component{
   render(){
     return (
       <div className="PostEntry">
-
+       
         {this.props.post.username}
         {this.props.post.post}
 
-        {this.state.comments.length > 1 ? <CommentList comments= 
-          {this.state.comments}/> : null}
+        <div className="CommentList">
+          {this.state.comments.length >= 1 ? 
+            this.state.comments.map(function(comment){
+              return <CommentEntry comment={comment}/>
+            })
+            : 
+            null
+          }
+        </div>
 
         <textarea value={this.state.postText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
+
         <button className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </button>
+
       </div>
     ); 
   }

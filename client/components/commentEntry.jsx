@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 class CommentEntry extends Component{
   constructor(props){
     super(props);
-
   }
 
   render(){

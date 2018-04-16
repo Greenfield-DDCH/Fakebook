@@ -1,5 +1,8 @@
 import express from 'express';
 import { Router } from 'express';
+import passport from 'passport';
+
+import {getPosts, postToPosts, getComments} from './controllers/controller';
 import profileController from './controllers/profileController.js';
 import searchController from './controllers/searchController';
 import signupController from './controllers/signupController';
@@ -8,8 +11,7 @@ import {getPosts, postToPosts} from './controller';
 import passport from './models/passport';
 // import './passport';
 import verifyJWTToken from './tokenVerify';
-
-import {getPosts, postToPosts, getComments} from './controllers/controller';
+import './passport';
 
 
 const router = Router();
@@ -28,7 +30,6 @@ router.route('/user/setstatus')
 
   router.route('/user/insertpicture')
   .post(profileController.EditPicture);
-
 
 router.get('/posts/:userId', getPosts);
 router.post('/posts/:userId', postToPosts);
