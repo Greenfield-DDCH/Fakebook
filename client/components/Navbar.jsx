@@ -28,6 +28,7 @@ class Navbar extends Component {
       headers: { token: sessionStorage.getItem('token') },
     }).then((response) => {
       context.props.setCurrentUser(response.data.results[0]);
+      console.log("after the setting of current user", context.props.currentUser);
       //Search for posts, will probably need to grab friends as well
       //fetch the CurrentProfile's posts and update them
       axios({
@@ -37,6 +38,8 @@ class Navbar extends Component {
       }).then((res)=>{
         console.log('successful get', res);
         context.props.changeCurrentUsersPosts(res.data);
+      }).catch(function(err){
+        console.log(error);
       });
     })
       .catch(function (error) {

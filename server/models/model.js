@@ -14,16 +14,21 @@ export function getPosts(profileId,callback){
         }
       }// second callback needed in order to store comments from second query
 
-      result.forEach(function(post,i){
-        dbConnection.query(`select u.username, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.parent_id = ${post.id} and p.profile_id = ${profileId}`, function(err, comments){
-          if(err){
-            console.log('err', err);
-          }else{
-            post.comments = comments;
-            callback2(post);
-          }
+      if(result.length >= 1){
+        result.forEach(function(post,i){
+          dbConnection.query(`select u.username, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.parent_id = ${post.id} and p.profile_id = ${profileId}`, function(err, comments){
+            if(err){
+              console.log('err', err);
+            }else{
+              post.comments = comments;
+              callback2(post);
+            }
+          });
+      
         });
-      });
+      }else{
+        callback(result);
+      }
     }// end else
   });
 }
