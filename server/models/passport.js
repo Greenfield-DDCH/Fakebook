@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import loginModel from './loginModel.js';
+import loginModel from './loginModel';
 import bcrypt from 'bcryptjs';
 
 
@@ -23,4 +23,3 @@ passport.use(new LocalStrategy(
 ));
 
 export default passport;
-

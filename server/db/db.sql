@@ -17,13 +17,16 @@ CREATE TABLE posts (
   post varchar(255),
   type int,
   parent_id int,
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  FOREIGN KEY(parent_id) REFERENCES posts(id)
 );
 CREATE TABLE friends ( 
   id int NOT NULL auto_increment,
   user_id_a int NOT NULL, 
   user_id_b int NOT NULL,
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  FOREIGN KEY(user_id_a) REFERENCES users(id),
+  FOREIGN KEY(user_id_b) REFERENCES users(id)
 );
 
 CREATE TABLE statuses (
