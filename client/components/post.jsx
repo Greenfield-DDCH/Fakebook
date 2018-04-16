@@ -13,7 +13,7 @@ export class Post extends Component {
     this.state = {
       postText: '',
       username: '',
-      // posts: this.props.currentProfilePosts
+      posts: this.props.currentProfilePosts
       //userImage: null,
       //timeStamp: null,
       //Postimage: null,
@@ -62,7 +62,6 @@ export class Post extends Component {
     return (
       <div className="postToWall">
 
-        {console.log(this.props.currentProfilePosts)}
         <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
 
         <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
