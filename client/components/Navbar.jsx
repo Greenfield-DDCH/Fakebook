@@ -38,6 +38,7 @@ class Navbar extends Component {
         console.log('successful get', res);
         context.props.changeCurrentUsersPosts(res.data);
       });
+
     })
       .catch(function (error) {
         console.log(error);

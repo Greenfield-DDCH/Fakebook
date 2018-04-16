@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import loginModel from './models/loginModel';
+import bcrypt from 'bcrypt';
 
 
 passport.use(new LocalStrategy(
@@ -10,9 +11,12 @@ passport.use(new LocalStrategy(
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (user.results[0].password !== password) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
+      bcrypt.compare(password, user.results[0].password, function(err, res) {
+        if (err) { console.log(err); }
+        if (res) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+      });
       return done(null, user);
     });
   }
