@@ -13,14 +13,13 @@ export class Profile extends Component {
 
     this.state = {
       status: '',
-      posts: this.props.currentProfilePosts
     };
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("UPDATED********");
+    // console.log("UPDATED********");
     // console.log(nextProps);
-    this.setState({ posts: nextProps.currentProfilePosts});
+    // this.setState({ posts: nextProps.currentProfilePosts});
   }
 
   editStatus(e) {
@@ -130,8 +129,8 @@ export class Profile extends Component {
         <div>
           <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
         </div>
-
-        {!this.props.currentProfile ? null: <Post posts={this.state.posts}/>}
+        {console.log("inside profile",this.props.currentProfilePosts)}
+        {!this.props.currentProfile ? null: <Post />}
 
       </div>
     );

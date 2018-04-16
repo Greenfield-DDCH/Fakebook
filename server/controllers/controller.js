@@ -2,7 +2,9 @@
 import {getPosts as gP, postToPost as pTP, getComments as gC} from '../models/model'
 
 export function getPosts(req, res){
+  console.log("inside controller");
   gP(req.params.userId, function(posts){
+    console.log("sending response",posts)
     res.send(posts);
   });
 }
