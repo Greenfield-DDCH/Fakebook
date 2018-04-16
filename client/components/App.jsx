@@ -11,8 +11,8 @@ const App = () => (
     <Login />
     <Profile />
      <Post /> 
-     <Post /> 
-     <Profile /> 
+     {/*<Post /> */}
+     {/*<Profile /> */}
 
   </div>
 );

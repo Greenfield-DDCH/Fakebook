@@ -1,5 +1,5 @@
 import dbConnection from '../db';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const signupModel = function (body, callback) {
   dbConnection.query(`SELECT * FROM users WHERE username = "${body.username}"`, function (err, result, fields) {
