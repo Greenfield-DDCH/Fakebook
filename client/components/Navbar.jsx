@@ -41,6 +41,7 @@ class Navbar extends Component {
       }).catch(function(err){
         console.log(error);
       });
+
     })
       .catch(function (error) {
         console.log(error);

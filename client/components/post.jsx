@@ -36,7 +36,7 @@ export class Post extends Component {
     axios({
       method: 'post',
       url: `/api/posts/${this.props.currentProfile.id}`,
-      headers: { token: sessionStorage.getItem("token") },
+      headers: { token: sessionStorage.getItem('token') },
       data: {
         postText: this.state.postText,
         whoseProfile: this.props.currentProfile.id,
@@ -50,7 +50,7 @@ export class Post extends Component {
       axios({
         method: 'get',
         url: `/api/posts/${context.props.currentProfile.id}`,
-        headers: { token: sessionStorage.getItem("token") },
+        headers: { token: sessionStorage.getItem('token') },
       }).then((res)=>{
         // console.log('successful get', res);
         context.props.changeCurrentUsersPosts(res.data);
