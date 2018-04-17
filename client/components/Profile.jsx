@@ -15,10 +15,20 @@ export class Profile extends Component {
       status: '',
       pendingStatus: '',
       picture : null,
-      posts: this.props.currentProfilePosts
-
+      posts: this.props.currentProfilePosts,
+      isLoggedIn : true,
     };
   }
+
+  // componentWillMount() {
+  //   axios.get('/api/users/picture')
+  //     .then(response => {
+  //       console.log('this is the result: ' , response)
+  //     })
+  //     .catch (err => {
+  //       console.log('this is the err: ', err)
+  //     })
+  // }
 
   editStatus(e) {
     console.log('this is status', this.state.status);
@@ -61,7 +71,6 @@ export class Profile extends Component {
     })
   }
 
-
   handleDrop(e) {
     console.log('this is the handle event', e)
     var context = this;
@@ -86,7 +95,8 @@ export class Profile extends Component {
 
       axios.post('/api/user/insertpicture', payload)
         .then(response => {
-          console.log('this is the responseeeeee: ', response.data.picture)
+          console.log('this is the responseeeeee data picture: ', response.data.picture)
+          console.log('this is the response data', response.data)
           this.setState({
             picture : response.data.picture
           })
@@ -101,55 +111,107 @@ export class Profile extends Component {
     //   });
   }
 
+  // componentWillMount() {
+  //   this.setState() {
+  //     i.e reddit. if i want to load other users info before the rendering .
+  //     this will be a good time to componentwillmount . since you dont want to slow down the site .
+  //   }
+  // }
+
 
   render() {
     return (
       <div>
+        <button onClick={() => { console.log('currentProfile: ', this.props.currentProfile) }}>currentProfile</button>
+        <button onClick={() => { console.log('loggedInAs: ', this.props.loggedInAs) }}>loggedInAs</button>
+        <button onClick={() => { console.log('currentProfilePosts: ', this.props.currentProfilePosts) }}>currentProfilePosts</button>
         <br/>
         <br/>
+        
+        { this.props.currentProfile && this.props.loggedInAs && this.props.currentProfile.id === this.props.loggedInAs.id ? 
+          /* START OF IF */
+          <div>
+            {this.state.isLoggedIn ? 
 
-        <div>
-          {this.state.picture === null ? 
-                  <Dropzone 
-                      onDrop={this.handleDrop.bind(this) } 
-                      multiple 
-                      accept="image/*" 
-                      >
-                      <p>Drop your files or click here to upload</p>
-                  </Dropzone>
-                  :
-                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
-          }
-        </div>
+            <div>
 
-        {/*<div>
-          <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
-        </div>*/}
+            <div>
+              {this.state.picture === null ? 
+                      <Dropzone 
+                          onDrop={this.handleDrop.bind(this) } 
+                          multiple 
+                          accept="image/*" 
+                          >
+                          <p>Drop your files or click here to upload</p>
+                      </Dropzone>
+                      :
+                      <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+              }
+            </div>
 
-        <div>
-          {!this.props.currentProfile ? null: this.props.currentProfile.username }
-        </div>
+            <div>
+              {!this.props.currentProfile ? null: this.props.currentProfile.username }
+            </div>
 
-        <div>
-          <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
-          <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
-        </div>
+            <div>
+              <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
+              <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
+            </div>
 
-        <div>
-          Current Mood : {this.state.pendingStatus}
-        </div>
+            <div>
+              Current Mood : {this.state.pendingStatus}
+            </div>
 
-        <div>
+      
+            <br/>
+            <br/>
+            <div>
+              <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
+            </div>
+
+            <div>
+            {!this.props.currentProfile ? null: <Post />} 
+            </div>
+
+            </div>
+
+            :
+
+            <div>
+
+              <div>
+                {/*<img src={this.props.currentProfile.picture}></img>*/}
+              </div>
               
-        </div>
 
-        <br/>
-        <br/>
-        <div>
-          <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
-        </div>
-        {!this.props.currentProfile ? null: <Post />}
+            </div>
+            }
+          </div>
+          /* END OF IF */
+          :
+          /* START OF ELSE */
+          <div>
 
+            {/*<div>
+              {!this.props.currentProfile ? null: this.props.currentProfile.username}
+            </div>*/}
+            
+            <div>
+              {!this.props.currentProfile ? null: this.props.currentProfile.username }
+            </div>
+
+            <div>
+              <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
+            </div>
+
+              <div>
+            {!this.props.currentProfile ? null: <Post />} 
+            </div>
+
+          
+          </div>
+          /* END OF ELSE */
+        }
       </div>
     );
   }

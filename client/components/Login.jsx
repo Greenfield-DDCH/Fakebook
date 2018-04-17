@@ -38,7 +38,9 @@ class Login extends Component {
         console.log('this is response', res.headers.authorization);
         console.log('this is response data', res.data);
         context.props.setUser(res.data);
+        console.log('hehiohrtiohry');
         let currUser = (context.props.setCurrentUser(res.data).payload);
+        console.log('thisss is current user', currUser);
         sessionStorage.setItem('token', res.headers.authorization);
     // axios.get(`/api/user/${this.state.username}/${this.state.password}`)
     //   .then((res) => {
