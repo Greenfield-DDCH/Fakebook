@@ -33,6 +33,9 @@ export class Post extends Component {
 
   handlePostButton() {
     const context = this;
+    console.log('this is the ddataaaa', this.state.postText),
+    console.log('current id profile', this.props.currentProfile.id),
+    console.log('this is thee logged in as', this.props.loggedInAs.id)
     axios({
       method: 'post',
       url: `/api/posts/${this.props.currentProfile.id}`,

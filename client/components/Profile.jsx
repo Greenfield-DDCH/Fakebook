@@ -16,7 +16,7 @@ export class Profile extends Component {
       pendingStatus: '',
       picture : null,
       posts: this.props.currentProfilePosts,
-      id : this.props.currentProfile.id
+      isLoggedIn : true,
     };
   }
 
@@ -49,12 +49,6 @@ export class Profile extends Component {
         console.log('this is the error from server: ', err);
       });
   }
-
-  // componentWillMount() {
-  //   this.setState({
-  //     id : 
-  //   })
-  // }
 
 
   seeFriends() {
@@ -118,51 +112,96 @@ export class Profile extends Component {
   render() {
     return (
       <div>
+        <button onClick={() => { console.log('currentProfile: ', this.props.currentProfile) }}>currentProfile</button>
+        <button onClick={() => { console.log('loggedInAs: ', this.props.loggedInAs) }}>loggedInAs</button>
+        <button onClick={() => { console.log('currentProfilePosts: ', this.props.currentProfilePosts) }}>currentProfilePosts</button>
         <br/>
         <br/>
+        
+        { this.props.currentProfile && this.props.loggedInAs && this.props.currentProfile.id === this.props.loggedInAs.id ? 
+          /* START OF IF */
+          <div>
+            {this.state.isLoggedIn ? 
 
-        <div>
-          {this.state.picture === null ? 
-                  <Dropzone 
-                      onDrop={this.handleDrop.bind(this) } 
-                      multiple 
-                      accept="image/*" 
-                      >
-                      <p>Drop your files or click here to upload</p>
-                  </Dropzone>
-                  :
-                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
-          }
-        </div>
+            <div>
 
-        {/*<div>
-          <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
-        </div>*/}
+            <div>
+              {this.state.picture === null ? 
+                      <Dropzone 
+                          onDrop={this.handleDrop.bind(this) } 
+                          multiple 
+                          accept="image/*" 
+                          >
+                          <p>Drop your files or click here to upload</p>
+                      </Dropzone>
+                      :
+                      <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+              }
+            </div>
 
-        <div>
-          {!this.props.currentProfile ? null: this.props.currentProfile.username }
-        </div>
+            <div>
+              {!this.props.currentProfile ? null: this.props.currentProfile.username }
+            </div>
 
-        <div>
-          <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
-          <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
-        </div>
+            <div>
+              <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
+              <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
+            </div>
 
-        <div>
-          Current Mood : {this.state.pendingStatus}
-        </div>
+            <div>
+              Current Mood : {this.state.pendingStatus}
+            </div>
 
-        <div>
+      
+            <br/>
+            <br/>
+            <div>
+              <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
+            </div>
+
+            <div>
+            {!this.props.currentProfile ? null: <Post />} 
+            </div>
+
+            </div>
+
+            :
+
+            <div>
+
+              <div>
+                {/*<img src={this.props.currentProfile.picture}></img>*/}
+              </div>
               
-        </div>
 
-        <br/>
-        <br/>
-        <div>
-          <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
-        </div>
-        {!this.props.currentProfile ? null: <Post />}
+            </div>
+            }
+          </div>
+          /* END OF IF */
+          :
+          /* START OF ELSE */
+          <div>
 
+            <div>
+              {!this.props.currentProfile ? null: this.props.currentProfile.username /*not working*/}
+            </div>
+            
+            <div>
+              {!this.props.currentProfile ? null: this.props.currentProfile.username }
+            </div>
+
+            <div>
+              <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
+            </div>
+
+              <div>
+            {!this.props.currentProfile ? null: <Post />} 
+            </div>
+
+          
+          </div>
+          /* END OF ELSE */
+        }
       </div>
     );
   }
