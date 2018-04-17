@@ -11,7 +11,7 @@ const signupModel = function (body, callback) {
         bcrypt.hash(body.password, salt, function(err, hash) {
           dbConnection.query(
             `INSERT INTO users (username, password, picture) 
-            VALUES('${body.username}', '${hash}', 'thisisasamplepicture')`,
+            VALUES('${body.username}', '${hash}', ${null})`,
             function (err, result, fields) {
               if (err) { throw err; } 
               console.log('this is in the model', result);
