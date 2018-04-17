@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-// import Navbar from './Navbar.jsx';
 import Dropzone from 'react-dropzone';
+import {bindActionCreators} from 'redux';
+// import Navbar from './Navbar.jsx';
 
 import Post from './post';
-import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
+import {changeIsFriend} from '../actions/index.js';
 
 export class Profile extends Component { 
   constructor(props) {
@@ -15,8 +16,8 @@ export class Profile extends Component {
       status: '',
       pendingStatus: '',
       picture : null,
-      posts: this.props.currentProfilePosts,
-      isFriend : true
+      posts: this.props.currentProfilePosts
+      // isFriend : true
     };
   }
 
@@ -111,7 +112,7 @@ export class Profile extends Component {
 
   findFriend(currProfileId, loggedInAsId){
     if(currProfileId === loggedInAsId){
-      this.state.isFriend = true;
+      this.props.changeIsFriend(true);
     }else{
       console.log("checking for friend");
       let context = this;
@@ -119,12 +120,14 @@ export class Profile extends Component {
         console.log("successful get for friends", res.data);
         if(res.data === false){
           
-          this.state.isFriend = false;
-          
+          // this.state.isFriend = false;
+          this.props.changeIsFriend(false);
+          // console.log(this.props);
         }else{
           
-          this.state.isFriend = true;
-          
+          // this.state.isFriend = true;
+          this.props.changeIsFriend(true);
+          // console.log(this.props);
         }
         //return res.data;
       }).catch((err)=>{
@@ -181,7 +184,7 @@ export class Profile extends Component {
         <div>
           {!this.props.currentProfile ? null: 
             (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
-            { !this.state.isFriend ? console.log("not a friend") :
+            { !this.props.isFriend ? console.log("not a friend") :
             <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
           }
         </div>
@@ -194,19 +197,17 @@ export class Profile extends Component {
 
 const mapStateToProps = function(state){
   return {
-    currentProfile: state.currentUser,
+    currentProfile: state.currentUser,  
     loggedInAs: state.user,
-    currentProfilePosts: state.currentUserPosts
+    currentProfilePosts: state.currentUserPosts,
+    isFriend: state.isFriend
   }
 }
 
-// function matchDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     setCurrentUser,
-//     setUser,
-//     changeCurrentUsersPosts,
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({
+    changeIsFriend
+  }, dispatch);
+}
 
-//   }, dispatch);
-// }
-
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, matchDispatchToProps)(Profile);
