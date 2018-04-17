@@ -20,6 +20,16 @@ export class Profile extends Component {
     };
   }
 
+  // componentWillMount() {
+  //   axios.get('/api/users/picture')
+  //     .then(response => {
+  //       console.log('this is the result: ' , response)
+  //     })
+  //     .catch (err => {
+  //       console.log('this is the err: ', err)
+  //     })
+  // }
+
   editStatus(e) {
     console.log('this is status', this.state.status);
     this.setState({
@@ -182,9 +192,9 @@ export class Profile extends Component {
           /* START OF ELSE */
           <div>
 
-            <div>
-              {!this.props.currentProfile ? null: this.props.currentProfile.username /*not working*/}
-            </div>
+            {/*<div>
+              {!this.props.currentProfile ? null: this.props.currentProfile.username}
+            </div>*/}
             
             <div>
               {!this.props.currentProfile ? null: this.props.currentProfile.username }
