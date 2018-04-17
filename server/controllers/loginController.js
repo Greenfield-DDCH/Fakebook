@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 const loginController = function (req, res) {
   loginModel(req.body.username, (err, result )=>{
-    if (err) { console.log(err); }
+    if (err) { console.log("error found",err); }
     var data = result.results[0];
     delete data.password;
     const payload = {

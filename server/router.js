@@ -1,6 +1,6 @@
 import express from 'express';
 import { Router } from 'express';
-import {getPosts, postToPosts, getComments} from './controllers/controller';
+import {getPosts, postToPosts, getComments, findFriend} from './controllers/controller';
 import profileController from './controllers/profileController.js';
 import searchController from './controllers/searchController';
 import signupController from './controllers/signupController';
@@ -26,11 +26,13 @@ router.route('/user/setstatus')
   router.route('/user/insertpicture')
   .post(profileController.EditPicture);
 
+  
+  //COMMENTS GO THROUGH THE ROUTE BELOW WORKS FOR REGULAR POSTS FOR JWT TOKEN, BUT NOT FOR COMMENTS ON A POST
 router.get('/posts/:userId', getPosts);
-
-//COMMENTS GO THROUGH THE ROUTE BELOW WORKS FOR REGULAR POSTS FOR JWT TOKEN, BUT NOT FOR COMMENTS ON A POST
 router.post('/posts/:userId',  postToPosts);
 
 router.get('/comments/:parentId/:userId', getComments);
+
+router.get('/friends/:currUserId/:loggedInAsId', findFriend);
 
 export default router;
