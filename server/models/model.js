@@ -53,3 +53,13 @@ export function postToPost(data, callback){
   
   callback(true);
 }
+
+export function getFriend(users, callback){
+  dbConnection.query(`select * from friends where (user_id_a = ${users.currUserId} and user_id_b = ${users.loggedInAsId}) or (user_id_b = ${users.currUserId} and user_id_a = ${users.loggedInAsId})`, function(err, result){
+    if(err){
+      console.log('Error finding friends',err);
+    }else{
+      callback(result);
+    }
+  })
+}

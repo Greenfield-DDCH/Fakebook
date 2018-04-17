@@ -15,10 +15,18 @@ export class Profile extends Component {
       status: '',
       pendingStatus: '',
       picture : null,
-      posts: this.props.currentProfilePosts
-
+      posts: this.props.currentProfilePosts,
+      isFriend : true
     };
   }
+
+  componentDidMount(){
+  }
+
+  // componentWillReceiveProps(){
+  //   console.log("will receive",this.props.currentProfile);
+
+  // }
 
   editStatus(e) {
     console.log('this is status', this.state.status);
@@ -93,13 +101,38 @@ export class Profile extends Component {
         })
         .catch(err => {
           console.log('this is the error: ', err)
-        })
+        });
     });
     // axios.all(uploaders)
     //   .then(() => {
 
     //   });
   }
+
+  findFriend(currProfileId, loggedInAsId){
+    if(currProfileId === loggedInAsId){
+      this.state.isFriend = true;
+    }else{
+      console.log("checking for friend");
+      let context = this;
+      axios.get(`api/friends/${currProfileId}/${loggedInAsId}`).then((res) => {
+        console.log("successful get for friends", res.data);
+        if(res.data === false){
+          
+          this.state.isFriend = false;
+          
+        }else{
+          
+          this.state.isFriend = true;
+          
+        }
+        //return res.data;
+      }).catch((err)=>{
+        console.log('error in friend get request', err);
+      });
+    }
+    return;
+  }//Check to see if CurrentProfile is a friend or myself in order to view friends
 
 
   render() {
@@ -130,9 +163,9 @@ export class Profile extends Component {
           {!this.props.currentProfile ? null: this.props.currentProfile.username }
         </div>
 
-        <div>
-          <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
-          <button onClick={ this.setStatus.bind(this) }>SET STATUS</button>
+        <div className="statusForm">
+          {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
+          <button onClick={ this.setStatus.bind(this) }>SET STATUS</button> */}
         </div>
 
         <div>
@@ -146,7 +179,11 @@ export class Profile extends Component {
         <br/>
         <br/>
         <div>
-          <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
+          {!this.props.currentProfile ? null: 
+            (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
+            { !this.state.isFriend ? console.log("not a friend") :
+            <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
+          }
         </div>
         {!this.props.currentProfile ? null: <Post />}
 

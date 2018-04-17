@@ -9,14 +9,16 @@ passport.use(new LocalStrategy(
     loginModel(username, (err, user) => {
       if (err) { return done(err); }
       if (!user) {
+        console.log("passport error1", user);
         return done(null, false, { message: 'Incorrect username.' });
       }
       bcrypt.compare(password, user.results[0].password, function(err, res) {
-        if (err) { console.log(err); }
+        if (err) { console.log("passport error2",err); }
         if (res) {
-          return done(null, false, { message: 'Incorrect password.' });
+          console.log("response from comparing passwords",res);
         }
       });
+      console.log("passport error4",user);
       return done(null, user);
     });
   }
