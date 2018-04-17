@@ -75,10 +75,14 @@ export class PostEntry extends Component{
             null
           }
         </div>
+        
+        {!this.props.isFriend ? null :
+          <div>
+            <textarea value={this.state.postText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
 
-        <textarea value={this.state.postText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
-
-        <button className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </button>
+            <button className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </button>
+          </div>
+        }
 
       </div>
     ); 
@@ -88,7 +92,8 @@ export class PostEntry extends Component{
 const mapStateToProps = function(state){
   return {
     currentProfile: state.currentUser,
-    loggedInAs: state.user
+    loggedInAs: state.user,
+    isFriend: state.isFriend
   }
 }
 

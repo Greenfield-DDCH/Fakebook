@@ -61,10 +61,13 @@ export class Post extends Component {
   render() {
     return (
       <div className="postToWall">
+        { !this.props.isFriend ? null : 
+          <div>
+            <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
 
-        <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
-
-        <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
+            <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
+          </div>
+        }
 
         <div className="PostList">
           <PostList posts={!this.props.currentProfilePosts ? [] : this.props.currentProfilePosts}/> 
@@ -79,7 +82,8 @@ const mapStateToProps = function(state) {
   return {
     currentProfile: state.currentUser,
     loggedInAs: state.user,
-    currentProfilePosts: state.currentUserPosts
+    currentProfilePosts: state.currentUserPosts,
+    isFriend: state.isFriend
   };
 };
 
