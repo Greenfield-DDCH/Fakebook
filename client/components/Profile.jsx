@@ -3,7 +3,9 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Dropzone from 'react-dropzone';
 import {bindActionCreators} from 'redux';
-import FriendButton from './FriendButton.jsx';
+import FriendButton from './FriendButton';
+import Navbar from './Navbar';
+import FriendList from './FriendList';
 
 import Post from './post';
 import {changeIsFriend} from '../actions/index.js';
@@ -57,7 +59,7 @@ export class Profile extends Component {
 
   seeFriends() {
     this.setState({
-      seeFriends: true
+      seeFriends: !this.state.seeFriends
     });
   }
 
@@ -133,12 +135,14 @@ export class Profile extends Component {
     if (this.state.seeFriends) {
       return (
         <div>
-          see friends
+          <Navbar toggleFriends ={this.seeFriends.bind(this)}/>
+          <FriendList returnToProfile={this.seeFriends.bind(this)}/>
         </div>
       );
     } else {
       return (
         <div className="profile">
+          <Navbar />
           <br/>
           <div>
             {!this.props.currentProfile ? null : this.props.currentProfile.username }
