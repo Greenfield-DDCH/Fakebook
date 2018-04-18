@@ -21,7 +21,7 @@ router.route('/user/')
   .post(signupController);
 
 router.route('/user/setstatus')
-  .post( profileController.EditStatus);
+  .post(verifyJWTToken, profileController.EditStatus);
 
   router.route('/user/insertpicture')
   .post(profileController.EditPicture);
