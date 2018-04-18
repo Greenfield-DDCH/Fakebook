@@ -158,12 +158,8 @@ export class Profile extends Component {
             (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
               <div>
                 {this.state.picture === null ? 
-                        <Dropzone 
-                            onDrop={this.handleDrop.bind(this) } 
-                            multiple 
-                            accept="image/*" 
-                            >
-                            <img src="http://llod.us/sites/default/files/pp-v.jpg"/> 
+                        <Dropzone onDrop={this.handleDrop.bind(this)} multipleaccept="image/*" >
+                          <img src="http://llod.us/sites/default/files/pp-v.jpg"/> 
                         </Dropzone>
                         :
                         <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
