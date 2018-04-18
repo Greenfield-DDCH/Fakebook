@@ -8,6 +8,7 @@ import loginController from './controllers/loginController';
 import passport from './models/passport';
 import verifyJWTToken from './tokenVerify';
 import friendsController from './controllers/friendsController';
+import friendListController from './controllers/friendListController';
 
 
 
@@ -42,5 +43,9 @@ router.get('/friends/:currUserId/:loggedInAsId', findFriend);
 //Add friend
 router.route('/friends')
   .post(friendsController);
+
+//grab friends for list
+router.route('/friends/:userId')
+  .get(friendListController);
 
 export default router;
