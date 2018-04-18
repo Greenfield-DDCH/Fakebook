@@ -1,3 +1,4 @@
+/* LOGIN PAGE CSS */
 .loginInputs{
   display: flex;
   justify-content: center;
@@ -28,3 +29,19 @@
   height: 200px;
   width: 220px;
 }
+
+/*NAVBAR CSS*/
+.navbar{
+  background-color: #2185D0;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home{
+  color: white;
+  padding-left: 20px;
+  font-size: 20px;
+}
+

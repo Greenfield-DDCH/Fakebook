@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 
 import Login from './Login';
 import Profile from './Profile.jsx';
-import Navbar from './Navbar';
-import Post from './post';
+import Navbar from './Navbar.jsx';
 
 const App = (props) => (
   <div>

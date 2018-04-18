@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import axios from 'axios';
+import {Input, Button} from 'semantic-ui-react';
+
 import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
 import Profile from './Profile';
 
-import axios from 'axios';
 
-class Navbar extends Component {
+export class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,15 +71,19 @@ class Navbar extends Component {
   
   render() {
     return (
-      <div className='navbar'>FAKEBOOK
-      <button onClick={this.onHomeButtonClick.bind(this)} className='homeButton'>Home</button>
 
-      <input name="usernameToSearch" id="search" placeholder="Search" onChange={this.onChangeHandler.bind(this)} className='searchInput'/>
+    <div className="navbar">
+      <div className='home'onClick={this.onHomeButtonClick.bind(this)}>fakebook</div>
 
-      <button onClick={this.onSearchButtonClick.bind(this)} className='searchButton'>Search</button>
-
-      <button onClick={this.onLogoutButtonClick.bind(this)} className='logoutButton'>Logout</button>
+      <div className="Search">
+        <Input size="mini" name="usernameToSearch" id="search" placeholder="Username..." icon='users' iconPosition='left' onChange={this.onChangeHandler.bind(this)} className='searchInput' action={{onClick: this.onSearchButtonClick.bind(this), icon: 'search'}} />
       </div>
+
+      <div className="logoutButton">
+        <Button color="blue" onClick={this.onLogoutButtonClick.bind(this)} className='logoutButton'>Logout</Button>
+      </div>
+    </div>
+
     );
   }
 }
