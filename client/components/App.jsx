@@ -9,10 +9,9 @@ import Post from './post';
 const App = (props) => (
   <div>
     
-    {!props.loggedInAs ? null : <Navbar />}
-    
-    {!props.loggedInAs ? <Login />: null}
-    {!props.loggedInAs ? null : <Profile/>}
+    {/* {!props.loggedInAs ? null : <Navbar />} */}    
+    {/* {!props.loggedInAs ? <Login />: null} */}
+    {!props.loggedInAs ? <Login /> : <Profile/>}
   </div>
 );
 

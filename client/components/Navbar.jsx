@@ -13,14 +13,18 @@ class Navbar extends Component {
       usernameToSearch: ''
     };
   }
-
+  
   onChangeHandler(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
-
+  
   onSearchButtonClick() {
+    //handles toggling friend page
+    if (this.props.toggleFriends) {
+      this.props.toggleFriends();
+    }
     var context = this;
     axios({
       method: 'get',
@@ -46,8 +50,12 @@ class Navbar extends Component {
         console.log(error);
       });
   }
-
+  
   onHomeButtonClick() {
+    //handles toggling friend page
+    if (this.props.toggleFriends) {
+      this.props.toggleFriends();
+    }
     this.props.setCurrentUser(this.props.user);
     let context = this;
     axios({
@@ -60,7 +68,7 @@ class Navbar extends Component {
     });
     //set current user to logged in user
   }
-
+  
   onLogoutButtonClick() {
     sessionStorage.clear();
     this.props.setUser(null);
@@ -82,20 +90,20 @@ class Navbar extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     user: state.user,
     currentUser: state.currentUser,
     currentUserPosts: state.currentUserPosts
   };
-}
+};
 
-function matchDispatchToProps(dispatch) {
+const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setCurrentUser,
     setUser,
     changeCurrentUsersPosts
   }, dispatch);
-}
+};
 
 export default connect(mapStateToProps, matchDispatchToProps)(Navbar);
