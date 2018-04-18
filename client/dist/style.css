@@ -1,57 +1,29 @@
-/* login profile pages */
-body{
-  background-color: #5fb7f1;
+.loginInputs{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 135px;
+  align-content: space-between;
+  padding-top: 20px;
+  margin-left: 30%;
+  margin-right: 30%;
 }
 
-
-/* the navbar and its buttons  */
-.navbar{
-  background-color: #f0aa28;
-}
-.homeButton{
-  border: none;
-  background-color: #f0aa28;
-  margin: auto;
-  width:30%;
-  text-align: left;
+.welcome{
+  display: flex;
+  font-size: 100px;
+  justify-content: center;
+  margin-top: 10%;
+  font-family: 'Yellowtail', cursive;
+  padding-bottom: 30px;
 }
 
-.searchButton{
-  border: none;
-  background-color: #dda132;
+.loginButtons{
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 }
 
-.logoutButton{
-  background-color: #f0aa28;
-  border: none;
-  float: right;
-}
-
-.searchInput{
-  width: 30%;
-
-}
-
-/* login and sign up */
-
-.login{
-  margin: auto;
-  width: 30%;
-}
-
-
-/* profile page */
-
-.profile{
-  margin: auto;
-  width:30%;
-}
-
-.status{
-  border:.5 em;
-}
-
-  /*comment area */
-.postToWall{
-  float: right;
-}
+.anonProfilePic{
+  height: 200px;
+  width: 220px;

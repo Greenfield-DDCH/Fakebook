@@ -25,11 +25,6 @@ export class Profile extends Component {
   componentDidMount() {
   }
 
-  // componentWillReceiveProps(){
-  //   console.log("will receive",this.props.currentProfile);
-
-  // }
-
   editStatus(e) {
     console.log('this is status', this.state.status);
     this.setState({
@@ -60,7 +55,6 @@ export class Profile extends Component {
       });
   }
 
-
   seeFriends() {
     this.setState({
       seeFriends: true
@@ -72,7 +66,6 @@ export class Profile extends Component {
       picture: null
     });
   }
-
 
   handleDrop(e) {
     console.log('this is the handle event', e);
@@ -103,14 +96,13 @@ export class Profile extends Component {
               picture: response.data.picture
             });
           })
-          .catch(err => {
-            console.log('this is the error: ', err);
-          });
-      });
-    // axios.all(uploaders)
-    //   .then(() => {
 
-    //   });
+        })
+        .catch(err => {
+          console.log('this is the error: ', err)
+        });
+    });
+
   }
 
   findFriend(currProfileId, loggedInAsId) {
@@ -125,21 +117,18 @@ export class Profile extends Component {
           
           // this.state.isFriend = false;
           this.props.changeIsFriend(false);
-          // console.log(this.props);
-        } else{
+
+        }else{
           
           // this.state.isFriend = true;
           this.props.changeIsFriend(true);
-          // console.log(this.props);
         }
-        //return res.data;
       }).catch((err)=>{
         console.log('error in friend get request', err);
       });
     }
     return;
-  }//Check to see if CurrentProfile is a friend or myself in order to view friends
-
+  }//Check to see if CurrentProfile is a friend or myself in order to view friends or ability to comment/post 
 
   render() {
     if (this.state.seeFriends) {
@@ -158,22 +147,24 @@ export class Profile extends Component {
             (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
               <div>
                 {this.state.picture === null ? 
-                  <Dropzone 
-                    onDrop={this.handleDrop.bind(this) } 
-                    multiple 
-                    accept="image/*" 
-                  >
-                    <img src="http://llod.us/sites/default/files/pp-v.jpg"/> 
-                  </Dropzone>
-                  :
-                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+
+                        <Dropzone 
+                            onDrop={this.handleDrop.bind(this) } 
+                            multiple 
+                            accept="image/*" 
+                            >
+                            <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
+                        </Dropzone>
+                        :
+                        <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
                 }
               </div> 
+            :
+            !this.props.currentProfile.picture ? 
+              <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
               :
-              !this.props.currentProfile.picture ? 
-                <img src="http://llod.us/sites/default/files/pp-v.jpg"/> 
-                :
-                <img src={this.props.currentProfile.picture} />
+              <img className="profilePic" src={this.props.currentProfile.picture} />
+
           }
 
           {/*<div>
