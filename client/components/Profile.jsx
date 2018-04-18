@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-// import Navbar from './Navbar.jsx';
 import Dropzone from 'react-dropzone';
+import {bindActionCreators} from 'redux';
+// import Navbar from './Navbar.jsx';
 
 import Post from './post';
-import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
+import {changeIsFriend} from '../actions/index.js';
 
 export class Profile extends Component { 
   constructor(props) {
@@ -16,7 +17,8 @@ export class Profile extends Component {
       pendingStatus: '',
       picture : null,
       posts: this.props.currentProfilePosts,
-      isFriend : true
+      seeFriends: false
+      // isFriend : true
     };
   }
 
@@ -60,7 +62,9 @@ export class Profile extends Component {
 
 
   seeFriends() {
-    console.log('this is the seefriends button');
+    this.setState({
+      seeFriends: true
+    });
   }
 
   editPicture() {
@@ -111,7 +115,7 @@ export class Profile extends Component {
 
   findFriend(currProfileId, loggedInAsId){
     if(currProfileId === loggedInAsId){
-      this.state.isFriend = true;
+      this.props.changeIsFriend(true);
     }else{
       console.log("checking for friend");
       let context = this;
@@ -119,12 +123,14 @@ export class Profile extends Component {
         console.log("successful get for friends", res.data);
         if(res.data === false){
           
-          this.state.isFriend = false;
-          
+          // this.state.isFriend = false;
+          this.props.changeIsFriend(false);
+          // console.log(this.props);
         }else{
           
-          this.state.isFriend = true;
-          
+          // this.state.isFriend = true;
+          this.props.changeIsFriend(true);
+          // console.log(this.props);
         }
         //return res.data;
       }).catch((err)=>{
@@ -136,77 +142,91 @@ export class Profile extends Component {
 
 
   render() {
-    return (
-      <div>
-        <br/>
-        <br/>
-
+    if(this.state.seeFriends){
+      return(
         <div>
-          {this.state.picture === null ? 
-                  <Dropzone 
-                      onDrop={this.handleDrop.bind(this) } 
-                      multiple 
-                      accept="image/*" 
-                      >
-                      <p>Drop your files or click here to upload</p>
-                  </Dropzone>
-                  :
-                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+          see friends
+        </div>
+      );
+    }else{
+      return (
+        <div>
+          <br/>
+          <br/>
+
+          {!this.props.currentProfile ? null : 
+            (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
+              <div>
+                {this.state.picture === null ? 
+                        <Dropzone 
+                            onDrop={this.handleDrop.bind(this) } 
+                            multiple 
+                            accept="image/*" 
+                            >
+                            <img src="http://llod.us/sites/default/files/pp-v.jpg"/> 
+                        </Dropzone>
+                        :
+                        <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                }
+              </div> 
+            :
+            !this.props.currentProfile.picture ? 
+              <img src="http://llod.us/sites/default/files/pp-v.jpg"/> 
+              :
+              <img src={this.props.currentProfile.picture} />
           }
+
+          {/*<div>
+            <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
+          </div>*/}
+
+          <div>
+            {!this.props.currentProfile ? null: this.props.currentProfile.username }
+          </div>
+
+          <div className="statusForm">
+            {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
+            <button onClick={ this.setStatus.bind(this) }>SET STATUS</button> */}
+          </div>
+
+          <div>
+            Current Mood : {this.state.pendingStatus}
+          </div>
+
+          <div>
+                
+          </div>
+
+          <br/>
+          <br/>
+          <div>
+            {!this.props.currentProfile ? null: 
+              (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
+              { !this.props.isFriend ? null :
+              <button onClick={ this.seeFriends.bind(this) }>View Friends</button>
+            }
+          </div>
+          {!this.props.currentProfile ? null: <Post />}
+
         </div>
-
-        {/*<div>
-          <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
-        </div>*/}
-
-        <div>
-          {!this.props.currentProfile ? null: this.props.currentProfile.username }
-        </div>
-
-        <div className="statusForm">
-          {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
-          <button onClick={ this.setStatus.bind(this) }>SET STATUS</button> */}
-        </div>
-
-        <div>
-          Current Mood : {this.state.pendingStatus}
-        </div>
-
-        <div>
-              
-        </div>
-
-        <br/>
-        <br/>
-        <div>
-          {!this.props.currentProfile ? null: 
-            (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
-            { !this.state.isFriend ? console.log("not a friend") :
-            <button onClick={ this.seeFriends.bind(this) }>SEE FRIENDS</button>
-          }
-        </div>
-        {!this.props.currentProfile ? null: <Post />}
-
-      </div>
-    );
+      );
+    }
   }
 }
 
 const mapStateToProps = function(state){
   return {
-    currentProfile: state.currentUser,
+    currentProfile: state.currentUser,  
     loggedInAs: state.user,
-    currentProfilePosts: state.currentUserPosts
+    currentProfilePosts: state.currentUserPosts,
+    isFriend: state.isFriend
   }
 }
 
-// function matchDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     setCurrentUser,
-//     setUser,
-//     changeCurrentUsersPosts,
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({
+    changeIsFriend
+  }, dispatch);
+}
 
-//   }, dispatch);
-// }
-
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, matchDispatchToProps)(Profile);

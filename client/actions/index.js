@@ -21,6 +21,13 @@ export const changeCurrentUsersPosts = (userPosts) => {
   };
 }
 
+export const changeIsFriend = (isFriend) => {
+  return{
+    type: 'CHANGE_IS_FRIEND',
+    payload: isFriend
+  };
+}
+
 // export const changeUploadPicture = (userPicture) => {
 //   return {
 //     type : 'CHANGE_PICTURE',
