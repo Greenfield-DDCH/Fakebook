@@ -67,6 +67,8 @@ export class Profile extends Component {
     });
   }
 
+
+
   handleDrop(e) {
     console.log('this is the handle event', e);
     var context = this;
@@ -88,7 +90,6 @@ export class Profile extends Component {
           data: data.url,
           userId: context.props.currentProfile.id,
         };
-
         axios.post('/api/user/insertpicture', payload)
           .then(response => {
             console.log('this is the responseeeeee: ', response.data.picture);
@@ -96,14 +97,12 @@ export class Profile extends Component {
               picture: response.data.picture
             });
           })
-
-        })
-        .catch(err => {
-          console.log('this is the error: ', err)
-        });
-    });
-
+          .catch(err => {
+            console.log('this is the error: ', err);
+          });
+      });
   }
+
 
   findFriend(currProfileId, loggedInAsId) {
     if (currProfileId === loggedInAsId) {
@@ -117,13 +116,8 @@ export class Profile extends Component {
           
           // this.state.isFriend = false;
           this.props.changeIsFriend(false);
-<<<<<<< HEAD
-
-        }else{
-=======
           // console.log(this.props);
         } else {
->>>>>>> friend button works
           
           // this.state.isFriend = true;
           this.props.changeIsFriend(true);
@@ -157,22 +151,22 @@ export class Profile extends Component {
               <div>
                 {this.state.picture === null ? 
 
-                        <Dropzone 
-                            onDrop={this.handleDrop.bind(this) } 
-                            multiple 
-                            accept="image/*" 
-                            >
-                            <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
-                        </Dropzone>
-                        :
-                        <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                  <Dropzone 
+                    onDrop={this.handleDrop.bind(this) } 
+                    multiple 
+                    accept="image/*" 
+                  >
+                    <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
+                  </Dropzone>
+                  :
+                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
                 }
               </div> 
-            :
-            !this.props.currentProfile.picture ? 
-              <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
               :
-              <img className="profilePic" src={this.props.currentProfile.picture} />
+              !this.props.currentProfile.picture ? 
+                <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
+                :
+                <img className="profilePic" src={this.props.currentProfile.picture} />
 
           }
 
