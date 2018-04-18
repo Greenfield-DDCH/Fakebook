@@ -34,7 +34,7 @@ CREATE TABLE statuses (
   mood varchar(50),
   userId int NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY(userId) REFERENCES users(id)
+  FOREIGN KEY(userId) REFERENCES users(id) 
 );
 
 INSERT INTO users (username, password, picture) VALUES('daniel', 'daniel', 'thisisasamplepicture');

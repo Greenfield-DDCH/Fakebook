@@ -18,7 +18,6 @@ class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log('this is user', this.state);
   }
 
   onLoginClick() {
@@ -32,12 +31,11 @@ class Login extends Component {
       headers: {
         authorization: sessionStorage.getItem('token')
       }
-    }
+    };
 
-    axios.post(`/api/user/login`, payload)
+    axios.post('/api/user/login', payload)
       .then(res => {
-        console.log('this is response', res.headers.authorization);
-        console.log('this is response data', res.data);
+        console.log('this is response token', res.headers.authorization);
         context.props.setUser(res.data);
         let currUser = (context.props.setCurrentUser(res.data).payload);
         sessionStorage.setItem('token', res.headers.authorization);
@@ -68,13 +66,13 @@ class Login extends Component {
   render() {
     return (
       <div>
+
         <Segment textAlign='center' size='massive' inverted color='blue'> fakebook </Segment>
 
         <div className="welcome">Welcome!</div>
 
         <div className="loginInputs">
           <Input size="huge" name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></Input>
-
           <Input size="huge" name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></Input>
 
         </div>
@@ -82,7 +80,6 @@ class Login extends Component {
         <div className="loginButtons">
           <Button color='blue' size="huge" onClick={this.onLoginClick.bind(this)}>Login</Button>
           <Button color='blue' size="huge" onClick={this.onSignupClick.bind(this)}>Sign Up</Button>
-            
         </div>
       </div>
     );

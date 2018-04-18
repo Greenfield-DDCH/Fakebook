@@ -12,17 +12,17 @@ export class Profile extends Component {
   constructor(props) {
     super(props);
 
-   this.state = {
+    this.state = {
       status: '',
       pendingStatus: '',
-      picture : null,
+      picture: null,
       posts: this.props.currentProfilePosts,
       seeFriends: false
       // isFriend : true
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
   }
 
   editStatus(e) {
@@ -36,19 +36,19 @@ export class Profile extends Component {
     console.log('this is the status click');
     var payload = {
       status: this.state.status,
-      userId : this.props.currentProfile.id
+      userId: this.props.currentProfile.id
     };
     const config = {
       headers: {
         authorization: sessionStorage.getItem('token')
       }
-    }
+    };
     axios.post('/api/user/setstatus', payload, config)
       .then(response => {
         console.log('server replied with this button handler status: ', response);
         this.setState({
-          pendingStatus : response.data.status
-        })
+          pendingStatus: response.data.status
+        });
       })
       .catch(err => {
         console.log('this is the error from server: ', err);
@@ -63,54 +63,57 @@ export class Profile extends Component {
 
   editPicture() {
     this.setState({
-      picture : null
-    })
+      picture: null
+    });
   }
 
   handleDrop(e) {
-    console.log('this is the handle event', e)
+    console.log('this is the handle event', e);
     var context = this;
-    const formData = new FormData()
+    const formData = new FormData();
     const uploaders = e.map (file => {
-      console.log('this is file', file)
-      console.log('this is formData', formData)
+      console.log('this is file', file);
+      console.log('this is formData', formData);
       formData.append('file', file);
-      formData.append("upload_preset", "ed9m3yng");
-      formData.append("api_key", "887545849876627");
-      formData.append("timestamp", (Date.now() / 1000) | 0);
-    })
+      formData.append('upload_preset', 'ed9m3yng');
+      formData.append('api_key', '887545849876627');
+      formData.append('timestamp', (Date.now() / 1000) | 0);
+    });
     axios.post('https://api.cloudinary.com/v1_1/dtfhh2ukc/image/upload', formData, {
-      header: {"X-Requested-With": "XMLHttpRequest"},
+      header: {'X-Requested-With': 'XMLHttpRequest'},
     })
-    .then(response => {
-      const data = response.data;
-      var payload = {
-        data : data.url,
-        userId : context.props.currentProfile.id,
-      }
+      .then(response => {
+        const data = response.data;
+        var payload = {
+          data: data.url,
+          userId: context.props.currentProfile.id,
+        };
 
-      axios.post('/api/user/insertpicture', payload)
-        .then(response => {
-          console.log('this is the responseeeeee: ', response.data.picture)
-          this.setState({
-            picture : response.data.picture
+        axios.post('/api/user/insertpicture', payload)
+          .then(response => {
+            console.log('this is the responseeeeee: ', response.data.picture);
+            this.setState({
+              picture: response.data.picture
+            });
           })
+
         })
         .catch(err => {
           console.log('this is the error: ', err)
         });
     });
+
   }
 
-  findFriend(currProfileId, loggedInAsId){
-    if(currProfileId === loggedInAsId){
+  findFriend(currProfileId, loggedInAsId) {
+    if (currProfileId === loggedInAsId) {
       this.props.changeIsFriend(true);
-    }else{
-      console.log("checking for friend");
+    }else {
+      console.log('checking for friend');
       let context = this;
       axios.get(`api/friends/${currProfileId}/${loggedInAsId}`).then((res) => {
-        console.log("successful get for friends", res.data);
-        if(res.data === false){
+        console.log('successful get for friends', res.data);
+        if (res.data === false) {
           
           // this.state.isFriend = false;
           this.props.changeIsFriend(false);
@@ -128,13 +131,13 @@ export class Profile extends Component {
   }//Check to see if CurrentProfile is a friend or myself in order to view friends or ability to comment/post 
 
   render() {
-    if(this.state.seeFriends){
-      return(
+    if (this.state.seeFriends) {
+      return (
         <div>
           see friends
         </div>
       );
-    }else{
+    } else {
       return (
         <div>
           <br/>
@@ -144,6 +147,7 @@ export class Profile extends Component {
             (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
               <div>
                 {this.state.picture === null ? 
+
                         <Dropzone 
                             onDrop={this.handleDrop.bind(this) } 
                             multiple 
@@ -160,6 +164,7 @@ export class Profile extends Component {
               <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
               :
               <img className="profilePic" src={this.props.currentProfile.picture} />
+
           }
 
           {/*<div>
@@ -167,7 +172,7 @@ export class Profile extends Component {
           </div>*/}
 
           <div>
-            {!this.props.currentProfile ? null: this.props.currentProfile.username }
+            {!this.props.currentProfile ? null : this.props.currentProfile.username }
           </div>
 
           <div className="statusForm">
@@ -186,13 +191,13 @@ export class Profile extends Component {
           <br/>
           <br/>
           <div>
-            {!this.props.currentProfile ? null: 
+            {!this.props.currentProfile ? null : 
               (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
-              { !this.props.isFriend ? null :
+            { !this.props.isFriend ? null :
               <button onClick={ this.seeFriends.bind(this) }>View Friends</button>
             }
           </div>
-          {!this.props.currentProfile ? null: <Post />}
+          {!this.props.currentProfile ? null : <Post />}
 
         </div>
       );
@@ -200,14 +205,14 @@ export class Profile extends Component {
   }
 }
 
-const mapStateToProps = function(state){
+const mapStateToProps = function(state) {
   return {
     currentProfile: state.currentUser,  
     loggedInAs: state.user,
     currentProfilePosts: state.currentUserPosts,
     isFriend: state.isFriend
-  }
-}
+  };
+};
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
