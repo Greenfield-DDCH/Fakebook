@@ -17,7 +17,6 @@ class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log('this is user', this.state);
   }
 
   onLoginClick() {
@@ -31,20 +30,15 @@ class Login extends Component {
       headers: {
         authorization: sessionStorage.getItem('token')
       }
-    }
+    };
 
-    axios.post(`/api/user/login`, payload)
+    axios.post('/api/user/login', payload)
       .then(res => {
-        console.log('this is response', res.headers.authorization);
-        console.log('this is response data', res.data);
+        console.log('this is response token', res.headers.authorization);
         context.props.setUser(res.data);
         let currUser = (context.props.setCurrentUser(res.data).payload);
         sessionStorage.setItem('token', res.headers.authorization);
-    // axios.get(`/api/user/${this.state.username}/${this.state.password}`)
-    //   .then((res) => {
-    //     context.props.setUser(res.data);
-    //     let payload = (context.props.setCurrentUser(res.data).payload);
-    //     sessionStorage.setItem('token', res.data.token);
+
         axios({
           method: 'get',
           url: `/api/posts/${currUser.id}`,
@@ -71,13 +65,13 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h2>Login</h2>
-        <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
-        <br/>
-        <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>
-        <br/>
-        <button onClick={this.onLoginClick.bind(this)}>Login</button>
-        <button onClick={this.onSignupClick.bind(this)}>Sign Up</button>
+        <h1>Welcome to FakeBook! Jump in, the water's warm</h1>
+        <div className='login'>
+          <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
+          <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>
+          <button onClick={this.onLoginClick.bind(this)}>Login</button>
+          <button onClick={this.onSignupClick.bind(this)}>Sign Up</button>
+        </div>
       </div>
     );
   }

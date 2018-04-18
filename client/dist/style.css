@@ -1,3 +1,57 @@
+/* login profile pages */
 body{
+  background-color: #5fb7f1;
+}
 
+
+/* the navbar and its buttons  */
+.navbar{
+  background-color: #f0aa28;
+}
+.homeButton{
+  border: none;
+  background-color: #f0aa28;
+  margin: auto;
+  width:30%;
+  text-align: left;
+}
+
+.searchButton{
+  border: none;
+  background-color: #dda132;
+}
+
+.logoutButton{
+  background-color: #f0aa28;
+  border: none;
+  float: right;
+}
+
+.searchInput{
+  width: 30%;
+
+}
+
+/* login and sign up */
+
+.login{
+  margin: auto;
+  width: 30%;
+}
+
+
+/* profile page */
+
+.profile{
+  margin: auto;
+  width:30%;
+}
+
+.status{
+  border:.5 em;
+}
+
+  /*comment area */
+.postToWall{
+  float: right;
 }
