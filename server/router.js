@@ -7,6 +7,7 @@ import signupController from './controllers/signupController';
 import loginController from './controllers/loginController';
 import passport from './models/passport';
 import verifyJWTToken from './tokenVerify';
+import friendsController from './controllers/friendsController';
 
 
 
@@ -33,6 +34,13 @@ router.post('/posts/:userId',  postToPosts);
 
 router.get('/comments/:parentId/:userId', getComments);
 
+
+// Friend Handling
+//check to see if friends
 router.get('/friends/:currUserId/:loggedInAsId', findFriend);
+
+//Add friend
+router.route('/friends')
+  .post(friendsController);
 
 export default router;

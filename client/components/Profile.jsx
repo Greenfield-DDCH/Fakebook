@@ -3,7 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Dropzone from 'react-dropzone';
 import {bindActionCreators} from 'redux';
-// import Navbar from './Navbar.jsx';
+import FriendButton from './FriendButton.jsx';
 
 import Post from './post';
 import {changeIsFriend} from '../actions/index.js';
@@ -108,7 +108,7 @@ export class Profile extends Component {
   findFriend(currProfileId, loggedInAsId) {
     if (currProfileId === loggedInAsId) {
       this.props.changeIsFriend(true);
-    }else {
+    } else {
       console.log('checking for friend');
       let context = this;
       axios.get(`api/friends/${currProfileId}/${loggedInAsId}`).then((res) => {
@@ -117,8 +117,13 @@ export class Profile extends Component {
           
           // this.state.isFriend = false;
           this.props.changeIsFriend(false);
+<<<<<<< HEAD
 
         }else{
+=======
+          // console.log(this.props);
+        } else {
+>>>>>>> friend button works
           
           // this.state.isFriend = true;
           this.props.changeIsFriend(true);
@@ -139,8 +144,12 @@ export class Profile extends Component {
       );
     } else {
       return (
-        <div>
+        <div className="profile">
           <br/>
+          <div>
+            {!this.props.currentProfile ? null : this.props.currentProfile.username }
+          </div>
+          <FriendButton />
           <br/>
 
           {!this.props.currentProfile ? null : 
@@ -171,9 +180,6 @@ export class Profile extends Component {
             <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
           </div>*/}
 
-          <div>
-            {!this.props.currentProfile ? null : this.props.currentProfile.username }
-          </div>
 
           <div className="statusForm">
             {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
