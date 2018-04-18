@@ -3,7 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Dropzone from 'react-dropzone';
 import {bindActionCreators} from 'redux';
-// import Navbar from './Navbar.jsx';
+import FriendButton from './FriendButton.jsx';
 
 import Post from './post';
 import {changeIsFriend} from '../actions/index.js';
@@ -67,6 +67,8 @@ export class Profile extends Component {
     });
   }
 
+
+
   handleDrop(e) {
     console.log('this is the handle event', e);
     var context = this;
@@ -88,7 +90,6 @@ export class Profile extends Component {
           data: data.url,
           userId: context.props.currentProfile.id,
         };
-
         axios.post('/api/user/insertpicture', payload)
           .then(response => {
             console.log('this is the responseeeeee: ', response.data.picture);
@@ -96,19 +97,17 @@ export class Profile extends Component {
               picture: response.data.picture
             });
           })
-
-        })
-        .catch(err => {
-          console.log('this is the error: ', err)
-        });
-    });
-
+          .catch(err => {
+            console.log('this is the error: ', err);
+          });
+      });
   }
+
 
   findFriend(currProfileId, loggedInAsId) {
     if (currProfileId === loggedInAsId) {
       this.props.changeIsFriend(true);
-    }else {
+    } else {
       console.log('checking for friend');
       let context = this;
       axios.get(`api/friends/${currProfileId}/${loggedInAsId}`).then((res) => {
@@ -117,8 +116,8 @@ export class Profile extends Component {
           
           // this.state.isFriend = false;
           this.props.changeIsFriend(false);
-
-        }else{
+          // console.log(this.props);
+        } else {
           
           // this.state.isFriend = true;
           this.props.changeIsFriend(true);
@@ -139,8 +138,12 @@ export class Profile extends Component {
       );
     } else {
       return (
-        <div>
+        <div className="profile">
           <br/>
+          <div>
+            {!this.props.currentProfile ? null : this.props.currentProfile.username }
+          </div>
+          <FriendButton />
           <br/>
 
           {!this.props.currentProfile ? null : 
@@ -148,22 +151,22 @@ export class Profile extends Component {
               <div>
                 {this.state.picture === null ? 
 
-                        <Dropzone 
-                            onDrop={this.handleDrop.bind(this) } 
-                            multiple 
-                            accept="image/*" 
-                            >
-                            <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
-                        </Dropzone>
-                        :
-                        <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                  <Dropzone 
+                    onDrop={this.handleDrop.bind(this) } 
+                    multiple 
+                    accept="image/*" 
+                  >
+                    <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
+                  </Dropzone>
+                  :
+                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
                 }
               </div> 
-            :
-            !this.props.currentProfile.picture ? 
-              <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
               :
-              <img className="profilePic" src={this.props.currentProfile.picture} />
+              !this.props.currentProfile.picture ? 
+                <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
+                :
+                <img className="profilePic" src={this.props.currentProfile.picture} />
 
           }
 
@@ -171,9 +174,6 @@ export class Profile extends Component {
             <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
           </div>*/}
 
-          <div>
-            {!this.props.currentProfile ? null : this.props.currentProfile.username }
-          </div>
 
           <div className="statusForm">
             {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
