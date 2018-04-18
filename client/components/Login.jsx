@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {setUser, setCurrentUser, changeCurrentUsersPosts} from '../actions/index.js';
 import axios from 'axios';
+import { Button, Segment, Input, Header } from 'semantic-ui-react';
+import {setUser, setCurrentUser, changeCurrentUsersPosts} from '../actions/index.js';
 
 class Login extends Component {
   constructor(props) {
@@ -40,11 +41,7 @@ class Login extends Component {
         context.props.setUser(res.data);
         let currUser = (context.props.setCurrentUser(res.data).payload);
         sessionStorage.setItem('token', res.headers.authorization);
-    // axios.get(`/api/user/${this.state.username}/${this.state.password}`)
-    //   .then((res) => {
-    //     context.props.setUser(res.data);
-    //     let payload = (context.props.setCurrentUser(res.data).payload);
-    //     sessionStorage.setItem('token', res.data.token);
+
         axios({
           method: 'get',
           url: `/api/posts/${currUser.id}`,
@@ -71,13 +68,22 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h2>Login</h2>
-        <input name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></input>
-        <br/>
-        <input name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></input>
-        <br/>
-        <button onClick={this.onLoginClick.bind(this)}>Login</button>
-        <button onClick={this.onSignupClick.bind(this)}>Sign Up</button>
+        <Segment textAlign='center' size='massive' inverted color='blue'> fakebook </Segment>
+
+        <div className="welcome">Welcome!</div>
+
+        <div className="loginInputs">
+          <Input size="huge" name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></Input>
+
+          <Input size="huge" name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></Input>
+
+        </div>
+        
+        <div className="loginButtons">
+          <Button color='blue' size="huge" onClick={this.onLoginClick.bind(this)}>Login</Button>
+          <Button color='blue' size="huge" onClick={this.onSignupClick.bind(this)}>Sign Up</Button>
+            
+        </div>
       </div>
     );
   }

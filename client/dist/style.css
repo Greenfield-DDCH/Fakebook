@@ -1,3 +1,25 @@
-body{
+.loginInputs{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 135px;
+  align-content: space-between;
+  padding-top: 20px;
+  margin-left: 30%;
+  margin-right: 30%;
+}
 
+.welcome{
+  display: flex;
+  font-size: 100px;
+  justify-content: center;
+  margin-top: 10%;
+  font-family: 'Yellowtail', cursive;
+  padding-bottom: 30px;
+}
+
+.loginButtons{
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 }
