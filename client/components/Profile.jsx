@@ -149,7 +149,7 @@ export class Profile extends Component {
                             multiple 
                             accept="image/*" 
                             >
-                            <img src="http://llod.us/sites/default/files/pp-v.jpg"/> 
+                            <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
                         </Dropzone>
                         :
                         <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
@@ -157,7 +157,7 @@ export class Profile extends Component {
               </div> 
             :
             !this.props.currentProfile.picture ? 
-              <img className="profilePic" src="http://llod.us/sites/default/files/pp-v.jpg"/> 
+              <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
               :
               <img className="profilePic" src={this.props.currentProfile.picture} />
           }
