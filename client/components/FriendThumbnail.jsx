@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Image} from 'semantic-ui-react';
 import axios from 'axios';
 
-import {setCurrentUser} from '../actions/index.js';
+import {setCurrentUser, changeCurrentUsersPosts} from '../actions/index.js';
 
 class FriendThumbnail extends Component {
   constructor(props) {
@@ -13,18 +13,22 @@ class FriendThumbnail extends Component {
 
   onUsernameClick(username) {
     var context = this;
+    console.log("this is username",username);
     axios({
       method: 'get',
       url: `/api/search/${username}`,
       headers: { token: sessionStorage.getItem('token') },
     }).then((response) => {
-      context.props.setCurrentUser(response.data.results[0]);
-      console.log('after the setting of current user', context.props.currentUser);
+      console.log("Successful get:",response);
+
+      //need the payload due to async issues with setting CurrentUser
+      let payload = context.props.setCurrentUser(response.data.results[0]).payload;
+
       //Search for posts, will probably need to grab friends as well
       //fetch the CurrentProfile's posts and update them
       axios({
         method: 'get',
-        url: `/api/posts/${context.props.currentUser.id}`,
+        url: `/api/posts/${payload.id}`,
         headers: { token: sessionStorage.getItem('token') },
       }).then((res)=>{
         console.log('successful get', res);
@@ -49,7 +53,6 @@ class FriendThumbnail extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser
@@ -58,7 +61,8 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    setCurrentUser
+    setCurrentUser,
+    changeCurrentUsersPosts
   }, dispatch);
 };
 
