@@ -5,6 +5,8 @@ import router from './router';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 
+import './db/';
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -24,3 +26,19 @@ passport.deserializeUser(function(user, done) {
 app.listen(3000, () =>{ 
   console.log('listening on port 3000...');
 });
+
+
+// const Server = require('socket.io');
+// const io = new Server();
+
+// const server = require('http').createServer();
+
+// const io = require('socket.io')(server, {
+//   path : '/test',
+//   serveClient : false,
+//   pingInterval: 10000,
+//   pingTimeout: 5000,
+//   cookie: false
+// });
+
+// server.listen(8080);
