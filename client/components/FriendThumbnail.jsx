@@ -11,7 +11,7 @@ class FriendThumbnail extends Component {
   }
 
   onUsernameClick(e) {
-    console.log('name clicked', e.target);
+    console.log('name clicked', e.target, e.target.name, e );
 
     //still need to isolate current user from target
     // this.props.setCurrentUser();
