@@ -28,6 +28,13 @@ export const changeIsFriend = (isFriend) => {
   };
 }
 
+export const getFriends = (friends) => {
+  return{
+    type: 'GET_FRIENDS',
+    payload: friends
+  };
+}
+
 // export const changeUploadPicture = (userPicture) => {
 //   return {
 //     type : 'CHANGE_PICTURE',

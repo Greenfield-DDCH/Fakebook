@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {Input, Button} from 'semantic-ui-react';
 
-import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index.js';
+import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index';
 import Profile from './Profile';
 
 

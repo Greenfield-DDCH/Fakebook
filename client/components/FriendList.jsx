@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 import FriendThumbnail from './FriendThumbnail';
+import {getFriends} from '../actions/index.js';
 
 class FriendList extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      friends: null
-    };
   }
 
-
-  // 
   componentDidMount() {
     const context = this;
     axios({
@@ -21,14 +18,10 @@ class FriendList extends Component {
       url: `/api/friends/${context.props.currentProfile.id}`,
       headers: { token: sessionStorage.getItem('token') },
     }).then((response) => {
-      context.setState({
-        friends: response.data.results
-      });
-      console.log(context.state);
-      
+      context.props.getFriends(response.data.friends);
     })
       .catch(function (error) {
-        console.log(error);
+        console.log("ERROR: ",error);
       });
   }
   
@@ -37,25 +30,33 @@ class FriendList extends Component {
   }
 
   render() {
+    console.log("here",this.props.currentProfileFriends);
     return (
       <div>
         <h1>{this.props.currentProfile.username}'s Friends</h1>
-        <ul>
-          { this.state.friends ? 
-            this.state.friends.map((user) => { return <FriendThumbnail username={user.username} picture={user.picture} key={user.id}/>; }) 
+
+          { this.props.currentProfileFriends ? 
+            this.props.currentProfileFriends.map((user) => { return <FriendThumbnail username={user.username} picture={user.picture} key={user.id}/>; }) 
             : null }
-        </ul>
+
         <button onClick={this.returnButton.bind(this)}>Return to Profile</button>
       </div>
     );
   }
 }
 
-
 const mapStateToProps = function(state) {
   return {
-    currentProfile: state.currentUser,  
+    loggedInAs: state.user,
+    currentProfile: state.currentUser, 
+    currentProfileFriends: state.friends
   };
 };
 
-export default connect(mapStateToProps)(FriendList);
+const matchDispatchToProps = (dispatch) =>{
+  return bindActionCreators({
+    getFriends
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(FriendList);

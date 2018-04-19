@@ -28,14 +28,12 @@ export class Profile extends Component {
   }
 
   editStatus(e) {
-    console.log('this is status', this.state.status);
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
   setStatus() {
-    console.log('this is the status click');
     var payload = {
       status: this.state.status,
       userId: this.props.currentProfile.id
@@ -69,15 +67,10 @@ export class Profile extends Component {
     });
   }
 
-
-
   handleDrop(e) {
-    console.log('this is the handle event', e);
     var context = this;
     const formData = new FormData();
     const uploaders = e.map (file => {
-      console.log('this is file', file);
-      console.log('this is formData', formData);
       formData.append('file', file);
       formData.append('upload_preset', 'ed9m3yng');
       formData.append('api_key', '887545849876627');
@@ -94,7 +87,6 @@ export class Profile extends Component {
         };
         axios.post('/api/user/insertpicture', payload)
           .then(response => {
-            console.log('this is the responseeeeee: ', response.data.picture);
             this.setState({
               picture: response.data.picture
             });
@@ -105,23 +97,16 @@ export class Profile extends Component {
       });
   }
 
-
   findFriend(currProfileId, loggedInAsId) {
     if (currProfileId === loggedInAsId) {
       this.props.changeIsFriend(true);
     } else {
-      console.log('checking for friend');
       let context = this;
       axios.get(`api/friends/${currProfileId}/${loggedInAsId}`).then((res) => {
         console.log('successful get for friends', res.data);
         if (res.data === false) {
-          
-          // this.state.isFriend = false;
           this.props.changeIsFriend(false);
-          // console.log(this.props);
         } else {
-          
-          // this.state.isFriend = true;
           this.props.changeIsFriend(true);
         }
       }).catch((err)=>{
@@ -179,13 +164,9 @@ export class Profile extends Component {
 
               }
 
-              {/*<div>
-                <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
-              </div>*/}
 
               <div className="statusForm">
-                {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
-                <button onClick={ this.setStatus.bind(this) }>SET STATUS</button> */}
+
               </div>
 
               <div>

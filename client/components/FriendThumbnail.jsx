@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {Image} from 'semantic-ui-react';
+
 import {setCurrentUser} from '../actions/index.js';
 
 class FriendThumbnail extends Component {
@@ -17,8 +19,9 @@ class FriendThumbnail extends Component {
 
   render() {
     return (
-      <div>
-        <li onClick={this.onUsernameClick.bind(this)}>{this.props.username}</li>
+      <div className="friendPageAvatar" onClick={this.onUsernameClick.bind(this)}>
+        <Image size='tiny' src={this.props.picture} avatar />
+        <span>{this.props.username}</span>
       </div>
     );
   }
