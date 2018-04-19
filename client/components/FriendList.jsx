@@ -21,7 +21,7 @@ class FriendList extends Component {
       context.props.getFriends(response.data.friends);
     })
       .catch(function (error) {
-        console.log("ERROR: ",error);
+        console.log('ERROR: ', error);
       });
   }
   
@@ -30,14 +30,14 @@ class FriendList extends Component {
   }
 
   render() {
-    console.log("here",this.props.currentProfileFriends);
+    console.log('here', this.props.currentProfileFriends);
     return (
       <div>
         <h1>{this.props.currentProfile.username}'s Friends</h1>
 
-          { this.props.currentProfileFriends ? 
-            this.props.currentProfileFriends.map((user) => { return <FriendThumbnail username={user.username} picture={user.picture} key={user.id}/>; }) 
-            : null }
+        { this.props.currentProfileFriends ? 
+          this.props.currentProfileFriends.map((user) => { return <FriendThumbnail goToProfile={this.props.returnToProfile} username={user.username} picture={user.picture} key={user.id} userId={user.id}/>; }) 
+          : null }
 
         <button onClick={this.returnButton.bind(this)}>Return to Profile</button>
       </div>
@@ -57,6 +57,6 @@ const matchDispatchToProps = (dispatch) =>{
   return bindActionCreators({
     getFriends
   }, dispatch);
-}
+};
 
 export default connect(mapStateToProps, matchDispatchToProps)(FriendList);

@@ -10,16 +10,15 @@ class FriendThumbnail extends Component {
     super(props);
   }
 
-  onUsernameClick(e) {
-    console.log('name clicked', e.target);
-
-    //still need to isolate current user from target
-    // this.props.setCurrentUser();
+  onUsernameClick(usernames, pictures, userId) {
+    var user = {id: userId, username: usernames, password: '', picture: pictures};
+    this.props.setCurrentUser(user);
+    this.props.goToProfile();
   }
 
   render() {
     return (
-      <div className="friendPageAvatar" onClick={this.onUsernameClick.bind(this)}>
+      <div className="friendPageAvatar" onClick={() => this.onUsernameClick(this.props.username, this.props.picture, this.props.userId)}>
         <Image size='tiny' src={this.props.picture} avatar />
         <span>{this.props.username}</span>
       </div>
