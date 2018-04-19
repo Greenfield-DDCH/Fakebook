@@ -25,12 +25,7 @@
   padding-top: 20px;
 }
 
-.anonProfilePic{
-  height: 200px;
-  width: 220px;
-}
-
-/*NAVBAR CSS*/
+/* NAVBAR CSS*/
 .navbar{
   background-color: #2185D0;
   height: 45px;
@@ -45,4 +40,46 @@
   font-size: 20px;
 }
 
+/* PROFILE PAGE CSS */
+.profile{
+  display: flex;
+  margin-top: 50px;
+  margin-left: 40px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.picContainer{
+  height: 200px;
+  width: 200px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.profilePic{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.anonProfilePic{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Post/Comment CSS */
+.postToWall{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 

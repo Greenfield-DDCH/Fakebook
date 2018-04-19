@@ -141,68 +141,69 @@ export class Profile extends Component {
       );
     } else {
       return (
-        <div className="profile">
+        <div>
           <Navbar />
-          <br/>
-          <div>
-            {!this.props.currentProfile ? null : this.props.currentProfile.username }
-          </div>
-          <FriendButton />
-          <br/>
+          <div className="profile">
+            <div className="container">
+              <div className="userName">
+                {!this.props.currentProfile ? null : this.props.currentProfile.username }
+              </div>
+              <FriendButton />
+      
 
-          {!this.props.currentProfile ? null : 
-            (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
-              <div>
-                {this.state.picture === null ? 
+              {!this.props.currentProfile ? null : 
+                (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
+                  <div>
+                    {this.state.picture === null ? 
 
-                  <Dropzone 
-                    onDrop={this.handleDrop.bind(this) } 
-                    multiple 
-                    accept="image/*" 
-                  >
-                    <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
-                  </Dropzone>
+                      <Dropzone 
+                        onDrop={this.handleDrop.bind(this) } 
+                        multiple 
+                        accept="image/*" 
+                      >
+                        <div className="picContainer">
+                          <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
+                        </div>
+                      </Dropzone>
+                      :
+                      <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                    }
+                  </div> 
                   :
-                  <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                  !this.props.currentProfile.picture ? <div className="picContainer">
+                    <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> </div>
+                    :
+                    <div className="picContainer">
+                    <img className="profilePic" src={this.props.currentProfile.picture} />
+                    </div>
+
+              }
+
+              {/*<div>
+                <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
+              </div>*/}
+
+              <div className="statusForm">
+                {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
+                <button onClick={ this.setStatus.bind(this) }>SET STATUS</button> */}
+              </div>
+
+              <div>
+                Current Mood : {this.state.pendingStatus}
+              </div>
+
+              <div className="viewFriendsDiv">
+                {!this.props.currentProfile ? null : 
+                  (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
+                { !this.props.isFriend ? null :
+                  <button onClick={ this.seeFriends.bind(this) }>View Friends</button>
                 }
-              </div> 
-              :
-              !this.props.currentProfile.picture ? 
-                <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
-                :
-                <img className="profilePic" src={this.props.currentProfile.picture} />
+              </div>
+            </div>
 
-          }
+            {!this.props.currentProfile ? null : <Post />}
 
-          {/*<div>
-            <button onClick={ this.editPicture.bind(this) }>EDIT PICTURE</button>
-          </div>*/}
-
-
-          <div className="statusForm">
-            {/* <input name='status' onChange={ this.editStatus.bind(this) } placeholder='set status..'></input>
-            <button onClick={ this.setStatus.bind(this) }>SET STATUS</button> */}
           </div>
-
-          <div>
-            Current Mood : {this.state.pendingStatus}
-          </div>
-
-          <div>
-                
-          </div>
-
-          <br/>
-          <br/>
-          <div>
-            {!this.props.currentProfile ? null : 
-              (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
-            { !this.props.isFriend ? null :
-              <button onClick={ this.seeFriends.bind(this) }>View Friends</button>
-            }
-          </div>
-          {!this.props.currentProfile ? null : <Post />}
-
         </div>
       );
     }
