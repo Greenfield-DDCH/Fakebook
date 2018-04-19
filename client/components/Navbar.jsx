@@ -7,7 +7,6 @@ import {Input, Button} from 'semantic-ui-react';
 import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index';
 import Profile from './Profile';
 
-
 export class Navbar extends Component {
   constructor(props) {
     super(props);
