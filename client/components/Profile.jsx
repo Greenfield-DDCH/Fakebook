@@ -3,10 +3,11 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Dropzone from 'react-dropzone';
 import {bindActionCreators} from 'redux';
+import {Button} from 'semantic-ui-react';
+
 import FriendButton from './FriendButton';
 import Navbar from './Navbar';
 import FriendList from './FriendList';
-
 import Post from './post';
 import {changeIsFriend} from '../actions/index.js';
 
@@ -15,7 +16,7 @@ export class Profile extends Component {
     super(props);
 
     this.state = {
-      status: '',
+      textAreaStatus: '',
       pendingStatus: '',
       picture: null,
       posts: this.props.currentProfilePosts,
@@ -27,25 +28,28 @@ export class Profile extends Component {
   componentDidMount() {
   }
 
-  editStatus(e) {
+  onChangeStatusText(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      textAreaStatus: e.target.value
     });
   }
 
   setStatus() {
-    var payload = {
-      status: this.state.status,
+    const payload = {
+      status: this.state.textAreaStatus,
       userId: this.props.currentProfile.id
     };
-    const config = {
-      headers: {
-        authorization: sessionStorage.getItem('token')
-      }
-    };
-    axios.post('/api/user/setstatus', payload, config)
+
+    // const config = {
+    //   headers: {
+    //     authorization: sessionStorage.getItem('token')
+    //   }
+    // };
+
+    axios.post('/api/user/setstatus', payload)
       .then(response => {
         console.log('server replied with this button handler status: ', response);
+        
         this.setState({
           pendingStatus: response.data.status
         });
@@ -133,9 +137,9 @@ export class Profile extends Component {
               <div className="userName">
                 {!this.props.currentProfile ? null : this.props.currentProfile.username }
               </div>
+
               <FriendButton />
       
-
               {!this.props.currentProfile ? null : 
                 (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
                   <div>
@@ -164,14 +168,18 @@ export class Profile extends Component {
 
               }
 
-
-              <div className="statusForm">
-
-              </div>
-
               <div>
                 Current Mood : {this.state.pendingStatus}
               </div>
+
+                {!this.props.currentProfile ? null : this.props.currentProfile.id === this.props.loggedInAs.id ? 
+                  <div className="statusForm">
+                    <textarea value={this.state.statusText} name="statusText" placeholder="Write a status..." onChange={this.onChangeStatusText.bind(this)}/>
+                    <Button color='blue' className="editStatus" onClick={this.setStatus.bind(this)}>Set Status </Button>
+                  </div> 
+                  : 
+                  null
+                }
 
               <div className="viewFriendsDiv">
                 {!this.props.currentProfile ? null : 

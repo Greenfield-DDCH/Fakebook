@@ -31,7 +31,7 @@ CREATE TABLE friends (
 
 CREATE TABLE statuses (
   id int NOT NULL auto_increment,
-  mood varchar(50),
+  state varchar(50),
   userId int NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY(userId) REFERENCES users(id) 
@@ -47,5 +47,5 @@ INSERT INTO friends (user_id_a, user_id_b) VALUES(2, 1);
 INSERT INTO posts (user_id, profile_id, post, type) VALUES (2, 2, 'bye', 0);
 
 
-INSERT INTO statuses (mood, userId) VALUES('happy', 1);
+INSERT INTO statuses (state, userId) VALUES('happy', 1);
 

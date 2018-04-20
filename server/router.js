@@ -23,7 +23,7 @@ router.route('/user/')
   .post(signupController);
 
 router.route('/user/setstatus')
-  .post(verifyJWTToken, profileController.EditStatus);
+  .post( profileController.EditStatus);
 
   router.route('/user/insertpicture')
   .post(profileController.EditPicture);
