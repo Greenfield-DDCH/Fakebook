@@ -83,3 +83,30 @@
   width: 100%;
 }
 
+/* friendList */
+.blanksFriends{
+  margin-top: 20px;
+  margin-left: 10px;
+}
+.friendThumbnail{
+  margin-left: 40px;
+}
+.friendThumbnailPicture{  
+  padding-bottom: 30px;
+}
+
+.friendThumbnailName{
+  display: flex;
+  font-size: 20px;
+  margin-top: 5px;
+  margin-left: 10px;
+  padding-bottom: 30px;
+}
+
+.returnToProfileButton{
+  border: none;
+  /* gotta float off the right side */
+  float: right;
+  color: steelblue;
+
+}
