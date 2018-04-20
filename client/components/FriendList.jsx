@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 
 import FriendThumbnail from './FriendThumbnail';
 import {getFriends} from '../actions/index.js';
+import { Button } from 'semantic-ui-react';
 
 class FriendList extends Component {
   constructor(props) {
@@ -33,13 +34,19 @@ class FriendList extends Component {
     console.log('here', this.props.currentProfileFriends);
     return (
       <div>
-        <h1>{this.props.currentProfile.username}'s Friends</h1>
-
+        <h1 className='blanksFriends'>{this.props.currentProfile.username}'s friends</h1>
+        <h1>
+        <Button onClick={this.returnButton.bind(this)} className='returnToProfileButton'>return to profile</Button>
+        </h1>
         { this.props.currentProfileFriends ? 
-          this.props.currentProfileFriends.map((user) => { return <FriendThumbnail goToProfile={this.props.returnToProfile} username={user.username} picture={user.picture} key={user.id} userId={user.id}/>; }) 
+          this.props.currentProfileFriends.map((user) => { 
+            return <div className='friendThumbnail'> 
+              <FriendThumbnail goToProfile={this.props.returnToProfile} username={user.username} 
+                picture={user.picture} key={user.id} userId={user.id}/> 
+            </div>; 
+          }) 
           : null }
 
-        <button onClick={this.returnButton.bind(this)}>Return to Profile</button>
       </div>
     );
   }

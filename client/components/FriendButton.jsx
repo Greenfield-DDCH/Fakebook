@@ -25,10 +25,11 @@ class FriendButton extends Component {
 
   render() {
     return (
+      //could insert another ternary and not display text if it is logged in users profile
       <div>
-        {this.props.isFriend ? 'Friend!' 
+        {this.props.isFriend ? 'yooooo youre already friends!' 
           :
-          <button onClick={()=> this.handleClick()}>Add as Friend!</button>}
+          <button  onClick={()=> this.handleClick()}>Add as Friend!</button>}
       </div>
     );
   }

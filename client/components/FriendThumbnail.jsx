@@ -45,9 +45,10 @@ class FriendThumbnail extends Component {
 
   render() {
     return (
-      <div className="friendPageAvatar" onClick={() => this.onUsernameClick(this.props.username)}>
+      <div className="friendThumbnailPicture" onClick={() => this.onUsernameClick(this.props.username)}>
         <Image size='tiny' src={this.props.picture} avatar />
-        <span>{this.props.username}</span>
+        <br/>
+        <span className="friendThumbnailName">{this.props.username}</span>
       </div>
     );
   }
