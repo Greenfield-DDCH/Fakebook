@@ -75,6 +75,14 @@
   left: 0;
 }
 
+/* .dropZone{
+  height: 200px;
+  width: 200px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+} */
+
 /* Post/Comment CSS */
 .postToWall{
   display: flex;

@@ -145,7 +145,7 @@ export class Profile extends Component {
       
               {!this.props.currentProfile ? null : 
                 (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
-                  <div>
+                  <div className="dropZone">
                     {this.state.picture === null ? 
 
                       <Dropzone 
@@ -158,7 +158,9 @@ export class Profile extends Component {
                         </div>
                       </Dropzone>
                       :
-                      <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                      <div className="picContainer">
+                        <img className="profilePic" onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                      </div>
                     }
                   </div> 
                   :
@@ -166,7 +168,7 @@ export class Profile extends Component {
                     <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> </div>
                     :
                     <div className="picContainer">
-                    <img className="profilePic" src={this.props.currentProfile.picture} />
+                      <img className="profilePic" onClick={ this.editPicture.bind(this) } src={this.props.currentProfile.picture} />
                     </div>
 
               }

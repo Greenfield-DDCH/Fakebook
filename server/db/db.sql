@@ -37,15 +37,13 @@ CREATE TABLE statuses (
   FOREIGN KEY(userId) REFERENCES users(id) 
 );
 
-INSERT INTO users (username, password, picture) VALUES('daniel', 'daniel', 'thisisasamplepicture');
-
-INSERT INTO users (username, password, picture) VALUES('darren', 'darren', 'thisisanewsamplepicture');
+INSERT INTO users (username, password) VALUES('daniel', 'daniel');
+INSERT INTO users (username, password) VALUES('darren', 'darren');
 
 INSERT INTO friends (user_id_a, user_id_b) VALUES(1, 2);
 INSERT INTO friends (user_id_a, user_id_b) VALUES(2, 1);
 
 INSERT INTO posts (user_id, profile_id, post, type) VALUES (2, 2, 'bye', 0);
-
 
 INSERT INTO statuses (state, userId) VALUES('happy', 1);
 
