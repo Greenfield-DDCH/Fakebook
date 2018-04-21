@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import {Button} from 'semantic-ui-react';
 
 import CommentEntry from './commentEntry';
 
@@ -80,7 +81,7 @@ export class PostEntry extends Component{
           <div>
             <textarea value={this.state.postText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
 
-            <button className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </button>
+            <Button color="blue" className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </Button>
           </div>
         }
 

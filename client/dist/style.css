@@ -1,3 +1,7 @@
+body{
+  background-color: #E9EBEE;
+}
+
 /* LOGIN PAGE CSS */
 .loginInputs{
   display: flex;
@@ -12,17 +16,32 @@
 
 .welcome{
   display: flex;
+  flex-direction: column;
   font-size: 100px;
   justify-content: center;
   margin-top: 10%;
+  height: 100px;
+}
+
+.welcomeText{
+  font-size: 100px;
   font-family: 'Yellowtail', cursive;
-  padding-bottom: 30px;
+  align-self: center;
 }
 
 .loginButtons{
   display: flex;
   justify-content: center;
   padding-top: 20px;
+}
+
+.loginPageForm{
+  background-color: white;
+  height: 350px;
+  margin-left: 25%;
+  margin-right: 25%;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px grey;
 }
 
 /* NAVBAR CSS*/
@@ -44,7 +63,13 @@
 .profile{
   display: flex;
   margin-top: 50px;
-  margin-left: 40px;
+  margin-left: 100px;
+}
+
+.userName{
+  font-family: sans-serif;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .container{
@@ -53,15 +78,23 @@
 }
 
 .picContainer{
-  height: 200px;
-  width: 200px;
-  display: block;
+  border-style: solid;
+  border-width: 1px;
+  height: 168px;
+  width: 168px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   overflow: hidden;
+  
 }
 
 .profilePic{
+
+  align-self: center;
   position: absolute;
+  border: 4px solid #fff;
   width: 100%;
   top: 0;
   left: 0;
@@ -75,6 +108,9 @@
   left: 0;
 }
 
+.viewFriendsDiv{
+  margin-top: 50px;
+}
 /* .dropZone{
   height: 200px;
   width: 200px;

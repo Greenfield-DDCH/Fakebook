@@ -191,7 +191,7 @@ export class Profile extends Component {
                 {!this.props.currentProfile ? null : 
                   (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
                 { !this.props.isFriend ? null :
-                  <button onClick={ this.seeFriends.bind(this) }>View Friends</button>
+                  <Button color='blue' onClick={ this.seeFriends.bind(this) }>View Friends</Button>
                 }
               </div>
             </div>

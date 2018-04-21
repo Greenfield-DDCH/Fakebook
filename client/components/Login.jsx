@@ -75,17 +75,21 @@ class Login extends Component {
 
         <Segment textAlign='center' size='massive' inverted color='blue'> fakebook </Segment>
 
-        <div className="welcome">Welcome!</div>
+        <div className="loginPageForm">
+          <div className="welcome">
+            <div className="welcomeText">Welcome!</div>
+          </div>
 
-        <div className="loginInputs">
-          <Input size="huge" name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></Input>
-          <Input size="huge" name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></Input>
+          <div className="loginInputs">
+            <Input size="huge" name="username" placeholder="username" onChange={this.onChangeHandler.bind(this)}></Input>
+            <Input size="huge" name="password" placeholder="password" type="password" onChange={this.onChangeHandler.bind(this)} ></Input>
 
-        </div>
-        
-        <div className="loginButtons">
-          <Button color='blue' size="huge" onClick={this.onLoginClick.bind(this)}>Login</Button>
-          <Button color='blue' size="huge" onClick={this.onSignupClick.bind(this)}>Sign Up</Button>
+          </div>
+          
+          <div className="loginButtons">
+            <Button color='blue' size="huge" onClick={this.onLoginClick.bind(this)}>Login</Button>
+            <Button color='blue' size="huge" onClick={this.onSignupClick.bind(this)}>Sign Up</Button>
+          </div>
         </div>
       </div>
     );
