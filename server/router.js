@@ -1,6 +1,6 @@
 import express from 'express';
 import { Router } from 'express';
-import {getPosts, postToPosts, getComments, findFriend} from './controllers/controller';
+import {getPosts, postToPosts, getComments, findFriend, getStatus} from './controllers/controller';
 import profileController from './controllers/profileController.js';
 import searchController from './controllers/searchController';
 import signupController from './controllers/signupController';
@@ -34,7 +34,7 @@ router.get('/posts/:userId', getPosts);
 router.post('/posts/:userId',  postToPosts);
 
 router.get('/comments/:parentId/:userId', getComments);
-
+router.get('/status/:userId', getStatus);
 
 // Friend Handling
 //check to see if friends

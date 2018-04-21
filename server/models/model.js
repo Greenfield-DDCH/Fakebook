@@ -63,3 +63,13 @@ export function getFriend(users, callback) {
     }
   });
 }
+
+export function getStatus(obj, callback){
+  dbConnection.query(`select * from statuses where userId = ${obj.userId}`, function(err, result){
+    if(err){
+      console.log("errror", err);
+    }
+    console.log(result);
+    callback(result);
+  });
+}

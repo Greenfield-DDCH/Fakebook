@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {Input, Button} from 'semantic-ui-react';
 
-import {setCurrentUser, setUser, changeCurrentUsersPosts} from '../actions/index';
+import {setCurrentUser, setUser, changeCurrentUsersPosts, setCurrentUsersStatus} from '../actions/index';
 import Profile from './Profile';
 
 export class Navbar extends Component {
@@ -46,6 +46,10 @@ export class Navbar extends Component {
       }).catch(function(err) {
         console.log(error);
       });
+
+      axios.get(`/api/status/${context.props.currentUser.id}`).then(res => {
+        context.props.setCurrentUsersStatus(res.data);
+      });
     })
       .catch(function (error) {
         console.log(error);
@@ -68,6 +72,10 @@ export class Navbar extends Component {
       context.props.changeCurrentUsersPosts(res.data);
     });
     //set current user to logged in user
+
+    axios.get(`/api/status/${context.props.user.id}`).then(res => {
+      context.props.setCurrentUsersStatus(res.data);
+    });
   }
   
   onLogoutButtonClick() {
@@ -107,7 +115,8 @@ const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setCurrentUser,
     setUser,
-    changeCurrentUsersPosts
+    changeCurrentUsersPosts,
+    setCurrentUsersStatus
   }, dispatch);
 };
 

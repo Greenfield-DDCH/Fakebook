@@ -19,7 +19,6 @@ const statusModel = function (status, userId, callback) {
         }
       });
     }else{
-      console.log('result*********************',result);
       callback({status, userId});
     }
   });    

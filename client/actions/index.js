@@ -33,6 +33,13 @@ export const getFriends = (friends) => {
   };
 }
 
+export const setCurrentUsersStatus = (status) => {
+  return{
+    type: 'SET_CURRENT_USER_STATUS',
+    payload: status
+  };
+}
+
 // export const changeUploadPicture = (userPicture) => {
 //   return {
 //     type : 'CHANGE_PICTURE',

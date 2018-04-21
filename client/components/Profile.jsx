@@ -9,15 +9,16 @@ import FriendButton from './FriendButton';
 import Navbar from './Navbar';
 import FriendList from './FriendList';
 import Post from './post';
-import {changeIsFriend} from '../actions/index.js';
+import {changeIsFriend, setCurrentUsersStatus} from '../actions/index.js';
 
 export class Profile extends Component { 
   constructor(props) {
     super(props);
 
+    //console.log(this.props.status);
     this.state = {
       textAreaStatus: '',
-      pendingStatus: '',
+      pendingStatus: this.props.status,
       picture: null,
       posts: this.props.currentProfilePosts,
       seeFriends: false
@@ -46,13 +47,15 @@ export class Profile extends Component {
     //   }
     // };
 
+    const context = this;
     axios.post('/api/user/setstatus', payload)
       .then(response => {
         console.log('server replied with this button handler status: ', response);
-        
-        this.setState({
-          pendingStatus: response.data.status
-        });
+
+        context.props.setCurrentUsersStatus(response.data.status);
+        // this.setState({
+        //   pendingStatus: response.data.status
+        // });
       })
       .catch(err => {
         console.log('this is the error from server: ', err);
@@ -168,8 +171,9 @@ export class Profile extends Component {
 
               }
 
+              {console.log(this.state.pendingStatus)}
               <div>
-                Current Mood : {this.state.pendingStatus}
+                Current Mood : {!this.props.status ? null : this.props.status}
               </div>
 
                 {!this.props.currentProfile ? null : this.props.currentProfile.id === this.props.loggedInAs.id ? 
@@ -204,13 +208,15 @@ const mapStateToProps = function(state) {
     currentProfile: state.currentUser,  
     loggedInAs: state.user,
     currentProfilePosts: state.currentUserPosts,
-    isFriend: state.isFriend
+    isFriend: state.isFriend,
+    status: state.status
   };
 };
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    changeIsFriend
+    changeIsFriend,
+    setCurrentUsersStatus
   }, dispatch);
 }
 

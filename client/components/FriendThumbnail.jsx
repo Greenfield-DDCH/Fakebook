@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Image} from 'semantic-ui-react';
 import axios from 'axios';
 
-import {setCurrentUser, changeCurrentUsersPosts} from '../actions/index.js';
+import {setCurrentUser, changeCurrentUsersPosts, setCurrentUsersStatus} from '../actions/index.js';
 
 class FriendThumbnail extends Component {
   constructor(props) {
@@ -36,6 +36,10 @@ class FriendThumbnail extends Component {
       }).catch(function(err) {
         console.log(error);
       });
+
+      axios.get(`/api/status/${payload.id}`).then(res => {
+        context.props.setCurrentUsersStatus(res.data);
+      });
     })
       .catch(function (error) {
         console.log(error);
@@ -63,7 +67,8 @@ const mapStateToProps = (state) => {
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setCurrentUser,
-    changeCurrentUsersPosts
+    changeCurrentUsersPosts,
+    setCurrentUsersStatus
   }, dispatch);
 };
 

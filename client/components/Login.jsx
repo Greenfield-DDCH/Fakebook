@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { Button, Segment, Input, Header } from 'semantic-ui-react';
-import {setUser, setCurrentUser, changeCurrentUsersPosts} from '../actions/index.js';
+import {setUser, setCurrentUser, changeCurrentUsersPosts, setCurrentUsersStatus} from '../actions/index.js';
 
 class Login extends Component {
   constructor(props) {
@@ -47,9 +47,15 @@ class Login extends Component {
           // console.log("successful get",res);
           context.props.changeCurrentUsersPosts(res.data);
         });
+
+        axios.get(`/api/status/${currUser.id}`).then(res => {
+          context.props.setCurrentUsersStatus(res.data);
+        });
       }).catch(err => {
         console.log('Error on Login Post request dawgg', err);
-      });
+    });
+
+    
   }
 
   onSignupClick() {
@@ -88,12 +94,18 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    status: state.status
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({setUser, setCurrentUser, changeCurrentUsersPosts}, dispatch);
+  return bindActionCreators({
+    setUser, 
+    setCurrentUser, 
+    changeCurrentUsersPosts,
+    setCurrentUsersStatus
+  }, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(Login);
