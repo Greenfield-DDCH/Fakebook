@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Image} from 'semantic-ui-react';
+import {Image, Segment} from 'semantic-ui-react';
 import axios from 'axios';
 
 import {setCurrentUser, changeCurrentUsersPosts, setCurrentUsersStatus} from '../actions/index.js';
@@ -46,13 +46,20 @@ class FriendThumbnail extends Component {
       });
     this.props.goToProfile();
   }
+  
 
   render() {
+    const square = { width: 175, height: 175 };
     return (
-      <div className="friendThumbnailPicture" onClick={() => this.onUsernameClick(this.props.username)}>
-        <Image size='tiny' src={this.props.picture} avatar />
-        <br/>
-        <span className="friendThumbnailName">{this.props.username}</span>
+      <div className="friendThumbnailPicture">
+      <Segment circular style={square} onClick={() => this.onUsernameClick(this.props.username)}>
+          
+          <Image size='tiny' className="thumbnailImg" src={!this.props.picture ?"http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg" : this.props.picture} avatar />
+          <br/>
+          <div className="thumbnailUsername">
+            <span className="friendThumbnailName">{this.props.username}</span>
+          </div>
+      </Segment>
       </div>
     );
   }

@@ -77,6 +77,8 @@ body{
 }
 
 .userName{
+  display: flex;
+  justify-content: center;
   font-family: sans-serif;
   font-size: 30px;
   font-weight: bold;
@@ -85,13 +87,20 @@ body{
 .container{
   display: flex;
   flex-direction: column;
+  height: auto;
 }
 
+.picNId{
+  display:flex;
+
+  justify-content: center;
+}
 
 
   /* DROPZONE DIV*/
 
   .picContainer{
+    margin-top: 15px;
     border-style: solid;
     border-width: 1px;
     height: 168px;
@@ -213,8 +222,8 @@ body{
 
 /* friendList */
 .blanksFriends{
-  margin-top: 20px;
-  margin-left: 10px;
+  padding-top: 30px;
+  margin-left: 30px;
 }
 .friendThumbnail{
   margin-left: 40px;
@@ -224,11 +233,26 @@ body{
 }
 
 .friendThumbnailName{
-  display: flex;
   font-size: 20px;
-  margin-top: 5px;
-  margin-left: 10px;
-  padding-bottom: 30px;
 }
 
+.friendButton{
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
 
+.returnToProfile{
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnailUsername{
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnailImg{
+  display: flex;
+  justify-content: center;
+}
