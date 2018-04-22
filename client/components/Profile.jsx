@@ -133,7 +133,7 @@ export class Profile extends Component {
       );
     } else {
       return (
-        <div>
+        <div >
           <Navbar />
           <div className="profile">
             <div className="container">

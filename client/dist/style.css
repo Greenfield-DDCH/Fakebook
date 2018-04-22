@@ -90,6 +90,10 @@ body{
   
 }
 
+.picContainer:hover .profilePic{
+  opacity: 0.7
+}
+
 .profilePic{
 
   align-self: center;
@@ -98,6 +102,7 @@ body{
   width: 100%;
   top: 0;
   left: 0;
+  border-radius: 4px;
 }
 
 .anonProfilePic{
@@ -118,6 +123,15 @@ body{
   position: relative;
   overflow: hidden;
 } */
+.userName{
+  font-family: 'Tahoma';
+  letter-spacing: 2px;
+  font-size: 30px;
+  display: inline-block;
+  text-align: center;
+}
+
+
 
 /* Post/Comment CSS */
 .postToWall{
