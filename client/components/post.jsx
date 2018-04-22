@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import axios from 'axios';
+import {Button} from 'semantic-ui-react';
 
 import {changeCurrentUsersPosts} from '../actions/index.js';
 import PostList from './postList';
@@ -65,7 +66,7 @@ export class Post extends Component {
           <div>
             <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
 
-            <button className="postButton" onClick={this.handlePostButton.bind(this)}>Post </button>
+            <Button color="blue" className="postButton" onClick={this.handlePostButton.bind(this)}>Post </Button>
           </div>
         }
 

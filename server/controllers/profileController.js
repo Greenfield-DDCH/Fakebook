@@ -3,16 +3,10 @@ import editpictureModel from '../models/editpictureModel.js';
 
 const profileController = {
   EditStatus : (req, res) => {
-    console.log('this is statusss', req.body)
-    statusModel(req.body.status, req.body.userId, function (err, result, fields) {
-      if (err) {
-        console.log('this is the error: ', err)
-      }
-      else {
+    statusModel(req.body.status, req.body.userId, function (result) {
         console.log('this is the result:  ', result);
         res.send(result);
-      }
-    })
+    });
     
   },
 
@@ -23,7 +17,6 @@ const profileController = {
         console.log('this is the error ', err)
       }
       else {
-        console.log('this is the result ', result);
         res.send(result);
       }
       

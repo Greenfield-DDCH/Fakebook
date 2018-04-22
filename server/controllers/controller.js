@@ -1,4 +1,4 @@
-import {getPosts as gP, postToPost as pTP, getComments as gC, getFriend} from '../models/model'
+import {getPosts as gP, postToPost as pTP, getComments as gC, getFriend, getStatus as gS} from '../models/model'
 
 export function getPosts(req, res){
   gP(req.params.userId, function(posts){
@@ -26,6 +26,17 @@ export function findFriend(req,res){
       res.send(true);
     }else{
       res.send(false);
+    }
+  });
+}
+
+export function getStatus(req,res){
+  gS(req.params, function(status){
+    console.log("inside controller*******",status);
+    if(status.length === 0){
+      res.send(null);
+    }else{
+      res.send(status[0].state);
     }
   });
 }

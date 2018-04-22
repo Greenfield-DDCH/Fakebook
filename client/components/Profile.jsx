@@ -3,20 +3,22 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Dropzone from 'react-dropzone';
 import {bindActionCreators} from 'redux';
+import {Button} from 'semantic-ui-react';
+
 import FriendButton from './FriendButton';
 import Navbar from './Navbar';
 import FriendList from './FriendList';
-
 import Post from './post';
-import {changeIsFriend} from '../actions/index.js';
+import {changeIsFriend, setCurrentUsersStatus} from '../actions/index.js';
 
 export class Profile extends Component { 
   constructor(props) {
     super(props);
 
+    //console.log(this.props.status);
     this.state = {
-      status: '',
-      pendingStatus: '',
+      textAreaStatus: '',
+      pendingStatus: this.props.status,
       picture: null,
       posts: this.props.currentProfilePosts,
       seeFriends: false
@@ -27,28 +29,33 @@ export class Profile extends Component {
   componentDidMount() {
   }
 
-  editStatus(e) {
+  onChangeStatusText(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      textAreaStatus: e.target.value
     });
   }
 
   setStatus() {
-    var payload = {
-      status: this.state.status,
+    const payload = {
+      status: this.state.textAreaStatus,
       userId: this.props.currentProfile.id
     };
-    const config = {
-      headers: {
-        authorization: sessionStorage.getItem('token')
-      }
-    };
-    axios.post('/api/user/setstatus', payload, config)
+
+    // const config = {
+    //   headers: {
+    //     authorization: sessionStorage.getItem('token')
+    //   }
+    // };
+
+    const context = this;
+    axios.post('/api/user/setstatus', payload)
       .then(response => {
         console.log('server replied with this button handler status: ', response);
-        this.setState({
-          pendingStatus: response.data.status
-        });
+
+        context.props.setCurrentUsersStatus(response.data.status);
+        // this.setState({
+        //   pendingStatus: response.data.status
+        // });
       })
       .catch(err => {
         console.log('this is the error from server: ', err);
@@ -133,12 +140,12 @@ export class Profile extends Component {
               <div className="userName">
                 {!this.props.currentProfile ? null : this.props.currentProfile.username }
               </div>
+
               <FriendButton />
       
-
               {!this.props.currentProfile ? null : 
                 (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
-                  <div>
+                  <div className="dropZone">
                     {this.state.picture === null ? 
 
                       <Dropzone 
@@ -151,7 +158,9 @@ export class Profile extends Component {
                         </div>
                       </Dropzone>
                       :
-                      <img onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                      <div className="picContainer">
+                        <img className="profilePic" onClick={ this.editPicture.bind(this) } src={this.state.picture}></img>
+                      </div>
                     }
                   </div> 
                   :
@@ -159,25 +168,30 @@ export class Profile extends Component {
                     <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> </div>
                     :
                     <div className="picContainer">
-                    <img className="profilePic" src={this.props.currentProfile.picture} />
+                      <img className="profilePic" onClick={ this.editPicture.bind(this) } src={this.props.currentProfile.picture} />
                     </div>
 
               }
 
-
-              <div className="statusForm">
-
-              </div>
-
+              {console.log(this.state.pendingStatus)}
               <div>
-                Current Mood : {this.state.pendingStatus}
+                Current Mood : {!this.props.status ? null : this.props.status}
               </div>
+
+                {!this.props.currentProfile ? null : this.props.currentProfile.id === this.props.loggedInAs.id ? 
+                  <div className="statusForm">
+                    <textarea value={this.state.statusText} name="statusText" placeholder="Write a status..." onChange={this.onChangeStatusText.bind(this)}/>
+                    <Button color='blue' className="editStatus" onClick={this.setStatus.bind(this)}>Set Status </Button>
+                  </div> 
+                  : 
+                  null
+                }
 
               <div className="viewFriendsDiv">
                 {!this.props.currentProfile ? null : 
                   (this.findFriend(this.props.currentProfile.id, this.props.loggedInAs.id))} 
                 { !this.props.isFriend ? null :
-                  <button onClick={ this.seeFriends.bind(this) }>View Friends</button>
+                  <Button color='blue' onClick={ this.seeFriends.bind(this) }>View Friends</Button>
                 }
               </div>
             </div>
@@ -196,13 +210,15 @@ const mapStateToProps = function(state) {
     currentProfile: state.currentUser,  
     loggedInAs: state.user,
     currentProfilePosts: state.currentUserPosts,
-    isFriend: state.isFriend
+    isFriend: state.isFriend,
+    status: state.status
   };
 };
 
 function matchDispatchToProps(dispatch) {
   return bindActionCreators({
-    changeIsFriend
+    changeIsFriend,
+    setCurrentUsersStatus
   }, dispatch);
 }
 
