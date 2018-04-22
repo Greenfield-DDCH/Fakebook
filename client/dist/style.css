@@ -154,6 +154,7 @@ body{
       height: 60px;
       width: 370px;
     }
+
     textarea{
       border: none;
       resize: none;
@@ -167,6 +168,46 @@ body{
       padding-top: 10px;
       display: flex;
       justify-content: flex-end;
+    }
+
+  /*POST LIST */
+    
+    .postEntry{
+      width: 400px;
+      background-color: white;
+      margin-bottom: 10px;
+    }
+
+    .postListContainer{
+      margin-top: 20px;
+    }
+
+    .postText{
+      height: 25px;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .commentForm{
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .commentForm textarea{
+      width: 300px;
+    }
+
+    .commentEntry{
+      display: flex;
+      padding: 5px 5px 5px 5px;
+      background-color: #F2F3F5;
+    }
+
+    .comment{
+      padding: 3px 3px 3px 3px;
+      background-color: white;
+      border-radius: 25px;
     }
 
 

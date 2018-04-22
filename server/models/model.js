@@ -1,7 +1,7 @@
 import dbConnection from '../db';
 
 export function getPosts(profileId, callback) {
-  dbConnection.query(`select u.username, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.profile_id = ${profileId} and type = 0`, function(err, result) {
+  dbConnection.query(`select u.username, u.picture, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.profile_id = ${profileId} and type = 0`, function(err, result) {
     if (err) {
       console.log('err', err);
     } else {
@@ -16,7 +16,7 @@ export function getPosts(profileId, callback) {
 
       if (result.length >= 1) {
         result.forEach(function(post, i) {
-          dbConnection.query(`select u.username, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.parent_id = ${post.id} and p.profile_id = ${profileId}`, function(err, comments) {
+          dbConnection.query(`select u.username, u.picture, p.post, p.type, p.id from users u inner join posts p on (u.id = p.user_id) where p.parent_id = ${post.id} and p.profile_id = ${profileId}`, function(err, comments) {
             if (err) {
               console.log('err', err);
             } else {

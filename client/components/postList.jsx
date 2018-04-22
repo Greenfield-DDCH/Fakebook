@@ -16,7 +16,7 @@ class PostList extends Component{
 
   render(){
     return (
-      <div>
+      <div className="postListContainer">
         {this.state.posts.map(function(post){
           return <PostEntry post={post} comments={post.comments}/>
         })}

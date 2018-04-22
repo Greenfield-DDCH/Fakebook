@@ -61,9 +61,10 @@ export class Post extends Component {
 
   render() {
     return (
+      
       <div className="postToWall">
-        { !this.props.isFriend ? null : 
 
+        { !this.props.isFriend ? null : 
           <div className="postForm">
           <Segment raised >
             <div className="postHeader">
@@ -74,7 +75,7 @@ export class Post extends Component {
             </div>
             <Divider fitted/>
             <div className="postButton">
-              <Button color="blue" className="postButton" onClick={this.handlePostButton.bind(this)}>Post </Button>
+              <Button size="tiny" color="blue" className="postButton" onClick={this.handlePostButton.bind(this)}>Post </Button>
             </div>
           </Segment>
           </div>

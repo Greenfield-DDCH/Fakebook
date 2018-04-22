@@ -8,9 +8,11 @@ class CommentEntry extends Component{
   render(){
     return(
       <div className="commentEntry">
-        this is a comment
-        {this.props.comment.username}
-        {this.props.comment.post}
+        <div className="comment">
+          {this.props.comment.username + ": "}
+
+          {this.props.comment.post}
+        </div>
       </div>
     );
   }
