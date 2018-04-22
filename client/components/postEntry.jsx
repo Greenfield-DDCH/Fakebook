@@ -58,6 +58,9 @@ export class PostEntry extends Component{
       console.log("successful Post", res);
       this.fetchComments();
     });
+    this.setState({
+      commentText: ''
+    });
   }
 
   render(){
@@ -79,7 +82,7 @@ export class PostEntry extends Component{
         
         {!this.props.isFriend ? null :
           <div>
-            <textarea value={this.state.postText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
+            <textarea value={this.state.commentText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
 
             <Button color="blue" className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </Button>
           </div>

@@ -151,7 +151,7 @@ export class Profile extends Component {
                       <Dropzone 
                         onDrop={this.handleDrop.bind(this) } 
                         multiple 
-                        accept="image/*" 
+                        accept="image/*" style="border-style: none"
                       >
                         <div className="picContainer">
                           <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import { Button, Segment, Input, Header } from 'semantic-ui-react';
+import { Button, Segment, Input, Header, Message } from 'semantic-ui-react';
 import {setUser, setCurrentUser, changeCurrentUsersPosts, setCurrentUsersStatus} from '../actions/index.js';
 
 class Login extends Component {
@@ -10,7 +10,8 @@ class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      signupSuccess: false
     };
   }
 
@@ -59,14 +60,18 @@ class Login extends Component {
   }
 
   onSignupClick() {
-    console.log('sign up clicked');
+    const context = this;
     axios.post('/api/user', this.state)
       .then((response) => {
         console.log(response);
+        context.setState({
+          signupSuccess: true
+        });
       })
       .catch((error) => {
         console.log(error);
       });
+
   }
 
   render() {
@@ -90,6 +95,14 @@ class Login extends Component {
             <Button color='blue' size="huge" onClick={this.onLoginClick.bind(this)}>Login</Button>
             <Button color='blue' size="huge" onClick={this.onSignupClick.bind(this)}>Sign Up</Button>
           </div>
+          
+        </div>
+        <div className="successMessage">
+          {!this.state.signupSuccess ? null : 
+            <Message positive>
+              <p>Successful Sign Up!</p>
+            </Message>
+          }
         </div>
       </div>
     );
