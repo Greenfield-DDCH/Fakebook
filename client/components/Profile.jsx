@@ -173,7 +173,7 @@ export class Profile extends Component {
 
               }
 
-              {console.log(this.state.pendingStatus)}
+              {/* {console.log(this.state.pendingStatus)} */}
               <div>
                 Current Mood : {!this.props.status ? null : this.props.status}
               </div>
