@@ -46,3 +46,39 @@ export const setCurrentUsersStatus = (status) => {
 //     payload : userPicture
 //   }
 // }
+
+export const setName = (input) => {
+  const name = input;
+  return {
+    type: 'USER',
+    payload : name
+  }
+}
+
+export const setChannel = (input) => {
+  return {
+    type: 'SETCHANNEL',
+    payload : input
+  }
+}
+
+export const receiveMessage = (input) => {
+  return {
+    type: 'RECEIVEMESSAGE',
+    payload: input
+  }
+}
+
+export const type = (user) => {
+  return {
+    type: 'ADDTYPER',
+    payload: user
+  }
+}
+
+export const stopTyping = (user) => {
+  return {
+    type: 'REMOVETYPER',
+    payload: user
+  }
+}

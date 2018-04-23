@@ -116,13 +116,13 @@ body{
 .viewFriendsDiv{
   margin-top: 50px;
 }
-/* .dropZone{
+.dropZone{
   height: 200px;
   width: 200px;
   display: block;
   position: relative;
   overflow: hidden;
-} */
+}
 .userName{
   font-family: 'Tahoma';
   letter-spacing: 2px;
