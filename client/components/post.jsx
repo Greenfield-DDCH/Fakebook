@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import axios from 'axios';
-import {Button} from 'semantic-ui-react';
+import {Button, Divider, Segment} from 'semantic-ui-react';
 
 import {changeCurrentUsersPosts} from '../actions/index.js';
 import PostList from './postList';
@@ -21,10 +21,6 @@ export class Post extends Component {
       //videoUrl: null
     };
   }
-
-  componentWillReceiveProps(nextProps){
-  }
-
 
   onChangePostText(e) {
     this.setState({
@@ -57,18 +53,34 @@ export class Post extends Component {
         context.props.changeCurrentUsersPosts(res.data);
       });
     });
+
+    this.setState({
+      postText: ''
+    });
   }
 
   render() {
     return (
+      
       <div className="postToWall">
-        { !this.props.isFriend ? null : 
-          <div>
-            <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
 
-            <Button color="blue" className="postButton" onClick={this.handlePostButton.bind(this)}>Post </Button>
+        { !this.props.isFriend ? null : 
+          <div className="postForm">
+          <Segment raised >
+            <div className="postHeader">
+              {this.props.currentProfile.id === this.props.loggedInAs.id ? "Post on your wall:" : "Post on " + this.props.currentProfile.username + "'s wall:"}
+            </div>
+            <div className="postTextArea">
+              <textarea value={this.state.postText} name="postText" placeholder="Write a post..." onChange={this.onChangePostText.bind(this)}/>
+            </div>
+            <Divider fitted/>
+            <div className="postButton">
+              <Button size="tiny" color="blue" className="postButton" onClick={this.handlePostButton.bind(this)}>Post </Button>
+            </div>
+          </Segment>
           </div>
         }
+
 
         <div className="PostList">
           <PostList posts={!this.props.currentProfilePosts ? [] : this.props.currentProfilePosts}/> 

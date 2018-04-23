@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {Button} from 'semantic-ui-react';
+import {Button, Divider, Segment, Icon} from 'semantic-ui-react';
 
 import CommentEntry from './commentEntry';
 
@@ -58,16 +58,37 @@ export class PostEntry extends Component{
       console.log("successful Post", res);
       this.fetchComments();
     });
+    this.setState({
+      commentText: ''
+    });
   }
 
   render(){
     return (
-      <div className="PostEntry">
-       
-        {this.props.post.username}
-        {this.props.post.post}
 
-        <div className="CommentList">
+      <div className="postEntry">
+       <Segment raised>
+
+       {this.props.post.username === this.props.currentProfile.username ?       
+        <div className="postUsername">
+          {this.props.post.username}
+        </div>
+        : 
+        <div>
+          
+          <div div className="postUsername">
+            {this.props.post.username}
+            <Icon name="caret right"/>
+            {this.props.currentProfile.username}
+          </div>
+        </div>
+      }
+
+        <div className="postText">
+          {this.props.post.post}
+        </div>
+
+        <div className="commentList">
           {this.state.comments.length >= 1 ? 
             this.state.comments.map(function(comment){
               return <CommentEntry comment={comment}/>
@@ -77,14 +98,17 @@ export class PostEntry extends Component{
           }
         </div>
         
-        {!this.props.isFriend ? null :
-          <div>
-            <textarea value={this.state.postText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
+        <Divider fitted/>
 
-            <Button color="blue" className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </Button>
+        {!this.props.isFriend ? null :
+          <div className="commentForm">
+            <textarea value={this.state.commentText} name="commentText" placeholder="Write a Comment..." onChange={this.onChangeCommentText.bind(this)}/>
+
+            <Button size="tiny" color="blue" className="postButton" onClick={this.handleCommentButton.bind(this)}>Comment </Button>
           </div>
         }
-
+      
+      </Segment>
       </div>
     ); 
   }

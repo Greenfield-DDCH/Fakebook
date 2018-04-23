@@ -34,10 +34,13 @@ class FriendList extends Component {
     console.log('here', this.props.currentProfileFriends);
     return (
       <div>
-        <h1 className='blanksFriends'>{this.props.currentProfile.username}'s friends</h1>
-        <h1>
-        <Button color="blue" onClick={this.returnButton.bind(this)} className='returnToProfileButton'>return to profile</Button>
+        <h1 className='blanksFriends'>{this.props.currentProfile.id ===     this.props.loggedInAs.id ? "Your friends" :       this.props.currentProfile.username + "'s friends" }
         </h1>
+
+        <div className="returnToProfile">
+          <Button color="blue" size="big" onClick={this.returnButton.bind(this)} className='returnToProfileButton'>Return to {this.props.currentProfile.id === this.props.loggedInAs.id ? "Your" : this.props.currentProfile.username + "'s"} Profile</Button>
+        </div>
+
         { this.props.currentProfileFriends ? 
           this.props.currentProfileFriends.map((user) => { 
             return <div className='friendThumbnail'> 

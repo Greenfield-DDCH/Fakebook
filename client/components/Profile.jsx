@@ -3,7 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import Dropzone from 'react-dropzone';
 import {bindActionCreators} from 'redux';
-import {Button} from 'semantic-ui-react';
+import {Button, Segment, Divider} from 'semantic-ui-react';
 
 import FriendButton from './FriendButton';
 import Navbar from './Navbar';
@@ -15,7 +15,6 @@ export class Profile extends Component {
   constructor(props) {
     super(props);
 
-    //console.log(this.props.status);
     this.state = {
       textAreaStatus: '',
       pendingStatus: this.props.status,
@@ -24,9 +23,6 @@ export class Profile extends Component {
       seeFriends: false
       // isFriend : true
     };
-  }
-
-  componentDidMount() {
   }
 
   onChangeStatusText(e) {
@@ -53,12 +49,13 @@ export class Profile extends Component {
         console.log('server replied with this button handler status: ', response);
 
         context.props.setCurrentUsersStatus(response.data.status);
-        // this.setState({
-        //   pendingStatus: response.data.status
-        // });
       })
       .catch(err => {
         console.log('this is the error from server: ', err);
+      });
+
+      this.setState({
+        textAreaStatus: ''
       });
   }
 
@@ -135,14 +132,15 @@ export class Profile extends Component {
       return (
         <div>
           <Navbar />
+
           <div className="profile">
             <div className="container">
+            <Segment raised>
               <div className="userName">
                 {!this.props.currentProfile ? null : this.props.currentProfile.username }
               </div>
-
               <FriendButton />
-      
+              <div className="picNId">
               {!this.props.currentProfile ? null : 
                 (!this.props.currentProfile.picture && this.props.currentProfile.id === this.props.loggedInAs.id) ? 
                   <div className="dropZone">
@@ -151,7 +149,7 @@ export class Profile extends Component {
                       <Dropzone 
                         onDrop={this.handleDrop.bind(this) } 
                         multiple 
-                        accept="image/*" 
+                        accept="image/*" style="border-style: none"
                       >
                         <div className="picContainer">
                           <img className="anonProfilePic" src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg"/> 
@@ -170,18 +168,18 @@ export class Profile extends Component {
                     <div className="picContainer">
                       <img className="profilePic" onClick={ this.editPicture.bind(this) } src={this.props.currentProfile.picture} />
                     </div>
-
               }
+              </div>
 
-              {console.log(this.state.pendingStatus)}
               <div>
                 Current Mood : {!this.props.status ? null : this.props.status}
               </div>
-
+              
+              <Divider fitted/>
                 {!this.props.currentProfile ? null : this.props.currentProfile.id === this.props.loggedInAs.id ? 
                   <div className="statusForm">
-                    <textarea value={this.state.statusText} name="statusText" placeholder="Write a status..." onChange={this.onChangeStatusText.bind(this)}/>
-                    <Button color='blue' className="editStatus" onClick={this.setStatus.bind(this)}>Set Status </Button>
+                    <textarea value={this.state.textAreaStatus} name="statusText" placeholder="Write a status..." onChange={this.onChangeStatusText.bind(this)}/>
+                    <Button size="tiny" color='blue' className="editStatus" onClick={this.setStatus.bind(this)}>Set Status </Button>
                   </div> 
                   : 
                   null
@@ -194,6 +192,7 @@ export class Profile extends Component {
                   <Button color='blue' onClick={ this.seeFriends.bind(this) }>View Friends</Button>
                 }
               </div>
+            </Segment>
             </div>
 
             {!this.props.currentProfile ? null : <Post />}

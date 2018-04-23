@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {changeIsFriend} from '../actions/index.js';
 import axios from 'axios';
+import { Button } from 'semantic-ui-react';
+import {changeIsFriend} from '../actions/index.js';
 
 class FriendButton extends Component {
 
@@ -26,10 +27,13 @@ class FriendButton extends Component {
   render() {
     return (
       //could insert another ternary and not display text if it is logged in users profile
-      <div>
-        {this.props.isFriend ? 'yooooo youre already friends!' 
-          :
-          <button  onClick={()=> this.handleClick()}>Add as Friend!</button>}
+      <div className='friendButton'>
+        {!this.props.currentProfile ? null : 
+          this.props.currentProfile.id === this.props.loggedInAs.id ? null :
+        
+            this.props.isFriend ? <Button color="blue" size="tiny" disabled>Add as Friend!</Button> 
+            :
+            <Button color="blue" size="tiny" onClick={()=> this.handleClick()}>Add as Friend!</Button>}
       </div>
     );
   }
