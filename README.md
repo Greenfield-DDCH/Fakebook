@@ -1,6 +1,10 @@
-Hello and welcome to the party, lets get this running locally on your pc.
+# FB clone
+
+limited clone of facebook
 
 STEPS::
 
-1. navigate to directory
-2. run npm start
+1. run mysql
+2. npm build
+3. npm start
+4. npm sqldata
