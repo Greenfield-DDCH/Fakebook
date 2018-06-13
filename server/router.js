@@ -25,13 +25,13 @@ router.route('/user/')
 router.route('/user/setstatus')
   .post( profileController.EditStatus);
 
-  router.route('/user/insertpicture')
+router.route('/user/insertpicture')
   .post(profileController.EditPicture);
 
   
-  //COMMENTS GO THROUGH THE ROUTE BELOW WORKS FOR REGULAR POSTS FOR JWT TOKEN, BUT NOT FOR COMMENTS ON A POST
+//COMMENTS GO THROUGH THE ROUTE BELOW WORKS FOR REGULAR POSTS FOR JWT TOKEN, BUT NOT FOR COMMENTS ON A POST
 router.get('/posts/:userId', getPosts);
-router.post('/posts/:userId',  postToPosts);
+router.post('/posts/:userId', postToPosts);
 
 router.get('/comments/:parentId/:userId', getComments);
 router.get('/status/:userId', getStatus);
